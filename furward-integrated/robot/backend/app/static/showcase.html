@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>导盲机器狗</title>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --surface-2: #f0ede5;
+      --ink: #18212b;
+      --muted: #5a6573;
+      --line: #dcd7cc;
+      --brand: #0e4a5a;
+      --brand-soft: #dcebee;
+      --accent: #f2b705;
+      --accent-ink: #18212b;
+      --ok: #24723a;
+      --warn: #9a6700;
+      --danger: #c62828;
+      --radius: 14px;
+      --shadow: 0 1px 2px rgba(24, 33, 43, .06), 0 6px 20px rgba(24, 33, 43, .06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f151b;
+        --surface: #172029;
+        --surface-2: #1e2933;
+        --ink: #eef2f5;
+        --muted: #a7b3c0;
+        --line: #2f3c48;
+        --brand: #7cc4d4;
+        --brand-soft: #1a3640;
+        --accent: #f5c33b;
+        --accent-ink: #11171d;
+        --ok: #6fcf8a;
+        --warn: #f0c35a;
+        --danger: #ef5350;
+        --shadow: none;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--brand); }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    [hidden] { display: none !important; }
+
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+    /* 顶栏 */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(1.4) blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding-top: env(safe-area-inset-top);
+    }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; }
+    .brand { font-weight: 700; letter-spacing: .02em; display: flex; align-items: center; gap: 8px; }
+    .brand-mark { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); display: inline-grid; place-items: center; }
+    .brand-mark::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-ink); }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+      padding: 4px 10px; white-space: nowrap;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+    .dot.on { background: var(--ok); }
+    .dot.off { background: var(--danger); }
+
+    /* 首屏 */
+    .hero { padding: 40px 0 24px; }
+    .hero-grid { display: grid; gap: 24px; align-items: center; }
+    .eyebrow { color: var(--brand); font-weight: 600; font-size: 14px; letter-spacing: .08em; margin: 0 0 8px; }
+    h1 { font-size: clamp(32px, 8vw, 52px); line-height: 1.15; margin: 0 0 12px; letter-spacing: .01em; }
+    .lead { font-size: 18px; color: var(--muted); margin: 0 0 24px; max-width: 34em; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 48px; padding: 10px 20px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink);
+      font-weight: 600;
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+    .btn-small { min-height: 40px; padding: 6px 14px; font-size: 14px; }
+    .hero-media {
+      position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 4 / 3;
+      /* 固定深色，避免深色模式下品牌色变浅后白字看不清 */
+      background: linear-gradient(135deg, #0e4a5a 0%, #16323c 100%);
+      box-shadow: var(--shadow);
+    }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: #e8f1f3; text-align: center; padding: 16px; }
+    .hero-placeholder svg { width: min(70%, 320px); height: auto; opacity: .95; }
+    .hero-placeholder small { display: block; margin-top: 8px; opacity: .75; font-size: 13px; }
+
+    /* 通用区块 */
+    section.block { padding: 40px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: clamp(24px, 5.5vw, 32px); line-height: 1.25; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 24px; }
+    .cards { display: grid; gap: 12px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); }
+    .stat { font-size: 36px; font-weight: 800; color: var(--brand); line-height: 1.1; margin-bottom: 6px; }
+    .note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+    /* 语音交互 */
+    .try-grid { display: grid; gap: 16px; }
+    .segmented { display: inline-flex; background: var(--surface-2); border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 16px; }
+    .segmented button { border: 0; background: transparent; padding: 8px 16px; border-radius: 9px; min-height: 40px; font-weight: 600; color: var(--muted); }
+    .segmented button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .chip {
+      border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
+      padding: 8px 14px; min-height: 44px; font-size: 15px;
+    }
+    .chip:active { background: var(--brand-soft); }
+    .chat {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px; min-height: 180px; max-height: 340px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .chat-empty { color: var(--muted); font-size: 14px; margin: auto; text-align: center; }
+    .bubble { max-width: 85%; padding: 8px 12px; border-radius: 14px; font-size: 15px; }
+    .bubble.user { align-self: flex-end; background: var(--brand); color: #fff; border-bottom-right-radius: 4px; }
+    .bubble.dog { align-self: flex-start; background: var(--surface-2); border-bottom-left-radius: 4px; }
+    .bubble .meta { display: block; font-size: 11px; opacity: .7; margin-top: 2px; }
+    .ask { display: flex; gap: 8px; margin-top: 12px; }
+    .ask input {
+      flex: 1; min-width: 0; min-height: 48px; padding: 10px 14px;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+    }
+
+    .nav-card h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .badge { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+    .badge.active { background: var(--brand-soft); color: var(--brand); }
+    .badge.paused { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+    .badge.done { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+    .badge.failed { background: color-mix(in srgb, var(--danger) 16%, transparent); color: var(--danger); }
+    .progress { height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 12px 0 6px; }
+    .progress > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .4s ease; }
+    .nav-meta { font-size: 14px; color: var(--muted); }
+    .steps { margin: 12px 0 0; padding-left: 20px; font-size: 15px; }
+    .steps li { padding: 2px 0; color: var(--muted); }
+    .steps li.current { color: var(--ink); font-weight: 600; }
+    .map-box { margin-top: 12px; border-radius: 12px; overflow: hidden; background: var(--surface-2); position: relative; }
+    .map-box canvas, .map-box #amap { width: 100%; height: 240px; display: block; }
+    .map-legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .obstacle-alert {
+      margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+      background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); font-weight: 600;
+    }
+
+    /* 演示 */
+    .video-box { border-radius: var(--radius); overflow: hidden; background: #0b1116; aspect-ratio: 16 / 9; position: relative; }
+    .video-box video, .video-box img { width: 100%; height: 100%; object-fit: contain; display: block; background: #0b1116; }
+    .video-empty { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: #c9d3dc; padding: 16px; }
+    .demo-steps { counter-reset: step; list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 8px; }
+    .demo-steps li { counter-increment: step; display: flex; gap: 12px; align-items: baseline; }
+    .demo-steps li::before {
+      content: counter(step); flex: none; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 14px;
+      display: inline-grid; place-items: center;
+    }
+
+    /* 工作原理 */
+    .flow { display: grid; gap: 8px; margin-bottom: 24px; }
+    .flow-node { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+    .flow-node b { display: block; font-size: 16px; }
+    .flow-node span { font-size: 14px; color: var(--muted); }
+    .flow-node.core { border-color: var(--brand); background: var(--brand-soft); }
+    .flow-arrow { text-align: center; color: var(--muted); font-size: 18px; line-height: 1; }
+    .cap { display: grid; gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .cap-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 16px; border-top: 1px solid var(--line); }
+    .cap-row:first-child { border-top: 0; }
+    .cap-row b { font-weight: 600; }
+    .cap-row p { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--muted); }
+    .tag { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap; align-self: start; }
+    .tag.done { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+    .tag.assist { background: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--warn); }
+    .tag.plan { background: var(--surface-2); color: var(--muted); }
+
+    /* 团队与进展 */
+    .timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+    .timeline li { position: relative; padding: 0 0 20px 28px; }
+    .timeline li::before { content: ""; position: absolute; left: 7px; top: 22px; bottom: 0; width: 2px; background: var(--line); }
+    .timeline li:last-child::before { display: none; }
+    .timeline li::after { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line); }
+    .timeline li.done::after { border-color: var(--ok); background: var(--ok); }
+    .timeline li.now::after { border-color: var(--accent); }
+    .timeline b { display: block; }
+    .timeline span { color: var(--muted); font-size: 14px; }
+    .team { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+    .team li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+    .team li span { color: var(--muted); font-size: 13px; margin-left: 6px; }
+
+    footer.site { padding: 32px 0 calc(110px + env(safe-area-inset-bottom)); color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+
+    /* 悬浮停止 */
+    .stop-fab {
+      position: fixed; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 30;
+      max-width: 520px; margin: 0 auto; display: flex; gap: 8px;
+    }
+    .stop-fab button { min-height: 56px; border-radius: 14px; border: 0; font-weight: 700; font-size: 18px; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); }
+    .stop-fab .stop { flex: 2; background: var(--danger); color: #fff; }
+    .stop-fab .alt { flex: 1; background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+
+    #toast {
+      position: fixed; left: 16px; right: 16px; bottom: calc(88px + env(safe-area-inset-bottom)); z-index: 40;
+      max-width: 520px; margin: 0 auto; padding: 12px 16px; border-radius: 12px;
+      background: var(--ink); color: var(--bg); font-size: 15px;
+    }
+
+    @media (min-width: 760px) {
+      .hero { padding: 64px 0 40px; }
+      .hero-grid { grid-template-columns: 1.1fr 1fr; gap: 40px; }
+      .cards.three { grid-template-columns: repeat(3, 1fr); }
+      .try-grid { grid-template-columns: 1.1fr 1fr; align-items: start; }
+      .flow { grid-template-columns: 1fr auto 1.4fr auto 1fr auto 1fr; align-items: stretch; }
+      .flow-arrow { align-self: center; }
+      .flow-arrow::before { content: "→"; }
+      .flow-arrow span { display: none; }
+      .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .progress > i { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span id="brandName">导盲机器狗</span></div>
+      <span class="pill" id="robotPill" role="status"><span class="dot" id="robotDot"></span><span id="robotText">连接中…</span></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- 首屏 -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">MoonStone DreamUP · 上海张江</p>
+          <h1 id="heroTitle">导盲机器狗</h1>
+          <p class="lead" id="heroTagline">听得懂你说话、看得见前方的路。说一句"带我去服务台"，它就带你出发；前方有障碍，它会停下来提醒你。</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#demo">观看演示</a>
+            <a class="btn" href="#try">现场体验</a>
+          </div>
+        </div>
+        <figure class="hero-media" style="margin:0">
+          <img id="heroImg" src="/media/hero.jpg" alt="导盲机器狗实拍照片">
+          <div class="hero-placeholder" id="heroPlaceholder" hidden>
+            <div>
+              <svg viewBox="0 0 240 150" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="58" y="48" width="118" height="40" rx="16"/>
+                <path d="M176 60 h22 a14 14 0 0 1 14 14 v4 h-36"/>
+                <circle cx="200" cy="70" r="2" fill="currentColor" stroke="none"/>
+                <path d="M74 88 l-8 22 l6 24 M100 88 l6 22 l-6 24 M140 88 l-6 22 l6 24 M164 88 l8 22 l-6 24"/>
+                <path d="M96 48 v-16 h44 v16" stroke-width="5"/>
+                <path d="M30 136 h190" stroke-width="3" opacity=".4"/>
+              </svg>
+              <small>放一张实拍照片到 backend/app/static/media/hero.jpg</small>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 产品价值 -->
+    <section class="block" id="value">
+      <div class="wrap">
+        <h2>为什么做导盲机器人</h2>
+        <p class="sub">导盲犬很好，但太少；盲杖可靠，但看不远。</p>
+        <div class="cards three">
+          <div class="card">
+            <div class="stat">4300 万</div>
+            <h3>全球严重视力障碍人群</h3>
+            <p>出行长期依赖盲杖、导盲犬或他人帮助。</p>
+          </div>
+          <div class="card">
+            <div class="stat">难获得</div>
+            <h3>导盲犬稀缺且昂贵</h3>
+            <p>需要多年训练，而且无法直接告诉主人它看到了什么。</p>
+          </div>
+          <div class="card">
+            <div class="stat">会说话</div>
+            <h3>机器狗 + 语音对话</h3>
+            <p>用语音下指令、听它描述前方，不需要任何培训就能上手。</p>
+          </div>
+        </div>
+        <p class="note">数据来源：公开资料（SpotSight 项目介绍）。</p>
+      </div>
+    </section>
+
+    <!-- 语音交互 -->
+    <section class="block" id="try">
+      <div class="wrap">
+        <h2>语音交互</h2>
+        <p class="sub">说一句话，机器狗就行动。下面的按钮会真实控制现场的机器狗。</p>
+        <div class="segmented" role="group" aria-label="演示模式">
+          <button type="button" data-mode="indoor" aria-pressed="true">室内领行</button>
+          <button type="button" data-mode="outdoor" aria-pressed="false">室外路线</button>
+        </div>
+        <p class="note" id="modeHint" style="margin-top:0"></p>
+        <div class="try-grid">
+          <div>
+            <div class="chips" id="chips"></div>
+            <div class="chat" id="chat" aria-live="polite" aria-label="对话记录">
+              <p class="chat-empty" id="chatEmpty">点上面的按钮，或者在下面输入一句话</p>
+            </div>
+            <form class="ask" id="askForm">
+              <input id="askInput" type="text" autocomplete="off" enterkeyhint="send" placeholder="例如：带我去门口" aria-label="输入口令">
+              <button class="btn btn-primary" type="submit">发送</button>
+            </form>
+          </div>
+          <div class="card nav-card">
+            <h3><span id="navTitle">还没有路线</span><span class="badge" id="navBadge">待出发</span></h3>
+            <div class="progress" aria-hidden="true"><i id="navBar"></i></div>
+            <div class="nav-meta" id="navMeta">说出目的地后，这里会显示路线和进度。</div>
+            <div class="obstacle-alert" id="obstacleAlert" role="alert" hidden></div>
+            <div class="map-box">
+              <canvas id="mapCanvas" aria-label="路线示意图"></canvas>
+              <div id="amap" hidden></div>
+            </div>
+            <div class="map-legend" id="mapLegend"></div>
+            <ol class="steps" id="steps"></ol>
+            <div class="actions" style="margin-top:12px" id="outdoorActions" hidden>
+              <button class="btn btn-small" type="button" id="btnNext">下一步</button>
+              <button class="btn btn-small" type="button" id="btnRepeat">再说一遍</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 完整演示 -->
+    <section class="block" id="demo">
+      <div class="wrap">
+        <h2>完整演示</h2>
+        <p class="sub">一次真实的领行流程：说出目的地、出发、遇到障碍停下、确认后继续、到达。</p>
+        <div class="video-box">
+          <video id="demoVideo" controls playsinline preload="metadata" poster="/media/hero.jpg" hidden></video>
+          <img id="liveCam" alt="机器狗实时相机画面" hidden>
+          <div class="video-empty" id="videoEmpty"><span>实拍视频待补充<br><small>放到 backend/app/static/media/demo.mp4</small></span></div>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <button class="btn btn-small" type="button" id="btnLive">查看机器狗实时画面</button>
+        </div>
+        <ol class="demo-steps">
+          <li>用户说"带我去服务台"，机器狗站起并播报路线</li>
+          <li>机器狗按室内航点领行，手机上实时显示位置</li>
+          <li>前方出现障碍物，机器狗自动停下并语音提醒</li>
+          <li>障碍清除后用户说"继续"，机器狗接着走完剩余路程</li>
+          <li>到达目的地，机器狗播报"已到达服务台"</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 工作原理 -->
+    <section class="block" id="how">
+      <div class="wrap">
+        <h2>工作原理与当前能力</h2>
+        <p class="sub">我们如实标注哪些是机器狗自己完成的，哪些需要人工辅助。</p>
+        <div class="flow" aria-label="系统流程">
+          <div class="flow-node"><b>用户</b><span>语音口令 / 手机网页</span></div>
+          <div class="flow-arrow" aria-hidden="true"><span>↓</span></div>
+          <div class="flow-node core"><b>后端大脑</b><span id="flowBrain">语音理解（大模型）· 路线规划（高德 / 室内地图）· 障碍物识别（相机 + 检测模型）</span></div>
+          <div class="flow-arrow" aria-hidden="true"><span>↓</span></div>
+          <div class="flow-node"><b>桥接程序</b><span>运行在机器狗上，转发命令、上报状态</span></div>
+          <div class="flow-arrow" aria-hidden="true"><span>↓</span></div>
+          <div class="flow-node"><b>启元 T1 机器狗</b><span>四足行走 · 动作 · 语音播报 · 头部相机</span></div>
+        </div>
+        <div class="cap" id="capList"></div>
+      </div>
+    </section>
+
+    <!-- 团队与进展 -->
+    <section class="block" id="team">
+      <div class="wrap two-col">
+        <div>
+          <h2>项目进展</h2>
+          <p class="sub">MoonStone DreamUP 黑客松 · 上海张江</p>
+          <ol class="timeline" id="timeline"></ol>
+        </div>
+        <div>
+          <h2>后续计划</h2>
+          <ul id="roadmap" style="padding-left:20px;margin:0 0 24px"></ul>
+          <h2 style="font-size:22px">团队</h2>
+          <ul class="team" id="teamList"></ul>
+          <p class="note" id="contact"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <span id="version"></span> · <a href="/debug">团队调试台</a>
+    </div>
+  </footer>
+
+  <div class="stop-fab" id="stopBar" hidden>
+    <button class="stop" type="button" id="btnStop">停止</button>
+    <button class="alt" type="button" id="btnPause">停一下</button>
+    <button class="alt" type="button" id="btnResume" hidden>继续</button>
+  </div>
+  <div id="toast" role="status" hidden></div>
+
+  <script>
+    // ===== 需要按团队实际情况修改的内容 =====
+    const PROJECT = {
+      name: '导盲机器狗',
+      // 示例：[{ name: '张三', role: '后端' }]
+      team: [],
+      contact: '',
+    };
+
+    const CHIPS = {
+      indoor: ['带我去服务台', '停一下', '继续', '前面有什么', '打个招呼'],
+      outdoor: ['去张江科学会堂怎么走', '下一步', '再说一遍', '准备出发', '前面有什么'],
+    };
+    const MODE_HINT = {
+      indoor: '室内领行：机器狗会真实行走，请确保周围有人陪同。',
+      outdoor: '室外路线：在地图上规划真实步行路线，机器狗原地做准备动作，不会移动。',
+    };
+    const NAV_STATUS = {
+      IDLE: ['待出发', ''], ACTIVE: ['行进中', 'active'], PAUSED: ['已暂停', 'paused'],
+      DONE: ['已到达', 'done'], CANCELLED: ['已取消', ''], FAILED: ['未完成', 'failed'],
+    };
+    const PAUSE_REASON = { user: '用户暂停', obstacle: '前方有障碍', stop: '已急停' };
+    const CAPABILITIES = [
+      ['语音口令控制', 'done', '已实现', '固定口令即时响应；接入大模型后可以理解自由说法和组合指令。'],
+      ['室内按航点领行', 'done', '已实现', '按预设航点行走，支持"停一下 / 继续"。位置为按指令推算的估计值，不是真实定位。'],
+      ['障碍物停车提醒', 'done', '已实现', '相机识别前方的人、椅子等常见物体后停车提醒；只判断是否挡路，不测距离。'],
+      ['室外路线规划与播报', 'done', '已实现', '高德步行路线 + 逐步语音指引；室外演示中机器狗不移动。'],
+      ['描述前方画面', 'done', '已实现', '拍一张照片交给视觉大模型，用一句话描述前方。'],
+      ['演示全程有人陪同', 'assist', '人工辅助', '现场工作人员手持遥控器，随时可以接管机器狗。'],
+      ['室内地图与起点', 'assist', '人工辅助', '航点坐标由人工测量，机器狗每次从固定起点出发。'],
+      ['自主定位、绕开障碍、室外行走', 'plan', '规划中', '需要定位与建图能力，以及真实视障用户参与测试。'],
+    ];
+    const TIMELINE = [
+      ['done', 'Day 1 · 组队与选题', '确定方向：AI 导盲机器狗，调研启元 T1 SDK'],
+      ['done', 'Day 2 · 打通前后端与机器狗', '语音助手、路线规划、障碍物识别、机器狗桥接'],
+      ['now', 'Day 3 · 现场演示与路演', '展区实机演示，开放麦讲解'],
+    ];
+    const ROADMAP = [
+      '空间记忆：记住整个楼层的布局，支持"带我去电梯"',
+      '读出标识：识别门牌、指示牌上的文字并朗读',
+      '更快的响应：缩短从说话到行动的延迟',
+      '真实用户测试：邀请视障朋友试用并改进引导方式',
+    ];
+
+    const $ = id => document.getElementById(id);
+    const state = { mode: 'indoor', config: null, map: null, route: null, nav: {}, robot: null, pending: 0, live: false };
+
+    function toast(message) {
+      const el = $('toast');
+      el.textContent = message;
+      el.hidden = false;
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => { el.hidden = true; }, 3200);
+    }
+
+    async function api(path, body) {
+      const init = body === undefined ? {} : {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+      };
+      let res;
+      try {
+        res = await fetch(path, init);
+      } catch {
+        toast('连接不上后端，请检查网络');
+        throw new Error('network');
+      }
+      const json = await res.json().catch(() => ({}));
+      if (!json.ok) {
+        toast(json.message || '请求失败');
+        throw new Error(json.error || 'error');
+      }
+      return json.data;
+    }
+
+    function el(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    // ===== 静态内容 =====
+    function renderStatic() {
+      document.title = PROJECT.name;
+      $('brandName').textContent = PROJECT.name;
+      $('heroTitle').textContent = PROJECT.name;
+
+      const cap = $('capList');
+      for (const [title, kind, label, desc] of CAPABILITIES) {
+        const row = el('div', 'cap-row');
+        row.append(el('b', '', title), el('span', 'tag ' + kind, label), el('p', '', desc));
+        cap.append(row);
+      }
+      for (const [kind, title, desc] of TIMELINE) {
+        const li = el('li', kind);
+        li.append(el('b', '', title), el('span', '', desc));
+        $('timeline').append(li);
+      }
+      for (const item of ROADMAP) $('roadmap').append(el('li', '', item));
+      if (PROJECT.team.length) {
+        for (const member of PROJECT.team) {
+          const li = el('li', '', member.name);
+          if (member.role) li.append(el('span', '', member.role));
+          $('teamList').append(li);
+        }
+      } else {
+        $('teamList').append(el('li', '', '团队成员待补充'));
+      }
+      $('contact').textContent = PROJECT.contact ? '联系方式：' + PROJECT.contact : '联系方式待补充';
+    }
+
+    // ===== 机器狗状态 =====
+    function renderRobot(r) {
+      state.robot = r;
+      const online = !!(r && r.online);
+      $('robotDot').className = 'dot ' + (online ? 'on' : 'off');
+      let label = online ? '机器狗在线' : '机器狗离线';
+      if (online && r.battery != null) label += ' · 电量 ' + r.battery + '%';
+      $('robotText').textContent = label;
+      renderStopBar();
+    }
+
+    function renderStopBar() {
+      const navStatus = state.nav.status;
+      const moving = navStatus === 'ACTIVE' || navStatus === 'PAUSED' || !!(state.robot && state.robot.busy);
+      $('stopBar').hidden = !moving;
+      $('btnPause').hidden = navStatus !== 'ACTIVE';
+      $('btnResume').hidden = navStatus !== 'PAUSED';
+    }
+
+    // ===== 模式 =====
+    function setMode(mode) {
+      state.mode = mode;
+      for (const b of document.querySelectorAll('.segmented button')) b.setAttribute('aria-pressed', String(b.dataset.mode === mode));
+      $('modeHint').textContent = MODE_HINT[mode] || '';
+      const chips = $('chips');
+      chips.replaceChildren();
+      for (const text of CHIPS[mode] || []) {
+        const b = el('button', 'chip', text);
+        b.type = 'button';
+        b.addEventListener('click', () => send(text));
+        chips.append(b);
+      }
+      renderNav();
+    }
+
+    // ===== 对话 =====
+    function addBubble(who, text, meta) {
+      $('chatEmpty').hidden = true;
+      const b = el('div', 'bubble ' + who, text);
+      if (meta) b.append(el('span', 'meta', meta));
+      $('chat').append(b);
+      $('chat').scrollTop = $('chat').scrollHeight;
+    }
+
+    async function send(text) {
+      addBubble('user', text);
+      state.pending++;
+      try {
+        const reply = await api('/api/voice/text', { text });
+        if (reply && reply.text) addBubble('dog', reply.text);
+      } catch {
+        addBubble('dog', '这句话没有发送成功，请再试一次');
+      } finally {
+        state.pending--;
+      }
+    }
+
+    // ===== 导航 =====
+    function renderNav() {
+      const route = state.route && state.route.mode === state.mode ? state.route : null;
+      const nav = state.nav || {};
+      const status = route ? (nav.status || 'IDLE') : 'IDLE';
+      const [label, cls] = NAV_STATUS[status] || [status, ''];
+      $('navBadge').textContent = status === 'PAUSED' && nav.pause_reason ? PAUSE_REASON[nav.pause_reason] || label : label;
+      $('navBadge').className = 'badge ' + cls;
+      $('navTitle').textContent = route ? '去' + route.destination_name : '还没有路线';
+
+      const steps = $('steps');
+      steps.replaceChildren();
+      if (!route) {
+        $('navMeta').textContent = '说出目的地后，这里会显示路线和进度。';
+        $('navBar').style.width = '0';
+      } else {
+        const total = route.distance_m || 0;
+        const remaining = nav.remaining_m != null ? nav.remaining_m : (status === 'DONE' ? 0 : total);
+        const done = total > 0 ? Math.min(1, Math.max(0, 1 - remaining / total)) : 0;
+        $('navBar').style.width = (status === 'DONE' ? 100 : done * 100).toFixed(0) + '%';
+        let meta = '全程约 ' + Math.round(total) + ' 米';
+        if (route.duration_s) meta += ' · 步行约 ' + Math.max(1, Math.round(route.duration_s / 60)) + ' 分钟';
+        if (status === 'ACTIVE' || status === 'PAUSED') meta += ' · 剩余约 ' + remaining.toFixed(1) + ' 米';
+        if (route.cached) meta += ' · 离线缓存路线';
+        $('navMeta').textContent = meta;
+        const current = nav.current_step != null ? nav.current_step : route.current_step;
+        route.steps.forEach((s, i) => {
+          steps.append(el('li', i === current ? 'current' : '', s.instruction));
+        });
+      }
+      $('outdoorActions').hidden = !(route && state.mode === 'outdoor');
+      renderStopBar();
+      drawMap();
+    }
+
+    function renderObstacle(d) {
+      const alert = $('obstacleAlert');
+      if (d && d.level === 'stop') {
+        const labels = (d.detections || []).map(x => x.position).filter(Boolean);
+        alert.textContent = '前方有障碍' + (labels.length ? '（' + labels[0] + '）' : '') + '，机器狗已停下';
+        alert.hidden = false;
+      } else {
+        alert.hidden = true;
+      }
+    }
+
+    // ===== 地图 =====
+    function drawCanvas() {
+      const canvas = $('mapCanvas');
+      const w = canvas.clientWidth || 320, h = 240, dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      const css = getComputedStyle(document.documentElement);
+      const ink = css.getPropertyValue('--ink').trim(), muted = css.getPropertyValue('--muted').trim();
+      const accent = css.getPropertyValue('--accent').trim(), brand = css.getPropertyValue('--brand').trim();
+      const indoor = state.mode === 'indoor', m = state.map;
+      const route = state.route && state.route.mode === state.mode ? state.route : null;
+      const points = route ? route.polyline : [];
+      let minX = 0, minY = 0, maxX = (m && m.width_m) || 6, maxY = (m && m.height_m) || 4;
+      if (!indoor && points.length) {
+        minX = Math.min(...points.map(p => p[0])); maxX = Math.max(...points.map(p => p[0]));
+        minY = Math.min(...points.map(p => p[1])); maxY = Math.max(...points.map(p => p[1]));
+      }
+      const scale = Math.min((w - 70) / Math.max(maxX - minX, 1e-5), (h - 60) / Math.max(maxY - minY, 1e-5));
+      const project = p => [w / 2 + (p[0] - (minX + maxX) / 2) * scale, h / 2 - (p[1] - (minY + maxY) / 2) * scale];
+      const line = (pts, color, width) => {
+        if (!pts.length) return;
+        ctx.beginPath();
+        pts.forEach((p, i) => { const q = project(p); i ? ctx.lineTo(...q) : ctx.moveTo(...q); });
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.stroke();
+      };
+      ctx.font = '13px system-ui';
+      if (indoor && m) {
+        for (const [a, b] of m.edges) line([m.waypoints[a], m.waypoints[b]].map(p => [p.x, p.y]), muted, 2);
+      }
+      line(points, brand, 5);
+      ctx.fillStyle = ink;
+      if (indoor && m) {
+        for (const p of Object.values(m.waypoints)) {
+          const [x, y] = project([p.x, p.y]);
+          ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+          ctx.textAlign = x > w - 60 ? 'right' : x < 60 ? 'left' : 'center';
+          ctx.fillText(p.name, x, y - 12);
+        }
+        const pose = state.nav.pose;
+        if (pose) {
+          const [x, y] = project(pose);
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(-pose[2] * Math.PI / 180);
+          ctx.beginPath();
+          ctx.moveTo(14, 0); ctx.lineTo(-8, -9); ctx.lineTo(-4, 0); ctx.lineTo(-8, 9); ctx.closePath();
+          ctx.fillStyle = accent; ctx.strokeStyle = ink; ctx.lineWidth = 1.5;
+          ctx.fill(); ctx.stroke();
+          ctx.restore();
+        }
+      } else if (points.length) {
+        for (const [i, label] of [[0, '起'], [points.length - 1, '终']]) {
+          const [x, y] = project(points[i]);
+          ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fill();
+          ctx.fillText(label, x + 9, y - 9);
+        }
+      } else {
+        ctx.fillStyle = muted;
+        ctx.textAlign = 'center';
+        ctx.fillText('说出目的地后显示路线', w / 2, h / 2);
+      }
+    }
+
+    function loadAmap() {
+      if (state.amapPromise) return state.amapPromise;
+      state.amapPromise = new Promise((resolve, reject) => {
+        window._AMapSecurityConfig = { securityJsCode: state.config.amap_security_code };
+        const script = document.createElement('script');
+        const timer = setTimeout(() => reject(new Error('timeout')), 10000);
+        script.src = 'https://webapi.amap.com/maps?v=2.0&key=' + encodeURIComponent(state.config.amap_js_key);
+        script.onload = () => { clearTimeout(timer); window.AMap ? resolve() : reject(new Error('load')); };
+        script.onerror = () => { clearTimeout(timer); reject(new Error('load')); };
+        document.head.append(script);
+      });
+      return state.amapPromise;
+    }
+
+    let mapGeneration = 0;
+    async function drawMap() {
+      const generation = ++mapGeneration;
+      const outdoor = state.mode === 'outdoor';
+      const route = state.route && state.route.mode === 'outdoor' ? state.route : null;
+      $('amap').hidden = true;
+      $('mapCanvas').hidden = false;
+      $('mapLegend').textContent = outdoor ? '路线示意图' : '黄色箭头：机器狗估计位置与朝向';
+      drawCanvas();
+      if (!outdoor || !route || !state.config || !state.config.amap_js_key || state.amapFailed) return;
+      try {
+        await loadAmap();
+        if (generation !== mapGeneration || state.mode !== 'outdoor') return;
+        $('amap').hidden = false;
+        $('mapCanvas').hidden = true;
+        if (!state.amap) state.amap = new AMap.Map('amap', { zoom: 16 });
+        const map = state.amap;
+        map.clearMap();
+        const points = route.polyline;
+        map.add(new AMap.Polyline({ path: points, strokeColor: '#0e4a5a', strokeWeight: 6 }));
+        map.add(new AMap.Marker({ position: points[0], title: '起点' }));
+        map.add(new AMap.Marker({ position: points[points.length - 1], title: '终点' }));
+        map.setFitView();
+        // 容器刚从隐藏变为显示时，高德可能只渲染部分瓦片，下一帧再算一次尺寸
+        requestAnimationFrame(() => { map.resize(); map.setFitView(); });
+        $('mapLegend').textContent = '高德地图 · 步行路线';
+      } catch {
+        state.amapFailed = true;
+        $('mapLegend').textContent = '地图加载失败，显示路线示意图';
+      }
+    }
+
+    // ===== 实时连接 =====
+    let ws, retry = 0, pingTimer;
+    function connect() {
+      ws = new WebSocket((location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + location.host + '/ws/app');
+      ws.onopen = () => {
+        retry = 0;
+        refresh().catch(() => {});
+        pingTimer = setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ type: 'ping' }));
+        }, 15000);
+      };
+      ws.onmessage = event => {
+        let e;
+        try { e = JSON.parse(event.data); } catch { return; }
+        const d = e.data;
+        if (e.type === 'hello') { setMode(d.mode); renderRobot(d.robot); }
+        else if (e.type === 'robot.state') renderRobot(d);
+        else if (e.type === 'mode.changed') setMode(d.mode);
+        else if (e.type === 'nav.route') { state.route = d; state.nav = { status: 'IDLE', current_step: d ? d.current_step : 0 }; renderNav(); }
+        else if (e.type === 'nav.progress') { state.nav = Object.assign({}, state.nav, d); renderNav(); }
+        else if (e.type === 'obstacle.update') renderObstacle(d);
+        // 机器狗麦克风听到的话不经过本页的发送按钮，需要从事件里补上对话
+        else if (e.type === 'voice.heard' && d.source === 'robot') addBubble('user', d.text, '机器狗麦克风');
+        else if (e.type === 'assistant.reply' && state.pending === 0) addBubble('dog', d.text);
+      };
+      ws.onerror = () => ws.close();
+      ws.onclose = () => {
+        clearInterval(pingTimer);
+        $('robotDot').className = 'dot off';
+        $('robotText').textContent = '正在重新连接…';
+        setTimeout(connect, Math.min(5000, 1000 * 2 ** retry++));
+      };
+    }
+
+    async function refresh() {
+      const [config, map, nav] = await Promise.all([api('/api/config/public'), api('/api/indoor/map'), api('/api/nav/current')]);
+      state.config = config;
+      state.map = map;
+      state.route = nav.route;
+      state.nav = nav;
+      $('version').textContent = 'v' + config.version + (config.has_llm ? ' · 大模型已接入' : ' · 关键词模式');
+      setMode(config.mode);
+      $('btnLive').hidden = config.obstacle_source === 'none';
+    }
+
+    // ===== 演示视频与实时画面 =====
+    async function setupVideo() {
+      try {
+        const res = await fetch('/media/demo.mp4', { method: 'HEAD' });
+        if (res.ok) {
+          $('demoVideo').src = '/media/demo.mp4';
+          $('demoVideo').hidden = false;
+          $('videoEmpty').hidden = true;
+        }
+      } catch { /* 没有视频时保持占位 */ }
+    }
+
+    function toggleLive() {
+      state.live = !state.live;
+      const cam = $('liveCam'), video = $('demoVideo');
+      if (state.live) {
+        video.pause();
+        cam.src = '/api/vision/stream';
+        cam.hidden = false;
+        video.hidden = true;
+        $('videoEmpty').hidden = true;
+        $('btnLive').textContent = '返回演示视频';
+      } else {
+        cam.removeAttribute('src');
+        cam.hidden = true;
+        $('btnLive').textContent = '查看机器狗实时画面';
+        setupVideo().then(() => { if (!video.getAttribute('src')) $('videoEmpty').hidden = false; });
+      }
+    }
+
+    // ===== 绑定 =====
+    $('heroImg').addEventListener('error', () => {
+      $('heroImg').hidden = true;
+      $('heroPlaceholder').hidden = false;
+      $('demoVideo').removeAttribute('poster');
+    });
+    $('liveCam').addEventListener('error', () => {
+      if (state.live) { toggleLive(); toast('实时画面暂不可用'); }
+    });
+    for (const b of document.querySelectorAll('.segmented button')) {
+      b.addEventListener('click', async () => {
+        if (b.dataset.mode === state.mode) return;
+        try { setMode((await api('/api/mode', { mode: b.dataset.mode })).mode); } catch { /* toast 已提示 */ }
+      });
+    }
+    $('askForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const text = $('askInput').value.trim();
+      if (!text) return;
+      $('askInput').value = '';
+      send(text);
+    });
+    $('btnStop').addEventListener('click', () => api('/api/robot/stop', {}).catch(() => {}));
+    $('btnPause').addEventListener('click', () => api('/api/nav/pause', { reason: 'user' }).catch(() => {}));
+    $('btnResume').addEventListener('click', () => api('/api/nav/resume', {}).catch(() => {}));
+    $('btnNext').addEventListener('click', () => api('/api/nav/next', {}).catch(() => {}));
+    $('btnRepeat').addEventListener('click', () => api('/api/nav/repeat', {}).catch(() => {}));
+    $('btnLive').addEventListener('click', toggleLive);
+    window.addEventListener('resize', () => { if (!$('mapCanvas').hidden) drawCanvas(); });
+
+    renderStatic();
+    setMode('indoor');
+    setupVideo();
+    connect();
+  </script>
+</body>
+</html>

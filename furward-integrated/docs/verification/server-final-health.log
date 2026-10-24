@@ -1,0 +1,16 @@
+NAME                        IMAGE                     COMMAND                  SERVICE   CREATED          STATUS                             PORTS
+furward-preview-demo-1      furward-preview-demo      "python -m uvicorn d…"   demo      27 minutes ago   Up 27 minutes (healthy)            8100/tcp
+furward-preview-gateway-1   furward-preview-gateway   "docker-entrypoint.s…"   gateway   48 seconds ago   Up 16 seconds (health: starting)   127.0.0.1:3300->3000/tcp
+furward-preview-web-1       furward-preview-web       "docker-entrypoint.s…"   web       48 seconds ago   Up 47 seconds (healthy)            3000/tcp
+{"ok":true,"data":{"service":"furward-demo","mode":"simulation"}}
+original_site_http=200
+MainPID=1859000
+2f6fe67c310766f911c4fcd41c8c4206abea48b30e00b03b1e20684b62ad31e0  web/app/experience/CityScene.tsx
+8f02ed126d1f81f0c6348500fef66232721669c120e0c2a470cdd4cef8e2a79b  web/lib/demo-frame-clock.ts
+d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4  web/public/city/animated/human.glb
+174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17  web/public/city/animated/dog.glb
+3e29f0e93e2ccbde6a49a2473e98b0e89199c98c7278a78b2a0c104f51f48871  web/public/city/animated/rig-manifest.json
+NAME                        IMAGE                     COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+furward-preview-demo-1      furward-preview-demo      "python -m uvicorn d…"   demo      29 minutes ago   Up 29 minutes (healthy)   8100/tcp
+furward-preview-gateway-1   furward-preview-gateway   "docker-entrypoint.s…"   gateway   2 minutes ago    Up 2 minutes (healthy)    127.0.0.1:3300->3000/tcp
+furward-preview-web-1       furward-preview-web       "docker-entrypoint.s…"   web       2 minutes ago    Up 2 minutes (healthy)    3000/tcp

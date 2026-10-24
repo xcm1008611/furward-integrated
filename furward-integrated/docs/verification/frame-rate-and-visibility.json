@@ -1,0 +1,67 @@
+{
+  "scope": "Isolated Next dev source copy on 3008, gateway3009, original running demo service; main production build/service untouched",
+  "active": {
+    "sample_seconds": 19.1524,
+    "rendered_fps": 59.992481360038425,
+    "metres_per_second": 1.1995864748024871,
+    "max_prediction_metres": 0.15960000000178987
+  },
+  "paused": {
+    "fps": 60.012444051943845,
+    "frames": 300,
+    "maxDistance": 28.0553,
+    "minDistance": 28.0553,
+    "summary": "{\"visibility\":\"visible\",\"raw_fps\":120,\"rendered_fps\":60,\"total_frames\":4192,\"hidden_frames\":0,\"hidden_seconds\":0,\"status\":\"PAUSED\",\"distance\":28.0553,\"view\":\"follow\"}"
+  },
+  "overview_after_native_drag": {
+    "firstCamera": [
+      120.35328049647596,
+      776.0250629833355,
+      -54.41468149379633
+    ],
+    "fps": 60.001200024000376,
+    "frames": 301,
+    "lastCamera": [
+      120.35328049647596,
+      776.0250629833355,
+      -54.41468149379633
+    ],
+    "maxDistance": 28.0553,
+    "minDistance": 28.0553,
+    "summary": "{\"visibility\":\"visible\",\"raw_fps\":119.9,\"rendered_fps\":60,\"total_frames\":6652,\"hidden_frames\":0,\"hidden_seconds\":0,\"status\":\"PAUSED\",\"distance\":28.0553,\"view\":\"overview\"}"
+  },
+  "hidden_active_native_chrome": {
+    "visibility": "visible",
+    "raw_fps": 120.1,
+    "rendered_fps": 60,
+    "total_frames": 2414,
+    "hidden_frames": 0,
+    "hidden_seconds": 11.74,
+    "status": "PAUSED",
+    "distance": 28.8787,
+    "view": "follow",
+    "resumed": {
+      "delta": 0,
+      "distance": 21.358640000003575,
+      "server": 21.2636
+    }
+  },
+  "hidden_paused_native_chrome": {
+    "visibility": "visible",
+    "raw_fps": 120.7,
+    "rendered_fps": 60.4,
+    "total_frames": 3099,
+    "hidden_frames": 0,
+    "hidden_seconds": 13.57,
+    "status": "PAUSED",
+    "distance": 28.8787,
+    "view": "follow",
+    "resumed": {
+      "delta": 0,
+      "distance": 28.8787,
+      "server": 28.8787
+    }
+  },
+  "method": "Temporary HUD in isolated CityScene only. Hidden tests used a native unclaimed Chrome tab because CDP-controlled pages emulate visibility. All HUD source and test services removed after capture.",
+  "tests": "4 frame-clock tests covering 30/60/90/120/144/240Hz, timestamp jitter, visibility reset and long stalls; TypeScript and scoped ESLint passed."
+}

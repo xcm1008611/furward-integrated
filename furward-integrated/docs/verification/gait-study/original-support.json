@@ -1,0 +1,11 @@
+{
+  "model_directory": "/Users/xuchengming/Documents/ChatGPT/导盲犬机器狗项目/furward-integrated/web/public/city/animated",
+  "frames": 960,
+  "dt": 0.004166666666666667,
+  "support_samples": 1085,
+  "mean_planted_vertex_horizontal_speed_mps": 0.0008468521897836363,
+  "p95_planted_vertex_horizontal_speed_mps": 0.0020335416722807864,
+  "max_planted_vertex_horizontal_speed_mps": 0.00349236948199228,
+  "minimum_sole_height_m": 0.002681436499774299,
+  "method": "Same actual skinned contact vertex tracked while within 6mm of floor, stance phase .025-.595; contact identity changes excluded. Full keyframe interpolation and production runtime IK, root moves at1.2m/s."
+}

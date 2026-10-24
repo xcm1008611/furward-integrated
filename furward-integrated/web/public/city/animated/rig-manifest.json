@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "coordinate_system": "glTF Y-up; meters; forward +Z",
+  "placement": "Position the original character root; no centering/scaling or extra axis conversion.",
+  "movement": "All clips are in-place. Route controller owns translation and yaw. Use AnimationMixer crossfades.",
+  "quality": "Demo skeletal gait; not motion capture or robot dynamics. Original textures and topology retained.",
+  "models": {
+    "human": {
+      "url": "/city/animated/human.glb",
+      "root": "BlindPerson_Root",
+      "height_m": 1.8,
+      "forward": "+Z",
+      "up": "+Y",
+      "units": "meters",
+      "centered_xz": true,
+      "feet_origin_y": 0,
+      "in_place": true,
+      "bones": 20,
+      "skins": 1,
+      "source_mesh_unchanged": true,
+      "source_uv_unchanged": true,
+      "source_textures_unchanged": true,
+      "source_binary_sha256": "172e08c7483fa59da1f8cb8bd80b0221c9bbaf3c5fa9cbacb168d9503ea89cc5",
+      "output_sha256": "d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4",
+      "vertices": 2107,
+      "triangles": 1341,
+      "clips": [
+        {
+          "name": "idle",
+          "duration_s": 2.4,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "duration_s": 1.2,
+          "loop": true
+        },
+        {
+          "name": "turn_left",
+          "duration_s": 1.2,
+          "loop": true
+        },
+        {
+          "name": "turn_right",
+          "duration_s": 1.2,
+          "loop": true
+        },
+        {
+          "name": "stop",
+          "duration_s": 0.48,
+          "loop": false
+        }
+      ],
+      "nominal_walk_speed_mps": 0.913978494623656,
+      "gait": {
+        "stride_m": 0.68,
+        "cycle_s": 1.2,
+        "stance_fraction": 0.62,
+        "stride_definition": "local foot travel during stance; world step length is stride / stance_fraction / 2",
+        "foot_roll_degrees": [
+          -22,
+          20
+        ],
+        "walk_body_offset_m": -0.044,
+        "steps_per_minute_at_1_2mps": 131.2941176470588
+      },
+      "metrics": {
+        "idle": {
+          "minimum_vertex_y_m": 0.0,
+          "max_foot_lift_m": 0.0,
+          "max_joint_quaternion_delta": 0.006,
+          "frames": 73
+        },
+        "walk": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.09492,
+          "max_joint_quaternion_delta": 0.38517,
+          "frames": 37
+        },
+        "turn_left": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.09492,
+          "max_joint_quaternion_delta": 0.25495,
+          "frames": 37
+        },
+        "turn_right": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.09492,
+          "max_joint_quaternion_delta": 0.26895,
+          "frames": 37
+        },
+        "stop": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.04095,
+          "max_joint_quaternion_delta": 0.25986,
+          "frames": 15
+        }
+      },
+      "joints": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upperarm_L",
+        "forearm_L",
+        "hand_L",
+        "thigh_L",
+        "shin_L",
+        "foot_L",
+        "toe_L",
+        "upperarm_R",
+        "forearm_R",
+        "hand_R",
+        "thigh_R",
+        "shin_R",
+        "foot_R",
+        "toe_R"
+      ]
+    },
+    "dog": {
+      "url": "/city/animated/dog.glb",
+      "root": "RobotDog_Root",
+      "height_m": 0.9,
+      "forward": "+Z",
+      "up": "+Y",
+      "units": "meters",
+      "centered_xz": true,
+      "feet_origin_y": 0,
+      "in_place": true,
+      "bones": 15,
+      "skins": 1,
+      "source_mesh_unchanged": true,
+      "source_uv_unchanged": true,
+      "source_textures_unchanged": true,
+      "source_binary_sha256": "4edb7c6fa55501871406acd8ea0c9fa8f58bb9b6b14ac424115ff6d50e115d95",
+      "output_sha256": "174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17",
+      "vertices": 572,
+      "triangles": 379,
+      "clips": [
+        {
+          "name": "idle",
+          "duration_s": 2.4,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "duration_s": 1.12,
+          "loop": true
+        },
+        {
+          "name": "turn_left",
+          "duration_s": 1.12,
+          "loop": true
+        },
+        {
+          "name": "turn_right",
+          "duration_s": 1.12,
+          "loop": true
+        },
+        {
+          "name": "stop",
+          "duration_s": 0.48,
+          "loop": false
+        }
+      ],
+      "nominal_walk_speed_mps": 0.3954081632653061,
+      "gait": {
+        "stride_m": 0.31,
+        "cycle_s": 1.12,
+        "stance_fraction": 0.7
+      },
+      "metrics": {
+        "idle": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.00069,
+          "max_joint_quaternion_delta": 0.006,
+          "frames": 73
+        },
+        "walk": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.07496,
+          "max_joint_quaternion_delta": 0.34556,
+          "frames": 35
+        },
+        "turn_left": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.07496,
+          "max_joint_quaternion_delta": 0.27805,
+          "frames": 35
+        },
+        "turn_right": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.07496,
+          "max_joint_quaternion_delta": 0.26847,
+          "frames": 35
+        },
+        "stop": {
+          "minimum_vertex_y_m": -0.0,
+          "max_foot_lift_m": 0.02925,
+          "max_joint_quaternion_delta": 0.18305,
+          "frames": 15
+        }
+      },
+      "joints": [
+        "root",
+        "body",
+        "head",
+        "upper_rear_R",
+        "lower_rear_R",
+        "foot_rear_R",
+        "upper_front_R",
+        "lower_front_R",
+        "foot_front_R",
+        "upper_rear_L",
+        "lower_rear_L",
+        "foot_rear_L",
+        "upper_front_L",
+        "lower_front_L",
+        "foot_front_L"
+      ]
+    }
+  }
+}

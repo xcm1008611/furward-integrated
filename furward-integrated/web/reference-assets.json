@@ -1,0 +1,347 @@
+{
+  "reference": "https://landonorris.com/",
+  "assets": {
+    "hero-diffuse": {
+      "path": "/reference/hero-diffuse.webp",
+      "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/diffuse.webp",
+      "purpose": "首屏 3D 人像的原始彩色纹理",
+      "bytes": 292106,
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": true
+    },
+    "hero-alpha": {
+      "path": "/reference/hero-alpha.webp",
+      "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/alpha.webp",
+      "purpose": "首屏 3D 人像的黑白透明蒙版（CSS mask-mode:luminance）",
+      "bytes": 38874,
+      "width": 2048,
+      "height": 2048,
+      "hasAlpha": false
+    },
+    "hero-depth": {
+      "path": "/reference/hero-depth.webp",
+      "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/depth.webp",
+      "purpose": "首屏 3D 人像的深度纹理",
+      "bytes": 3708,
+      "width": 512,
+      "height": 512,
+      "hasAlpha": false
+    },
+    "portrait-side": {
+      "path": "/reference/portrait-side.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d18655b032045a4dc78e56_ln4-hp-lando-head.webp",
+      "purpose": "赛道外板块半身侧脸透明肖像",
+      "bytes": 172392,
+      "width": 898,
+      "height": 1984,
+      "hasAlpha": true
+    },
+    "portrait-helmet": {
+      "path": "/reference/portrait-helmet.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d18655b032045a4dc78e53_ln4-hp-lando-helmet.webp",
+      "purpose": "赛道上板块佩戴头盔半身透明肖像",
+      "bytes": 101974,
+      "width": 834,
+      "height": 1984,
+      "hasAlpha": true
+    },
+    "helmet-lift": {
+      "path": "/reference/helmet-lift.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302ff5ff89a9a4afb8c19e_ln-home-helm-large.webp",
+      "purpose": "抬起头盔的人物大图",
+      "bytes": 424534,
+      "width": 3456,
+      "height": 3092,
+      "hasAlpha": false
+    },
+    "story-paddock": {
+      "path": "/reference/story-paddock.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302baa04b14a1ca33c0b25_ln-home-horiz-1.webp",
+      "purpose": "拼贴照片：休闲装走过围场",
+      "bytes": 50872,
+      "width": 649,
+      "height": 804,
+      "hasAlpha": false
+    },
+    "story-award": {
+      "path": "/reference/story-award.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302baab12220595c8223b3_ln-home-horiz-2.webp",
+      "purpose": "拼贴照片：礼服举奖杯",
+      "bytes": 20400,
+      "width": 656,
+      "height": 658,
+      "hasAlpha": false
+    },
+    "story-trophy": {
+      "path": "/reference/story-trophy.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302babcf12f0111d96322e_ln-home-horiz-3.webp",
+      "purpose": "拼贴照片：比赛奖杯",
+      "bytes": 83828,
+      "width": 1464,
+      "height": 1330,
+      "hasAlpha": false
+    },
+    "story-golf": {
+      "path": "/reference/story-golf.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302baa798e2cc6e02ac38a_ln-home-horiz-4.webp",
+      "purpose": "拼贴照片：高尔夫",
+      "bytes": 16258,
+      "width": 529,
+      "height": 504,
+      "hasAlpha": false
+    },
+    "story-car": {
+      "path": "/reference/story-car.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68da85d632bfefc552a0faac_Britain-25%20(1).webp",
+      "purpose": "拼贴照片：英国站赛车",
+      "bytes": 28830,
+      "width": 500,
+      "height": 500,
+      "hasAlpha": false
+    },
+    "story-dog": {
+      "path": "/reference/story-dog.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302baa14a96f3cdd2f9a95_ln-home-horiz-6.webp",
+      "purpose": "拼贴照片：抱狗",
+      "bytes": 31944,
+      "width": 642,
+      "height": 803,
+      "hasAlpha": false
+    },
+    "story-plane": {
+      "path": "/reference/story-plane.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302baaedf821dd2e3a7c74_ln-home-horiz-8.webp",
+      "purpose": "拼贴照片：飞机上摄影",
+      "bytes": 67010,
+      "width": 1461,
+      "height": 1424,
+      "hasAlpha": false
+    },
+    "story-win": {
+      "path": "/reference/story-win.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302bab4f762cdbc5e93415_ln-home-horiz-10.webp",
+      "purpose": "拼贴照片：庆祝获胜",
+      "bytes": 17792,
+      "width": 659,
+      "height": 599,
+      "hasAlpha": false
+    },
+    "helmet-season": {
+      "path": "/reference/helmet-season.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b3e6c7ab86033cf172c_In-helm-2025-Season-base.webp",
+      "purpose": "2025 Season 头盔",
+      "bytes": 42928,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "helmet-discoball": {
+      "path": "/reference/helmet-discoball.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b2259159e5170d2b923_In-helm-2025-Discoball-base.webp",
+      "purpose": "2025 Discoball 头盔",
+      "bytes": 40368,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "helmet-dark": {
+      "path": "/reference/helmet-dark.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305aff4692de3e7ea12251_In-helm-2025-DarkGlitter-base.webp",
+      "purpose": "2025 Dark Glitter 头盔",
+      "bytes": 52250,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "helmet-porcelain": {
+      "path": "/reference/helmet-porcelain.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305acf3fccf71c6d72607b_In-helm-2024-Porcelain-base.webp",
+      "purpose": "2024 Porcelain 头盔",
+      "bytes": 44784,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "helmet-japan": {
+      "path": "/reference/helmet-japan.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a980c399022066600a6_In-helm-2024-Japan-base.webp",
+      "purpose": "2024 Japan 头盔",
+      "bytes": 50032,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "helmet-beachball": {
+      "path": "/reference/helmet-beachball.webp",
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/683053f61b468e794507c0a7_In-helm-2023-Beach%20Ball-base.webp",
+      "purpose": "2023 Beachball 头盔",
+      "bytes": 23182,
+      "width": 823,
+      "height": 823,
+      "hasAlpha": true
+    },
+    "store-01": {
+      "path": "/reference/store-01.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/69458be88faa89137717632c_lando-store-gold-2.webp",
+      "purpose": "商城大片 1",
+      "bytes": 6194,
+      "width": 378,
+      "height": 484,
+      "hasAlpha": true
+    },
+    "store-02": {
+      "path": "/reference/store-02.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/69458be7e803d4123abb47dd_lando-store-gold-5.webp",
+      "purpose": "商城大片 2",
+      "bytes": 65930,
+      "width": 1260,
+      "height": 1666,
+      "hasAlpha": false
+    },
+    "store-03": {
+      "path": "/reference/store-03.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/69458be8f7e939c143a9bed6_lando-store-gold-3.webp",
+      "purpose": "商城大片 3",
+      "bytes": 34184,
+      "width": 796,
+      "height": 574,
+      "hasAlpha": true
+    },
+    "social-track": {
+      "path": "/reference/social-track.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba846e593e52541fb7a8_Lando-6-on-track.webp",
+      "purpose": "社交照片：赛道",
+      "bytes": 85142,
+      "width": 1080,
+      "height": 1232,
+      "hasAlpha": false
+    },
+    "social-offtrack": {
+      "path": "/reference/social-offtrack.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba8463e72a95c2d8a0ba_Lando-4-off-track.webp",
+      "purpose": "社交照片：生活",
+      "bytes": 67346,
+      "width": 1080,
+      "height": 1350,
+      "hasAlpha": false
+    },
+    "social-lifestyle": {
+      "path": "/reference/social-lifestyle.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba848fb98d1ca68eb6c8_Lando-5-off-track.webp",
+      "purpose": "社交照片：生活特写",
+      "bytes": 70638,
+      "width": 1080,
+      "height": 1350,
+      "hasAlpha": false
+    },
+    "logo-ln": {
+      "path": "/reference/logo-ln.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67f517cdc5bb460c3c3b8e5b_ln4-LN-logo-svg.svg",
+      "purpose": "LN 品牌 logo",
+      "bytes": 1965
+    },
+    "signature": {
+      "path": "/reference/signature.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67cecea4e9d311047dcb51e5_ln4-hw-signature2.svg",
+      "purpose": "签名矢量图",
+      "bytes": 11117
+    },
+    "wordmark": {
+      "path": "/reference/wordmark.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e968a40345883f8ccc1b05_ln4-lando-norris-text-mobile.svg",
+      "purpose": "LANDO NORRIS 字标",
+      "bytes": 8839
+    },
+    "crossed-flags": {
+      "path": "/reference/crossed-flags.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/680cbcfdbc4bdc0ef619369f_ln-icon-crossed-flags2.svg",
+      "purpose": "交叉赛车旗帜",
+      "bytes": 2815
+    },
+    "footer-helmet": {
+      "path": "/reference/footer-helmet.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d43d6e276c436a378a1da6_ln-360-helm-1.webp",
+      "purpose": "页脚头盔大图",
+      "bytes": 114916,
+      "width": 1560,
+      "height": 1276,
+      "hasAlpha": true
+    },
+    "partner-logo-ralph": {
+      "path": "/reference/partner-logo-ralph.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d4349e00e6b7904f3746a3_ln4-ln4-collab-logo-ralph.svg",
+      "purpose": "合作伙伴标志：ralph",
+      "bytes": 18771
+    },
+    "partner-logo-mind": {
+      "path": "/reference/partner-logo-mind.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d435767c599270fb721513_ln4-ln4-collab-logo-mind.svg",
+      "purpose": "合作伙伴标志：mind",
+      "bytes": 13996
+    },
+    "partner-logo-ps4": {
+      "path": "/reference/partner-logo-ps4.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67efc88cf1d78e3e7624d5e3_ln4-ln4-collab-logo-ps4.svg",
+      "purpose": "合作伙伴标志：ps4",
+      "bytes": 2923
+    },
+    "partner-logo-quadrant": {
+      "path": "/reference/partner-logo-quadrant.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67efc88c532235956e5d267a_ln4-ln4-collab-logo-quadrant.svg",
+      "purpose": "合作伙伴标志：quadrant",
+      "bytes": 6032
+    },
+    "partner-logo-tumi": {
+      "path": "/reference/partner-logo-tumi.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67efc88cb3373daa7ba240d6_ln4-ln4-collab-logo-tumi.svg",
+      "purpose": "合作伙伴标志：tumi",
+      "bytes": 3254
+    },
+    "partner-logo-hilton": {
+      "path": "/reference/partner-logo-hilton.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67efc88c1939bc87931c2599_ln4-ln4-collab-logo-hilton.svg",
+      "purpose": "合作伙伴标志：hilton",
+      "bytes": 4975
+    },
+    "partner-logo-uber": {
+      "path": "/reference/partner-logo-uber.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d294a99b218abd71dc0764_ln4-ln4-collab-logo-uber.svg",
+      "purpose": "合作伙伴标志：uber",
+      "bytes": 1635
+    },
+    "MonaSans-Variable": {
+      "path": "/reference/MonaSans-Variable.woff2",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67bc6274c5b4108b123aa4d5_MonaSans-VariableFont_wdth%2Cwght.woff2",
+      "purpose": "原站标题与正文可变字体（200–900，支持 width axis）",
+      "bytes": 167476
+    },
+    "Brier-Bold": {
+      "path": "/reference/Brier-Bold.woff2",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67b6113a220f85ad6497495a_Brier-Bold.woff2",
+      "purpose": "原站复古弧形强调标题字体（700）",
+      "bytes": 23588
+    },
+    "pattern-nav": {
+      "path": "/reference/pattern-nav.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dbeb1e708b818bc15a8d17_blobs_nav.svg",
+      "purpose": "原站手绘轮廓图案，适合作为浅底纹",
+      "bytes": 8361
+    },
+    "pattern-footer": {
+      "path": "/reference/pattern-footer.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dbeba158707fa1cd5e5e45_blobs_footer_1.svg",
+      "purpose": "原站页脚大面积轮廓底纹",
+      "bytes": 7284
+    },
+    "store-04": {
+      "path": "/reference/store-04.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/69458be7e4ccfdba84b69d27_lando-store-gold-1.webp",
+      "purpose": "商城系列人像 / 大片",
+      "bytes": 5830,
+      "width": 455,
+      "height": 582,
+      "hasAlpha": true
+    }
+  }
+}

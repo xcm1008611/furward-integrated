@@ -1,0 +1,75 @@
+{
+  "updated_at": "2026-10-25T07:27:00.184801+08:00",
+  "current_release": "guide-detour-release.json",
+  "current_result": "passed",
+  "historical_pre_guide_release": {
+    "recorded_at": "2026-10-25T03:40:45.514193+08:00",
+    "source_sha256": {
+      "web/app/experience/CityScene.tsx": "2f6fe67c310766f911c4fcd41c8c4206abea48b30e00b03b1e20684b62ad31e0",
+      "web/lib/demo-frame-clock.ts": "8f02ed126d1f81f0c6348500fef66232721669c120e0c2a470cdd4cef8e2a79b",
+      "web/public/city/animated/human.glb": "d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4",
+      "web/public/city/animated/dog.glb": "174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17",
+      "web/public/city/animated/rig-manifest.json": "3e29f0e93e2ccbde6a49a2473e98b0e89199c98c7278a78b2a0c104f51f48871"
+    },
+    "production_full_route": {
+      "transport": "SSH tunnel to loopback gateway, not public Internet acceptance",
+      "distance_m": 150,
+      "steps": 4,
+      "duration_seconds": 126.3,
+      "log": "production-final-via-ssh.log"
+    },
+    "local_browser": {
+      "distance_m": 150,
+      "status": "DONE",
+      "console_warnings_and_errors": 0,
+      "screenshot": "../screenshots/final-production-arrival.png"
+    },
+    "server": {
+      "containers": "all healthy",
+      "internal_https": "valid certificate, health passed",
+      "original_site_http": 200,
+      "original_proxy_pid": 1859000,
+      "public_gate": "TCP 8088 approved by user and opened at 2026-10-25 05:33 Asia/Shanghai"
+    },
+    "frontend_regression": "16 passed; frontend-polish.log",
+    "animation_regression": "768 transitions and 240 constant-track restores passed; model documentation",
+    "blender": "final saved file reopened; 20/15 bones, 6 packed images, 2 editable route tracks",
+    "not_verified": [
+      "Physical Wi-Fi AP traversal / router client isolation (autonomous LAN-address validation used a Docker Desktop Linux client)",
+      "Physical robot integration (outside this demonstration release)"
+    ],
+    "updated_at": "2026-10-25T05:54:54.250109+08:00",
+    "public_full_route": {
+      "transport": "Direct public IP, without SSH tunnel or TLS verification bypass",
+      "url": "https://8.147.109.174:8088",
+      "distance_m": 150,
+      "steps": 4,
+      "duration_seconds": 126.4,
+      "log": "public-full-route.log",
+      "endpoint_checks": "public-endpoints.json"
+    },
+    "public_browser": {
+      "home_animation": "completed three stages; replay available",
+      "text_command": "带我去街心花园 started route",
+      "view_switch": "follow and overview passed",
+      "obstacle": "paused at 32m; clear kept paused; manual resume succeeded",
+      "refresh": "paused at 46.1m; refresh restored 46.1m and conversation; manual resume succeeded",
+      "distance_m": 150,
+      "status": "DONE",
+      "console_warnings_and_errors": 0,
+      "screenshot": "../screenshots/public-arrival.png"
+    },
+    "mobile_user_feedback": "mobile-user-feedback.json",
+    "autonomous_lan_client": {
+      "result": "passed",
+      "target": "http://172.168.23.102:3000",
+      "method": "Docker Desktop Linux bridge client via host en0 address; macOS host forwarding",
+      "distance_m": 150,
+      "steps": 4,
+      "duration_seconds": 125.7,
+      "report": "lan-isolated-client.json",
+      "log": "lan-isolated-client.log",
+      "raw_log_timezone": "UTC"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "method": "Independent dense geometric scan at 100001 phases; checked against authoring pose()/skin_positions(), coordinate max difference 2.22e-16m",
+  "accepted": {
+    "stride_parameter_m": 0.68,
+    "walk_bob_m": -0.044,
+    "min_physical_reach_margin_m": 0.0014514,
+    "min_margin_after_ik_safety_m": 0.0014414,
+    "worst_phase_left": 0.11877,
+    "worst_phase_right": 0.61877,
+    "crotch_edge_bind_length_m": 0.05830762,
+    "crotch_edge_max_length_m": 0.132457,
+    "crotch_edge_max_ratio": 2.2717,
+    "edge_worst_phase": 0.4525
+  },
+  "unselected_comparison": {
+    "stride_parameter_m": 0.7,
+    "walk_bob_m": -0.046,
+    "min_physical_reach_margin_m": 0.0014721,
+    "min_margin_after_ik_safety_m": 0.0014621,
+    "crotch_edge_max_length_m": 0.133428,
+    "crotch_edge_max_ratio": 2.28834
+  },
+  "production_dog_sha256_unchanged": "174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17",
+  "production_human_sha256": "d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4"
+}

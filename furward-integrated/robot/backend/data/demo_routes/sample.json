@@ -1,0 +1,16 @@
+{
+  "route_id": "sample-zhangjiang",
+  "mode": "outdoor",
+  "coord": "gcj02",
+  "destination_name": "张江占位演示终点",
+  "aliases": ["占位演示"],
+  "sample": true,
+  "note": "占位示例，非真实路线；拿到 Key 后用 scripts/cache_route.py 生成真实缓存",
+  "cached": true,
+  "distance_m": 100,
+  "duration_s": 84,
+  "polyline": [[121.5901, 31.2032], [121.5911, 31.2032]],
+  "steps": [{"index": 0, "instruction": "占位示例：向东直行约 100 米，非真实路线", "distance_m": 100, "action": "straight", "end": [121.5911, 31.2032]}],
+  "robot_plan": null,
+  "current_step": 0
+}

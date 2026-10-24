@@ -1,0 +1,6 @@
+FROM node:24-bookworm-slim
+WORKDIR /app
+COPY scripts/gateway.mjs ./gateway.mjs
+USER node
+EXPOSE 3000
+CMD ["node", "gateway.mjs"]

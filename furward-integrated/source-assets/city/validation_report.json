@@ -1,0 +1,123 @@
+{
+  "core_byte_identical": {
+    "city_visual_v08.glb": {
+      "passed": true,
+      "sha256": "dea43180189419e2ce5f45261830aa659afde95192e4ecaba47e3aa47aebb433"
+    },
+    "city_collision_v09.glb": {
+      "passed": true,
+      "sha256": "a600a95c47d75c8bcbde07988d5d48ded4494d38c1dd1fe1a8978538b44f4f89"
+    },
+    "collision_manifest.json": {
+      "passed": true,
+      "sha256": "9ce6a19472d081831bcba2cfca43f4fd3eaae6b9a0bcbb1a018c58ede8330462"
+    }
+  },
+  "glb": {
+    "blind_person.glb": {
+      "bytes": 3223064,
+      "nodes": 2,
+      "meshes": 1,
+      "unique_mesh_triangles": 1341,
+      "images": 3,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": [],
+      "canonical_bounds_y_up": {
+        "min": [
+          -0.475078821182251,
+          0.0,
+          -0.23375391960144043
+        ],
+        "max": [
+          0.47507888078689575,
+          1.7999999523162842,
+          0.23375394940376282
+        ]
+      }
+    },
+    "characters_placed_v10.glb": {
+      "bytes": 9497488,
+      "nodes": 4,
+      "meshes": 2,
+      "unique_mesh_triangles": 1720,
+      "images": 6,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": []
+    },
+    "city_collision_v09.glb": {
+      "bytes": 1684348,
+      "nodes": 160,
+      "meshes": 160,
+      "unique_mesh_triangles": 59182,
+      "images": 0,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": []
+    },
+    "city_periphery_v10.glb": {
+      "bytes": 465136,
+      "nodes": 136,
+      "meshes": 36,
+      "unique_mesh_triangles": 6696,
+      "images": 0,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": []
+    },
+    "city_visual_v08.glb": {
+      "bytes": 2115084,
+      "nodes": 371,
+      "meshes": 117,
+      "unique_mesh_triangles": 32303,
+      "images": 1,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": []
+    },
+    "robot_dog.glb": {
+      "bytes": 6277320,
+      "nodes": 2,
+      "meshes": 1,
+      "unique_mesh_triangles": 379,
+      "images": 3,
+      "animations": 0,
+      "skins": 0,
+      "external_dependencies": false,
+      "extensionsRequired": [],
+      "canonical_bounds_y_up": {
+        "min": [
+          -0.4451526999473572,
+          -1.1920928955078125e-07,
+          -0.5017056465148926
+        ],
+        "max": [
+          0.4451526403427124,
+          0.9000000357627869,
+          0.5017056465148926
+        ]
+      }
+    }
+  },
+  "checks": [
+    "All 160 collision mesh node names match the manifest",
+    "538 original Blender objects preserved during integration",
+    "Core collider/visual files copied without re-export",
+    "Canonical character feet at Y=0; person 1.80m and dog 0.90m",
+    "Character textures embedded in GLB",
+    "Static spawn ground support confirmed by Blender BVH raycast"
+  ],
+  "not_tested": [
+    "Browser runtime frame rate",
+    "Animation/rigging",
+    "Character-controller navigation and collision movement",
+    "Full cross-version Blender compatibility"
+  ],
+  "status": "asset_structure_passed"
+}

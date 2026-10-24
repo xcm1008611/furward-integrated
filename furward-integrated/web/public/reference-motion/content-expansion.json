@@ -1,0 +1,268 @@
+{
+  "helmets": [
+    {
+      "id": "helmet-2025-season",
+      "label": "Season · 2025",
+      "title": "Season",
+      "year": "2025",
+      "src": "/reference/helmet-season.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2025-season-hover.webp",
+      "alt": "Lando Norris 2025 Season 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b3e6c7ab86033cf172c_In-helm-2025-Season-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b411c575b2f777125f6_In-helm-2025-Season-hover.webp"
+    },
+    {
+      "id": "helmet-2025-discoball",
+      "label": "Discoball · 2025",
+      "title": "Discoball",
+      "year": "2025",
+      "src": "/reference/helmet-discoball.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2025-discoball-hover.webp",
+      "alt": "Lando Norris 2025 Discoball 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b2259159e5170d2b923_In-helm-2025-Discoball-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b24037a1e7681195c20_In-helm-2025-Discoball-hover.webp"
+    },
+    {
+      "id": "helmet-2025-dark-glitter",
+      "label": "Dark Glitter · 2025",
+      "title": "Dark Glitter",
+      "year": "2025",
+      "src": "/reference/helmet-dark.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2025-dark-glitter-hover.webp",
+      "alt": "Lando Norris 2025 Dark Glitter 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305aff4692de3e7ea12251_In-helm-2025-DarkGlitter-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b03644c91f0a8de407b_In-helm-2025-DarkGlitter-hover.webp"
+    },
+    {
+      "id": "helmet-2024-season",
+      "label": "Season · 2024",
+      "title": "Season",
+      "year": "2024",
+      "src": "/reference-motion/helmets/helmet-2024-season.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2024-season-hover.webp",
+      "alt": "Lando Norris 2024 Season 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305aeac44aa40f7bda5460_In-helm-2024-Season-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305af56183c37dfd14ff3f_In-helm-2024-Season-hover.webp"
+    },
+    {
+      "id": "helmet-2024-porcelain",
+      "label": "Porcelain · 2024",
+      "title": "Porcelain",
+      "year": "2024",
+      "src": "/reference/helmet-porcelain.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2024-porcelain-hover.webp",
+      "alt": "Lando Norris 2024 Porcelain 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305acf3fccf71c6d72607b_In-helm-2024-Porcelain-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305ad3a594ec37bd1d32cb_In-helm-2024-Porcelain-hover.webp"
+    },
+    {
+      "id": "helmet-2024-japan",
+      "label": "Japan · 2024",
+      "title": "Japan",
+      "year": "2024",
+      "src": "/reference/helmet-japan.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2024-japan-hover.webp",
+      "alt": "Lando Norris 2024 Japan 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a980c399022066600a6_In-helm-2024-Japan-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a9b1716264ea006064b_In-helm-2024-Japan-hover.webp"
+    },
+    {
+      "id": "helmet-2024-gif",
+      "label": "GIF · 2024",
+      "title": "GIF",
+      "year": "2024",
+      "src": "/reference-motion/helmets/helmet-2024-gif.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2024-gif-hover.webp",
+      "alt": "Lando Norris 2024 GIF 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a7d4e96d5f8f44f7803_In-helm-2024-GIF%20Helmet-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a8e13a9b59a5e99cafe_In-helm-2024-GIF%20Helmet-hover.webp"
+    },
+    {
+      "id": "helmet-2024-dark-mode",
+      "label": "Dark Mode · 2024",
+      "title": "Dark Mode",
+      "year": "2024",
+      "src": "/reference-motion/helmets/helmet-2024-dark-mode.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2024-dark-mode-hover.webp",
+      "alt": "Lando Norris 2024 Dark Mode 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a59417d51c0a58c32c6_In-helm-2024-DarkMode-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a5cdaa389d0c080afc7_In-helm-2024-DarkMode-hover.webp"
+    },
+    {
+      "id": "helmet-2023-race-100",
+      "label": "Race 100 · 2023",
+      "title": "Race 100",
+      "year": "2023",
+      "src": "/reference-motion/helmets/helmet-2023-race-100.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2023-race-100-hover.webp",
+      "alt": "Lando Norris 2023 Race 100 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a459178b78319e05b55_In-helm-2023-Race%20100-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a47417d51c0a58c28a6_In-helm-2023-Race%20100-hover.webp"
+    },
+    {
+      "id": "helmet-2023-las-vegas",
+      "label": "Las Vegas · 2023",
+      "title": "Las Vegas",
+      "year": "2023",
+      "src": "/reference-motion/helmets/helmet-2023-las-vegas.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2023-las-vegas-hover.webp",
+      "alt": "Lando Norris 2023 Las Vegas 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a2e3fccf71c6d71e5a8_In-helm-2023-Las%20Vegas-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a3053985f797745cdfc_In-helm-2023-Las%20Vegas-hover.webp"
+    },
+    {
+      "id": "helmet-2023-chrome",
+      "label": "Chrome · 2023",
+      "title": "Chrome",
+      "year": "2023",
+      "src": "/reference-motion/helmets/helmet-2023-chrome.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2023-chrome-hover.webp",
+      "alt": "Lando Norris 2023 Chrome 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a153de4a824d397d21d_In-helm-2023-Chrome-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305a175a720573cbd3000f_In-helm-2023-Chrome-hover.webp"
+    },
+    {
+      "id": "helmet-2023-beachball",
+      "label": "Beachball · 2023",
+      "title": "Beachball",
+      "year": "2023",
+      "src": "/reference/helmet-beachball.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2023-beachball-hover.webp",
+      "alt": "Lando Norris 2023 Beachball 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/683053f61b468e794507c0a7_In-helm-2023-Beach%20Ball-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/683053fb6e004f8218de7f11_In-helm-2023-Beach%20Ball-hover.webp"
+    },
+    {
+      "id": "helmet-2022-basketball",
+      "label": "Basketball · 2022",
+      "title": "Basketball",
+      "year": "2022",
+      "src": "/reference-motion/helmets/helmet-2022-basketball.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2022-basketball-hover.webp",
+      "alt": "Lando Norris 2022 Basketball 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/683052a8a475dfa06075ca17_In-helm-2022-Basketball-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/683052ab1073a33331767d2a_In-helm-2022-Basketball-hover.webp"
+    },
+    {
+      "id": "helmet-2021-season",
+      "label": "Season · 2021",
+      "title": "Season",
+      "year": "2021",
+      "src": "/reference-motion/helmets/helmet-2021-season.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2021-season-hover.webp",
+      "alt": "Lando Norris 2021 Season 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305038652a87f86290bf3b_ln-helm-2021-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305b57817f019bc368a7b6_ln-helm-2021-hover.webp"
+    },
+    {
+      "id": "helmet-2020-silverstone",
+      "label": "Silverstone · 2020",
+      "title": "Silverstone",
+      "year": "2020",
+      "src": "/reference-motion/helmets/helmet-2020-silverstone.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2020-silverstone-hover.webp",
+      "alt": "Lando Norris 2020 Silverstone 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305203f28384dcf8ef81cb_In-helm-2020-Silverstone-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305223cddca8f1ea359a7a_In-helm-2020-Silverstone-hover.webp"
+    },
+    {
+      "id": "helmet-2019-season",
+      "label": "Season · 2019",
+      "title": "Season",
+      "year": "2019",
+      "src": "/reference-motion/helmets/helmet-2019-season.webp",
+      "hoverSrc": "/reference-motion/helmets/helmet-2019-season-hover.webp",
+      "alt": "Lando Norris 2019 Season 头盔",
+      "positionX": 50,
+      "positionY": 50,
+      "source": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/68305139c5020a27624aa793_In-helm-2019-base.webp",
+      "hoverSource": "https://cdn.prod.website-files.com/67d97a68478fe87e30c67abe/6830513c652a87f862917de3_In-helm-2019-hover.webp"
+    }
+  ],
+  "extras": [
+    {
+      "id": "story-tux",
+      "label": "礼服肖像",
+      "src": "/reference-motion/story-tux.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302bab3ee6e26b1f434a7d_ln-home-horiz-7.webp"
+    },
+    {
+      "id": "story-trophy-2",
+      "label": "举起奖杯",
+      "src": "/reference-motion/story-trophy-2.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68302babb87c5f19ec131093_ln-home-horiz-9.webp"
+    },
+    {
+      "id": "partners-decoration",
+      "label": "合作伙伴装饰字形",
+      "src": "/reference-motion/partners-decoration.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d43b0fcd3d4512a46df889_ln-collabs-rive-placeholder.svg"
+    },
+    {
+      "id": "footer-decoration",
+      "label": "页脚装饰字形",
+      "src": "/reference-motion/footer-decoration.svg",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d443bc774ddcd37b3d8d4d_ln4-footer-rive-placeholder.svg"
+    },
+    {
+      "id": "menu-1",
+      "label": "菜单照片 1",
+      "src": "/reference-motion/menu-1.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dae5835c0649927438ae19_ln4-menu-img-1.webp"
+    },
+    {
+      "id": "menu-2",
+      "label": "菜单照片 2",
+      "src": "/reference-motion/menu-2.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dae5829bee1b4a7b936935_ln4-menu-img-2.webp"
+    },
+    {
+      "id": "menu-3",
+      "label": "菜单照片 3",
+      "src": "/reference-motion/menu-3.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dae5827466101f6aca77eb_ln4-menu-img-3.webp"
+    },
+    {
+      "id": "menu-4",
+      "label": "菜单照片 4",
+      "src": "/reference-motion/menu-4.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dae582f6abf54adb515c73_ln4-menu-img-4.webp"
+    },
+    {
+      "id": "menu-5",
+      "label": "菜单照片 5",
+      "src": "/reference-motion/menu-5.webp",
+      "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dae5824cc4245e1e6cf501_ln4-menu-img-5.webp"
+    }
+  ]
+}

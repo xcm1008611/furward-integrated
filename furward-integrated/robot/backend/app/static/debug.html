@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>机器狗 · 调试台</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f3f5f7;
+        --panel: #fff;
+        --text: #192636;
+        --muted: #526174;
+        --line: #c8d1dc;
+        --accent: #195bc0;
+        --soft: #e6efff;
+        --red: #bc232b
+      }
+      @media(prefers-color-scheme:dark) {
+        :root {
+          --bg: #111820;
+          --panel: #1c2733;
+          --text: #edf3fa;
+          --muted: #b4c3d5;
+          --line: #4e6074;
+          --accent: #91bcff;
+          --soft: #243e60;
+          --red: #d62c38
+        }
+      }
+      * {
+        box-sizing: border-box
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.5 system-ui,sans-serif;
+        overflow-wrap: anywhere
+      }
+      header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 10;
+        background: var(--panel);
+        border-bottom: 1px solid var(--line);
+        padding: calc(8px + env(safe-area-inset-top)) 16px 8px
+      }
+      header .wrap,main,footer .wrap {
+        max-width: 620px;
+        margin: auto
+      }
+      .status {
+        font-size: 13px;
+        display: flex;
+        gap: 4px 12px;
+        flex-wrap: wrap
+      }
+      .toprow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 6px
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0
+      }
+      h2 {
+        font-size: 18px;
+        margin: 0 0 12px
+      }
+      main {
+        padding: 160px 12px 140px
+      }
+      section,details {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        min-width: 0
+      }
+      p {
+        margin: 8px 0
+      }
+      .muted,small {
+        color: var(--muted);
+        font-size: 13px
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap
+      }
+      .row>* {
+        flex: 1;
+        min-width: 0
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 8px
+      }
+      button,input,select {
+        font: inherit;
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 8px 10px;
+        background: var(--panel);
+        color: var(--text);
+        max-width: 100%
+      }
+      button {
+        cursor: pointer
+      }
+      button: active {
+        background: var(--soft)
+      }
+      button: disabled {
+        opacity: .45;
+        cursor: not-allowed
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px
+      }
+      input,select {
+        width: 100%
+      }
+      label {
+        display: block;
+        margin-bottom: 6px
+      }
+      form .row {
+        flex-wrap: nowrap
+      }
+      .phrases {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0
+      }
+      .phrases button {
+        font-size: 14px
+      }
+      .primary,.current {
+        border-color: var(--accent);
+        background: var(--soft)
+      }
+      ol {
+        padding-left: 24px
+      }
+      li {
+        padding: 6px;
+        margin: 4px 0
+      }
+      .current {
+        border-left: 3px solid var(--accent);
+        font-weight: 600
+      }
+      .chat {
+        border-top: 1px solid var(--line);
+        padding: 8px 0
+      }
+      .badge {
+        display: inline-block;
+        border-radius: 5px;
+        padding: 2px 8px;
+        font-size: 13px;
+        font-weight: bold
+      }
+      .clear {
+        background: #c9f4da;
+        color: #14552d
+      }
+      .caution {
+        background: #ffe6a0;
+        color: #654500
+      }
+      .stop {
+        background: #ffd1d5;
+        color: #85111d
+      }
+      .unknown {
+        background: #d9dfe5;
+        color: #374453
+      }
+      canvas,#amap {
+        width: 100%;
+        height: 260px;
+        border-radius: 8px;
+        background: var(--bg)
+      }
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        background: var(--panel);
+        padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--line)
+      }
+      footer .wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 8px
+      }
+      #stop {
+        background: var(--red);
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        min-height: 60px;
+        border: 0
+      }
+      #toast {
+        position: fixed;
+        bottom: calc(100px + env(safe-area-inset-bottom));
+        left: 12px;
+        right: 12px;
+        max-width: 596px;
+        margin: auto;
+        background: var(--text);
+        color: var(--panel);
+        border-radius: 8px;
+        padding: 12px;
+        z-index: 30
+      }
+      summary {
+        cursor: pointer;
+        min-height: 44px
+      }
+      #logs {
+        max-height: 360px;
+        overflow: auto;
+        font-size: 13px
+      }
+      .log {
+        border-left: 3px solid var(--line);
+        padding: 6px 8px;
+        white-space: pre-wrap
+      }
+      .log.heard {
+        border-color: #4b96ff
+      }
+      .log.understood {
+        border-color: #b48bf4
+      }
+      .log.executed {
+        border-color: #3ea871
+      }
+      .log.error {
+        border-color: #e84e58
+      }
+      .log.info {
+        border-color: #aa9050
+      }
+      [hidden] {
+        display: none!important
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="status">
+          <span id="backend">后端连接中</span>
+          <span id="robot">机器狗状态未知</span>
+          <span id="battery">电量 —</span>
+          <span id="action">动作 —</span>
+        </div>
+        <div class="toprow">
+          <h1>机器狗 · 调试台</h1>
+          <label>模式 <select id="mode" style="width:auto"><option value="indoor">室内</option><option value="outdoor">室外</option></select></label>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>语音 / 文字口令</h2>
+        <p class="muted">机器狗语音与文字共用助手；手机录音尚未接入。</p>
+        <form id="voice">
+          <label for="text">输入口令</label>
+          <div class="row">
+            <input id="text" required placeholder="带我去服务台">
+            <button type="submit">发送</button>
+          </div>
+        </form>
+        <div id="phrases" class="phrases"></div>
+        <div id="chats" aria-live="polite"></div>
+      </section>
+      <section>
+        <h2>机器狗控制</h2>
+        <p id="motionHint" class="muted" hidden>室外演示模式下机器狗不移动</p>
+        <div id="controls" class="grid"></div>
+        <p id="task" class="muted">暂无任务</p>
+      </section>
+      <section>
+        <h2>导航</h2>
+        <div id="indoorNav">
+          <label for="waypoint">室内航点</label>
+          <select id="waypoint"></select>
+          <div class="row" style="margin-top:8px">
+            <button id="go" class="primary">出发</button>
+            <button id="cancel">取消</button>
+          </div>
+        </div>
+        <div id="outdoorNav" hidden>
+          <label for="destination">室外目的地</label>
+          <input id="destination" placeholder="占位演示">
+          <p class="muted">使用 .env 中的预设起点，无需手机定位。</p>
+          <div class="grid">
+            <button id="plan" class="primary">规划</button>
+            <button id="prepare">准备动作</button>
+            <button id="next">下一步</button>
+            <button id="repeat">重复</button>
+          </div>
+        </div>
+        <p id="navStatus" role="status">导航状态：未出发</p>
+        <span id="cached" class="badge caution" hidden>离线缓存路线</span>
+        <p id="routeNote" class="muted">
+        </p>
+        <ol id="steps"></ol>
+      </section>
+      <section>
+        <h2>地图</h2>
+        <p id="mapLegend" class="muted">蓝线：规划路线 · 三角：估计位置与朝向</p>
+        <canvas id="map" role="img" aria-label="航点、规划路线与机器狗估计位置"></canvas>
+        <div id="amap" hidden aria-label="高德室外路线地图"></div>
+      </section>
+      <section>
+        <h2>
+          相机与障碍物 <span id="obstacle" class="badge unknown">unknown</span>
+        </h2>
+        <p id="visionReason" class="muted">正在连接画面</p>
+        <div id="visionBody" hidden>
+          <img id="camera" alt="带障碍物标注的相机画面">
+          <div id="mockControls" class="row" hidden>
+            <button id="inject">模拟障碍</button>
+            <button id="clear">清除障碍</button>
+          </div>
+        </div>
+      </section>
+      <details>
+        <summary>事件日志（最多 100 条）</summary>
+        <div id="logs"></div>
+      </details>
+    </main>
+    <footer>
+      <div class="wrap">
+        <button id="stop">急停</button>
+        <button id="pause">暂停</button>
+        <button id="resume">继续</button>
+      </div>
+    </footer>
+    <div id="toast" role="alert" hidden></div>
+    <script>
+      'use strict';
+      const $ = id => document.getElementById(id);
+      const state = {
+        mode: 'indoor', config: null, map: null, nav: {
+          status: 'IDLE', current_step: 0
+        }, route: null, chats: [], amap: null, amapPromise: null, amapFailed: false
+      };
+      let toastTimer, ws, retry = 0, pingTimer, pongAt = 0, navRevision = 0, controlRevision = 0;
+      function text(id, value) {
+        $(id).textContent = value;
+      }
+
+      function toast(message) {
+        text('toast', message);
+        $('toast').hidden = false;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          $('toast').hidden = true;
+        }, 5000);
+      }
+
+      async function api(path, body) {
+        try {
+          const response = await fetch(path, {
+            method: body === undefined ? 'GET': 'POST', headers: body === undefined ? {}
+            : {
+              'Content-Type': 'application/json'
+            }, body: body === undefined ? undefined: JSON.stringify(body)
+          });
+          const result = await response.json();
+          if (!response.ok || !result.ok) throw new Error(result.message || '请求失败');
+          return result.data;
+        } catch (error) {
+          toast(error.message || '无法连接后端');
+          throw error;
+        }
+      }
+
+      function bind(id, fn) {
+        $(id).addEventListener('click', () => Promise.resolve().then(fn).catch(() => {}));
+      }
+
+      function button(label, fn, parent) {
+        const b = document.createElement('button');
+        b.textContent = label;
+        b.type = 'button';
+        b.addEventListener('click', () => Promise.resolve().then(fn).catch(() => {}));
+        parent.append(b);
+        return b;
+      }
+
+      function setMode(mode) {
+        state.mode = mode;
+        $('mode').value = mode;
+        $('indoorNav').hidden = mode !== 'indoor';
+        $('outdoorNav').hidden = mode !== 'outdoor';
+        $('motionHint').hidden = mode !== 'outdoor';
+        document.querySelectorAll('[data-motion]').forEach(b => b.disabled = mode === 'outdoor');
+        drawMap();
+      }
+
+      function robot(r) {
+        text('robot', `机器狗${r.online?'在线':'离线'}（${r.backend}）`);
+        text('battery', `电量 ${r.battery??'—'}%`);
+        text('action', `动作 ${r.action}${r.current_command?' / '+r.current_command:''}`);
+      }
+
+      const statusNames = {
+        IDLE: '未出发', ACTIVE: '导航中', PAUSED: '已暂停', DONE: '已到达', CANCELLED: '已取消', FAILED: '失败'
+      };
+      function renderNav() {
+        const n = state.nav;
+        text('navStatus', `导航状态：${statusNames[n.status]||n.status||'未知'}${n.pause_reason?' · 暂停原因：'+({user:'用户暂停',obstacle:'前方障碍',stop:'急停'}[n.pause_reason]||n.pause_reason):''}`);
+        $('cached').hidden = !state.route?.cached;
+        text('routeNote', state.route?.note || (state.route ? `${state.route.destination_name} · ${state.route.distance_m} 米`: ''));
+        $('steps').replaceChildren();
+        (state.route?.steps || []).forEach((s, i) => {
+          const li = document.createElement('li');
+          li.textContent = s.instruction;
+          if (i === n.current_step) {
+            li.className = 'current';
+            li.setAttribute('aria-current', 'step');
+          }
+          $('steps').append(li);
+        });
+        drawMap();
+      }
+
+      function chatHeard(value) {
+        state.chats.unshift({
+          heard: value, reply: '等待回复…', via: '—'
+        });
+        state.chats = state.chats.slice(0, 5);
+        renderChats();
+      }
+
+      function chatReply(d) {
+        let c = state.chats.find(c => c.via === '—');
+        if (!c) {
+          state.chats.unshift({
+            heard: '语音 / 其他客户端', reply: '', via: '—'
+          });
+          c = state.chats[0];
+        }
+        c.reply = d.text;
+        c.via = d.via;
+        state.chats = state.chats.slice(0, 5);
+        renderChats();
+      }
+
+      function renderChats() {
+        $('chats').replaceChildren();
+        for (const c of state.chats) {
+          const div = document.createElement('div');
+          div.className = 'chat';
+          for (const value of ['听到：' + c.heard, '回复：' + c.reply, 'via：' + c.via]) {
+            const p = document.createElement('p');
+            p.textContent = value;
+            div.append(p);
+          }
+          $('chats').append(div);
+        }
+      }
+
+      function obstacle(d) {
+        const level = ['clear', 'caution', 'stop', 'unknown'].includes(d.level) ? d.level: 'unknown';
+        $('obstacle').className = 'badge ' + level;
+        text('obstacle', level);
+      }
+
+      function log(e) {
+        const d = e.data, div = document.createElement('div');
+        div.className = 'log ' + (['heard', 'understood', 'executed', 'error', 'info'].includes(d.stage) ? d.stage: 'info');
+        div.textContent = `${new Date(e.ts*1000).toLocaleTimeString()} [${d.stage}] ${d.text}`;
+        $('logs').prepend(div);
+        while ($('logs').children.length > 100) $('logs').lastChild.remove();
+      }
+
+      async function refresh() {
+        const revision = navRevision;
+        const[config, map, nav] = await Promise.all([api('/api/config/public'), api('/api/indoor/map'), api('/api/nav/current')]);
+        state.config = config;
+        state.map = map;
+        setMode(config.mode);
+        $('waypoint').replaceChildren();
+        for (const w of config.indoor_waypoints) {
+          const option = document.createElement('option');
+          option.value = w.id;
+          option.textContent = w.name;
+          $('waypoint').append(option);
+        }
+        if (revision === navRevision) {
+          state.nav = nav;
+          state.route = nav.route;
+          renderNav();
+        }
+        try {
+          const d = await api('/api/vision/obstacle');
+          obstacle(d);
+          $('visionBody').hidden = false;
+          text('visionReason', d.enabled ? '画面用于演示，检测不提供距离。': '检测暂不可用，状态为 unknown');
+          $('mockControls').hidden = config.obstacle_source !== 'mock';
+          if (!$('camera').getAttribute('src')) $('camera').src = '/api/vision/stream';
+        } catch (e) {
+          $('visionBody').hidden = true;
+          text('visionReason', e.message);
+        }
+      }
+
+      function connect() {
+        ws = new WebSocket(`${location.protocol==='https:'?'wss:':'ws:'}//${location.host}/ws/app`);
+        ws.onopen = () => {
+          retry = 0;
+          pongAt = Date.now();
+          text('backend', '后端在线');
+          refresh().catch(() => {});
+          pingTimer = setInterval(() => {
+            if (Date.now() - pongAt > 35000) {
+              ws.close();
+              return;
+            }
+            if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({
+              type: 'ping'
+            }));
+          }, 15000);
+        };
+        ws.onmessage = event => {
+          try {
+            const e = JSON.parse(event.data), d = e.data;
+            if (e.type === 'hello') {
+              setMode(d.mode);
+              robot(d.robot);
+            } else if (e.type === 'pong') pongAt = Date.now();
+            else if (e.type === 'robot.state') robot(d);
+            else if (e.type === 'mode.changed') setMode(d.mode);
+            else if (e.type === 'nav.route') {
+              navRevision++;
+              state.route = d;
+              state.nav.current_step = d?.current_step || 0;
+              renderNav();
+            } else if (e.type === 'nav.progress') {
+              navRevision++;
+              state.nav = {
+                ...state.nav, ...d
+              };
+              renderNav();
+            } else if (e.type === 'voice.heard') chatHeard(d.text);
+            else if (e.type === 'assistant.reply') chatReply(d);
+            else if (e.type === 'obstacle.update') obstacle(d);
+            else if (e.type === 'log') log(e);
+            else if (e.type === 'task.update') text('task', `任务：${d.name} · ${d.status}${d.message?' · '+d.message:''}`);
+          } catch {
+            toast('收到无法解析的事件');
+          }
+        };
+        ws.onerror = () => ws.close();
+        ws.onclose = () => {
+          clearInterval(pingTimer);
+          text('backend', '后端断线 · 正在重连');
+          text('robot', '机器狗状态待确认');
+          setTimeout(connect, Math.min(5000, 1000 * 2 ** retry++));
+        };
+      }
+
+      $('mode').addEventListener('change', async() => {
+        const mode = $('mode').value;
+        $('mode').value = state.mode;
+        try {
+          setMode((await api('/api/mode', {
+            mode
+          })).mode);
+        } catch {}
+      });
+      async function send(value) {
+        await api('/api/voice/text', {
+          text: value
+        });
+      }
+
+      $('voice').addEventListener('submit', e => {
+        e.preventDefault();
+        const value = $('text').value.trim();
+        if (value) send(value).catch(() => {});
+      });
+      for (const value of ['带我去服务台', '停一下', '继续', '前面有什么', '打个招呼', '你还有多少电']) button(value, () => send(value), $('phrases'));
+      for (const[label, name, args] of [['站起', 'stand_up', {}], ['坐下', 'posture', {
+        name: 'sit'
+      }], ['趴下', 'posture', {
+        name: 'lie_down'
+      }], ['打招呼', 'mimic', {
+        motion: 'GREET'
+      }], ['握手', 'mimic', {
+        motion: 'HANDSHAKE'
+      }], ['聆听', 'mimic', {
+        motion: 'HEED'
+      }], ['前进 1 米', 'move', {
+        distance_m: 1
+      }], ['左转 90°', 'turn', {
+        angle_deg: 90
+      }], ['右转 90°', 'turn', {
+        angle_deg: -90
+      }]]) {
+        const b = button(label, () => api('/api/robot/command', {
+          name, args
+        }), $('controls'));
+        if (['move', 'turn'].includes(name)) b.dataset.motion = 'true';
+      }
+
+      button('准备出发（prepare）', () => api('/api/robot/prepare', {}), $('controls'));
+      bind('stop', () => {
+        controlRevision++;
+        return api('/api/robot/stop', {});
+      });
+      bind('pause', () => api('/api/nav/pause', {
+        reason: 'user'
+      }));
+      bind('resume', () => api('/api/nav/resume', {}));
+      bind('cancel', () => {
+        controlRevision++;
+        return api('/api/nav/cancel', {});
+      });
+      bind('prepare', () => api('/api/robot/prepare', {}));
+      bind('next', () => api('/api/nav/next', {}));
+      bind('repeat', () => api('/api/nav/repeat', {}));
+      bind('go', async() => {
+        const revision = controlRevision;
+        await api('/api/nav/plan', {
+          mode: 'indoor', to: $('waypoint').value
+        });
+        if (revision === controlRevision) await api('/api/nav/execute', {});
+      });
+      bind('plan', () => api('/api/nav/plan', {
+        mode: 'outdoor', destination: $('destination').value.trim()
+      }));
+      bind('inject', () => api('/api/debug/obstacle', {
+        level: 'stop', label: 'chair', position: 'center'
+      }));
+      bind('clear', () => api('/api/debug/obstacle', {
+        level: 'clear'
+      }));
+      $('camera').onerror = () => {
+        $('visionBody').hidden = true;
+        text('visionReason', '视觉画面不可用，请检查相机配置后刷新页面');
+      };
+      function line(ctx, points, project, color, width) {
+        if (!points.length) return;
+        ctx.beginPath();
+        points.forEach((p, i) => {
+          const q = project(p);
+          if (i) ctx.lineTo(...q);
+          else ctx.moveTo(...q);
+        });
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.stroke();
+      }
+
+      function drawCanvas() {
+        const canvas = $('map'), w = canvas.clientWidth || 300, h = 260, dpr = window.devicePixelRatio || 1;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        const indoor = state.mode === 'indoor', m = state.map, points = state.route?.mode === state.mode ? state.route.polyline: [];
+        let minX = 0, minY = 0, maxX = m?.width_m || 6, maxY = m?.height_m || 4;
+        if (!indoor && points.length) {
+          minX = Math.min(...points.map(p => p[0]));
+          maxX = Math.max(...points.map(p => p[0]));
+          minY = Math.min(...points.map(p => p[1]));
+          maxY = Math.max(...points.map(p => p[1]));
+        }
+        const scale = Math.min((w - 70) / Math.max(maxX - minX,.00001), (h - 60) / Math.max(maxY - minY,.00001));
+        const project = p => [w / 2 + (p[0] - (minX + maxX) / 2) * scale, h / 2 - (p[1] - (minY + maxY) / 2) * scale];
+        ctx.font = '13px system-ui';
+        ctx.fillStyle = getComputedStyle(document.body).color;
+        if (indoor && m) {
+          for (const[a, b] of m.edges) line(ctx, [m.waypoints[a], m.waypoints[b]].map(p => [p.x, p.y]), project, '#91a1b3', 2);
+        }
+        line(ctx, points, project, '#4389ee', 4);
+        if (indoor && m) {
+          for (const p of Object.values(m.waypoints)) {
+            const[x, y] = project([p.x, p.y]);
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.textAlign = x > w - 60 ? 'right': x < 60 ? 'left': 'center';
+            ctx.fillText(p.name, x, y - 12);
+          }
+          const pose = state.nav.pose;
+          if (pose) {
+            const[x, y] = project(pose);
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate( - pose[2] * Math.PI / 180);
+            ctx.beginPath();
+            ctx.moveTo(13, 0);
+            ctx.lineTo( - 8, - 8);
+            ctx.lineTo( - 5, 0);
+            ctx.lineTo( - 8, 8);
+            ctx.closePath();
+            ctx.fillStyle = '#c64d16';
+            ctx.fill();
+            ctx.restore();
+          }
+        } else if (points.length) {
+          for (const[i, label] of [[0, '起'], [points.length - 1, '终']]) {
+            const[x, y] = project(points[i]);
+            ctx.beginPath();
+            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillText(label, x + 9, y - 9);
+          }
+        } else {
+          ctx.textAlign = 'center';
+          ctx.fillText('规划路线后显示地图', w / 2, h / 2);
+        }
+      }
+
+      function loadAmap() {
+        if (state.amapPromise) return state.amapPromise;
+        state.amapPromise = new Promise((resolve, reject) => {
+          window._AMapSecurityConfig = {
+            securityJsCode: state.config.amap_security_code
+          };
+          const script = document.createElement('script');
+          const timer = setTimeout(() => reject(new Error('地图加载超时')), 10000);
+          script.src = 'https://webapi.amap.com/maps?v=2.0&key=' + encodeURIComponent(state.config.amap_js_key);
+          script.onload = () => {
+            clearTimeout(timer);
+            window.AMap ? resolve(): reject(new Error('地图加载失败'));
+          };
+          script.onerror = () => {
+            clearTimeout(timer);
+            reject(new Error('地图加载失败'));
+          };
+          document.head.append(script);
+        });
+        return state.amapPromise;
+      }
+
+      let mapGeneration = 0;
+      async function drawMap() {
+        const generation =++ mapGeneration;
+        const outdoor = state.mode === 'outdoor';
+        $('amap').hidden = true;
+        $('map').hidden = false;
+        text('mapLegend', outdoor ? (state.config?.amap_js_key ? '示意图（地图加载中或加载失败）': '示意图（未配置地图 Key）'): '灰线：航点连线 · 蓝线：规划路线 · 三角：估计位置与朝向');
+        drawCanvas();
+        if (!outdoor || !state.config?.amap_js_key || state.amapFailed) return;
+        try {
+          await loadAmap();
+          if (generation !== mapGeneration || state.mode !== 'outdoor') return;
+          $('amap').hidden = false;
+          if (!state.amap) state.amap = new AMap.Map('amap', {
+            zoom: 16
+          });
+          const map = state.amap;
+          map.clearMap();
+          const points = state.route?.mode === 'outdoor' ? state.route.polyline: [];
+          if (points.length) {
+            map.add(new AMap.Polyline({
+              path: points, strokeColor: '#2563eb', strokeWeight: 5
+            }));
+            map.add(new AMap.Marker({
+              position: points[0], title: '起点'
+            }));
+            map.add(new AMap.Marker({
+              position: points[points.length - 1], title: '终点'
+            }));
+            map.setFitView();
+          }
+          $('map').hidden = true;
+          text('mapLegend', '高德地图 · 起终点与规划路线');
+        } catch {
+          state.amapFailed = true;
+          if (state.mode !== 'outdoor') return;
+          $('amap').hidden = true;
+          $('map').hidden = false;
+          text('mapLegend', '示意图（地图加载失败）');
+          drawCanvas();
+        }
+      }
+
+      new ResizeObserver(() => {
+        document.querySelector('main').style.paddingTop = (document.querySelector('header').offsetHeight + 16) + 'px';
+        drawCanvas();
+      }).observe(document.querySelector('header'));
+      window.addEventListener('resize', drawCanvas);
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawCanvas);
+      connect();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+# Independent listener; the existing site's Caddy process is not reloaded.
+# Its certificate owner renews this IP certificate. Our timer reloads only
+# this preview process when that certificate changes.
+{
+    admin 127.0.0.1:2020
+    persist_config off
+    auto_https disable_redirects
+    default_sni 8.147.109.174
+    servers :8088 {
+        protocols h1 h2
+        listener_wrappers {
+            http_redirect
+            tls
+        }
+    }
+}
+
+https://8.147.109.174:8088 {
+    tls /var/lib/dzq-proxy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8.147.109.174/8.147.109.174.crt /var/lib/dzq-proxy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8.147.109.174/8.147.109.174.key
+    encode zstd gzip
+    request_body {
+        max_size 12MB
+    }
+    reverse_proxy 127.0.0.1:3300 {
+        header_up Host {http.request.hostport}
+        header_up X-Forwarded-Proto https
+        header_up X-Forwarded-For {http.request.remote.host}
+        header_up -X-Forwarded-Host
+    }
+}

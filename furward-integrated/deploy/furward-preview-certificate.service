@@ -1,0 +1,7 @@
+[Unit]
+Description=Reload Furward preview when the shared IP certificate renews
+After=furward-preview-tls.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /opt/furward-preview/deploy/reload-preview-certificate.sh

@@ -1,0 +1,139 @@
+#0 building with "default" instance using docker driver
+
+#1 [web internal] load build definition from Dockerfile
+#1 transferring dockerfile: 725B done
+#1 DONE 0.0s
+
+#2 [demo internal] load build definition from Dockerfile.demo
+#2 transferring dockerfile: 508B done
+#2 DONE 0.0s
+
+#3 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#3 DONE 0.0s
+
+#4 [demo internal] load metadata for docker.io/library/python:3.11-slim
+#4 DONE 0.0s
+
+#5 [web internal] load .dockerignore
+#5 transferring context: 621B done
+#5 DONE 0.0s
+
+#6 [demo internal] load .dockerignore
+#6 transferring context: 256B done
+#6 DONE 0.0s
+
+#7 [web builder 1/6] FROM docker.io/library/node:24-bookworm-slim
+#7 DONE 0.0s
+
+#8 [demo 1/6] FROM docker.io/library/python:3.11-slim
+#8 DONE 0.0s
+
+#9 [demo internal] load build context
+#9 transferring context: 154.75kB 0.0s done
+#9 DONE 0.0s
+
+#10 [demo 3/6] COPY demo-service/requirements-lock.txt ./requirements.txt
+#10 CACHED
+
+#11 [demo 2/6] WORKDIR /app
+#11 CACHED
+
+#12 [demo 4/6] RUN pip install --no-cache-dir -r requirements.txt && useradd --uid 10001 --create-home demo
+#12 CACHED
+
+#13 [web internal] load build context
+#13 transferring context: 93.49kB 0.1s done
+#13 DONE 0.1s
+
+#14 [web builder 2/6] WORKDIR /app
+#14 CACHED
+
+#15 [web builder 3/6] COPY package.json package-lock.json ./
+#15 CACHED
+
+#16 [web builder 4/6] RUN npm ci --no-audit --no-fund
+#16 CACHED
+
+#17 [demo 5/6] COPY demo-service/demo_service ./demo_service
+#17 DONE 0.1s
+
+#18 [web builder 5/6] COPY . .
+#18 ...
+
+#19 [demo 6/6] COPY shared ./shared
+#19 DONE 0.0s
+
+#20 [demo] exporting to image
+#20 exporting layers
+#20 ...
+
+#18 [web builder 5/6] COPY . .
+#18 DONE 1.5s
+
+#21 [web builder 6/6] RUN npm run build:selfhost
+#21 ...
+
+#20 [demo] exporting to image
+#20 exporting layers 1.7s done
+#20 writing image sha256:174e9a53b481acf726585b5e067fe7054df967148885de2422f1eb79f4b977a4 done
+#20 naming to docker.io/library/furward-preview-demo done
+#20 DONE 1.7s
+
+#21 [web builder 6/6] RUN npm run build:selfhost
+#21 1.031 
+#21 1.031 > site-creator-vinext-starter@0.1.0 build:selfhost
+#21 1.031 > node scripts/build-selfhost.mjs
+#21 1.031 
+#21 2.474 ▲ Next.js 16.4.3 (webpack)
+#21 2.818 ✓ Running next.config.ts took 343ms
+#21 2.846 
+#21 2.906   Creating an optimized production build ...
+#21 18.65 ✓ Compiled successfully in 14.6s
+#21 18.65   Running TypeScript ...
+#21 39.52   Finished TypeScript in 20.9s ...
+#21 39.53   Collecting page data using 3 workers ...
+#21 42.23   Generating static pages using 3 workers (0/6) ...
+#21 43.04   Generating static pages using 3 workers (1/6) 
+#21 43.04   Generating static pages using 3 workers (2/6) 
+#21 43.04   Generating static pages using 3 workers (4/6) 
+#21 43.04 ✓ Generating static pages using 3 workers (6/6) in 808ms
+#21 43.35   Finalizing page optimization ...
+#21 43.35   Collecting build traces ...
+#21 76.25 
+#21 76.25 Route (app)
+#21 76.25 ┌ ƒ /
+#21 76.25 ├ ○ /_not-found
+#21 76.25 ├ ƒ /admin
+#21 76.25 ├ ƒ /admin/login
+#21 76.25 ├ ƒ /api/admin/login
+#21 76.25 ├ ƒ /api/admin/logout
+#21 76.25 ├ ƒ /api/content
+#21 76.25 ├ ƒ /api/media
+#21 76.25 ├ ƒ /api/media/[id]
+#21 76.25 ├ ○ /calendar
+#21 76.25 ├ ○ /experience
+#21 76.25 ├ ○ /off-track
+#21 76.25 └ ○ /on-track
+#21 76.25 
+#21 76.25 
+#21 76.26 ○  (Static)   prerendered as static content
+#21 76.26 ƒ  (Dynamic)  server-rendered on demand
+#21 76.26 
+#21 77.27 自托管生产版本已生成，运行 npm run start:selfhost。
+#21 DONE 77.8s
+
+#14 [web builder 2/6] WORKDIR /app
+#14 CACHED
+
+#22 [web runtime 3/4] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#22 DONE 1.3s
+
+#23 [web runtime 4/4] RUN mkdir -p /app/data && chown node:node /app/data
+#23 DONE 0.3s
+
+#24 [web] exporting to image
+#24 exporting layers
+#24 exporting layers 2.4s done
+#24 writing image sha256:9a19ff5e38faca7c54e4e66d648584155bb3ce26c9f1d9d7e991ff29f0704804 done
+#24 naming to docker.io/library/furward-preview-web done
+#24 DONE 2.4s

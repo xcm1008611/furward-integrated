@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>导盲机器狗</title>
+  <style>
+    /* 高对比度：正文与背景对比度都在 7:1 以上 */
+    :root {
+      --bg: #ffffff;
+      --surface: #f3f1ee;
+      --ink: #0f1216;
+      --muted: #3b434d;
+      --line: #c9c3bb;
+      --brand: #0b4f6c;
+      --accent: #ffc400;
+      --accent-ink: #0f1216;
+      --danger: #c62828;
+      --danger-ink: #ffffff;
+      --ok: #1b6e2a;
+      --focus: #0055d4;
+      --alert-bg: #fdecea;
+
+      /* 地图配色取自 Blender 演示城市（暖橙微缩风格），调浅以突出路线 */
+      --map-bg: #f6e4d7;
+      --map-grid: #ecd3c1;
+      --map-walk: #fff7f0;
+      --map-walk-edge: #e3c3ad;
+      --map-road: #c79d89;
+      --map-lawn: #bcd29c;
+      --map-tree: #8fae6a;
+      --map-tree-2: #e9a07f;
+      --map-roof: #d8cce6;
+      --map-wall: #a596bd;
+      --map-shadow: rgba(92, 52, 64, .22);
+      --map-route: #0b5cad;
+      --map-casing: #ffffff;
+      --map-done: #8a96a3;
+      --map-start: #1b6e2a;
+      --map-end: #c62828;
+      --map-me: #ffc400;
+      --map-label-bg: rgba(255, 255, 255, .92);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --surface: #16191d;
+        --ink: #ffffff;
+        --muted: #c9d1da;
+        --line: #3b434c;
+        --brand: #9fdcea;
+        --accent: #ffd54f;
+        --accent-ink: #000000;
+        --danger: #ff5a52;
+        --danger-ink: #000000;
+        --ok: #81e08a;
+        --focus: #82b1ff;
+        --alert-bg: #3a1311;
+
+        --map-bg: #231d1a;
+        --map-grid: #2e2622;
+        --map-walk: #3b322d;
+        --map-walk-edge: #4a3e37;
+        --map-road: #57443b;
+        --map-lawn: #2f3f26;
+        --map-tree: #4f6b38;
+        --map-tree-2: #8a5440;
+        --map-roof: #4c4563;
+        --map-wall: #2f2a40;
+        --map-shadow: rgba(0, 0, 0, .45);
+        --map-route: #6cc4ff;
+        --map-casing: #000000;
+        --map-done: #6b7680;
+        --map-start: #81e08a;
+        --map-end: #ff7a72;
+        --map-me: #ffd54f;
+        --map-label-bg: rgba(0, 0, 0, .85);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 20px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      overflow-wrap: anywhere;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    button:disabled { opacity: .5; cursor: default; }
+    :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    .app { max-width: 560px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
+
+    /* 顶部：连接状态 + 页签 */
+    .top {
+      position: sticky; top: 0; z-index: 5; background: var(--bg);
+      padding: calc(8px + env(safe-area-inset-top)) 16px 10px;
+    }
+    .conn { display: flex; align-items: center; gap: 8px; font-size: 17px; color: var(--muted); min-height: 32px; }
+    .conn.off { color: var(--danger); font-weight: 700; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--muted); flex: none; }
+    .dot.on { background: var(--ok); }
+    .dot.off { background: var(--danger); }
+    .mode-chip { margin-left: auto; font-size: 15px; font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 2px solid var(--line); color: var(--ink); }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .tab {
+      min-height: 56px; border-radius: 14px; border: 2px solid var(--line);
+      background: var(--surface); font-weight: 700; font-size: 20px;
+    }
+    .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    main { flex: 1; padding: 6px 16px calc(var(--dock-h, 112px) + 24px + env(safe-area-inset-bottom)); }
+
+    /* 状态卡：最重要的信息 */
+    .status {
+      border-radius: 18px; padding: 16px 18px 18px; background: var(--surface);
+      border: 3px solid var(--line);
+    }
+    .status.moving { border-color: var(--brand); }
+    .status.done { border-color: var(--ok); }
+    .status.alert { border-color: var(--danger); background: var(--alert-bg); }
+    .status-label { font-size: 16px; color: var(--muted); margin: 0 0 2px; font-weight: 600; }
+    .status-main { font-size: 28px; font-weight: 800; line-height: 1.3; margin: 0; }
+    .status-sub { font-size: 19px; color: var(--muted); margin: 6px 0 0; }
+    .status-step { font-size: 21px; font-weight: 700; margin: 10px 0 0; padding-top: 10px; border-top: 2px dashed var(--line); }
+    .bar { height: 12px; border-radius: 999px; background: var(--line); margin-top: 14px; overflow: hidden; }
+    .bar > i { display: block; height: 100%; width: 0; background: var(--brand); transition: width .4s ease; }
+    .bar-text { display: flex; justify-content: space-between; font-size: 16px; color: var(--muted); margin-top: 4px; }
+    .link-btn {
+      margin-top: 12px; min-height: 48px; width: 100%; border-radius: 12px; border: 2px solid var(--line);
+      background: var(--bg); font-weight: 700; font-size: 18px;
+    }
+
+    .reply { margin: 18px 2px 0; }
+    .reply-label { font-size: 16px; color: var(--muted); margin: 0 0 2px; font-weight: 600; }
+    .reply-text { font-size: 24px; font-weight: 600; margin: 0; min-height: 1.5em; }
+
+    /* 说话输入 */
+    .say { margin-top: 20px; }
+    .say label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .say-hint { font-size: 16px; color: var(--muted); margin: 0 0 10px; }
+    .say-row { display: flex; gap: 10px; }
+    .say input {
+      flex: 1; min-width: 0; min-height: 64px; padding: 12px 16px;
+      border: 3px solid var(--ink); border-radius: 16px; background: var(--bg); font-size: 22px;
+    }
+    .btn {
+      min-height: 64px; padding: 10px 16px; border-radius: 16px; border: 2px solid var(--line);
+      background: var(--surface); font-weight: 700; font-size: 20px;
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .btn-ink { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    h2 { font-size: 20px; margin: 26px 2px 10px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid .btn { width: 100%; min-height: 72px; }
+    .grid .btn.wide { grid-column: 1 / -1; }
+
+    .setting { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; padding: 14px 16px; border-radius: 14px; background: var(--surface); }
+    .setting small { display: block; font-size: 15px; color: var(--muted); }
+    .switch { min-width: 84px; min-height: 48px; border-radius: 999px; border: 2px solid var(--line); background: var(--bg); font-weight: 700; font-size: 18px; }
+    .switch[aria-checked="true"] { background: var(--ok); color: var(--bg); border-color: var(--ok); }
+
+    /* 地图页 */
+    .map-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+    .map-title { font-size: 20px; font-weight: 800; margin: 0; }
+    .map-toggle { min-height: 44px; padding: 4px 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); font-weight: 700; font-size: 17px; }
+    .map-box {
+      position: relative; border-radius: 18px; overflow: hidden; background: var(--map-bg);
+      border: 2px solid var(--line); margin-top: 10px;
+    }
+    .map-box canvas, .map-box #amap { width: 100%; height: clamp(300px, 56vh, 480px); display: block; }
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 10px 2px 0; padding: 0; list-style: none; font-size: 16px; color: var(--muted); }
+    .legend li { display: flex; align-items: center; gap: 6px; }
+    .sw { width: 22px; height: 10px; border-radius: 3px; flex: none; border: 1px solid var(--line); }
+    .sw.round { width: 14px; height: 14px; border-radius: 50%; }
+    .map-note { font-size: 15px; color: var(--muted); margin: 6px 2px 0; }
+    .steps { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps li {
+      display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: start;
+      padding: 12px 4px; border-bottom: 1px solid var(--line); color: var(--muted);
+    }
+    .steps li::before {
+      counter-increment: step; content: counter(step);
+      width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+      font-weight: 800; font-size: 17px; background: var(--surface); border: 2px solid var(--line); color: var(--ink);
+    }
+    .steps li.done { text-decoration: line-through; text-decoration-thickness: 2px; }
+    .steps li.done::before { content: "✓"; background: var(--line); }
+    .steps li.current { color: var(--ink); font-weight: 800; background: var(--surface); border-radius: 12px; }
+    .steps li.current::before { background: var(--brand); color: var(--bg); border-color: var(--brand); }
+    .steps small { display: block; font-size: 16px; font-weight: 500; color: var(--muted); }
+    .empty { color: var(--muted); }
+
+    /* 底部常驻：停止 + 导航控制 */
+    .dock {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: var(--bg);
+      border-top: 2px solid var(--line);
+      box-shadow: 0 -6px 18px rgba(0, 0, 0, .08);
+    }
+    .dock-inner { max-width: 560px; margin: 0 auto; display: grid; gap: 10px; }
+    .dock .stop {
+      min-height: 76px; border: 0; border-radius: 18px; width: 100%;
+      background: var(--danger); color: var(--danger-ink); font-size: 28px; font-weight: 800; letter-spacing: .1em;
+    }
+    /* 隐藏的按钮不占格，只剩“结束导航”时自动占满整行 */
+    .dock-nav { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; }
+    .dock-nav .btn { min-height: 64px; width: 100%; }
+    .btn-end { background: var(--bg); border: 3px solid var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bar > i { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="conn" id="conn" role="status"><span class="dot" id="connDot" aria-hidden="true"></span><span id="connText">正在连接机器狗…</span><span class="mode-chip" id="modeChip">室内</span></div>
+      <div class="tabs" role="tablist" aria-label="页面">
+        <button class="tab" role="tab" id="tabTalk" aria-selected="true" aria-controls="panelTalk">对话</button>
+        <button class="tab" role="tab" id="tabMap" aria-selected="false" aria-controls="panelMap" tabindex="-1">地图</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- 读屏播报区：状态变化、障碍提醒都从这里读出 -->
+      <div class="sr-only" aria-live="polite" id="announcePolite"></div>
+      <div class="sr-only" aria-live="assertive" id="announceUrgent"></div>
+
+      <!-- 状态卡在两个页签都显示 -->
+      <section class="status" id="status" aria-labelledby="statusMain">
+        <p class="status-label">当前状态</p>
+        <p class="status-main" id="statusMain">还没有目的地</p>
+        <p class="status-sub" id="statusSub">说"带我去服务台"，或在下面输入目的地</p>
+        <p class="status-step" id="statusStep" hidden></p>
+        <div id="progress" hidden>
+          <div class="bar" aria-hidden="true"><i id="statusBarFill"></i></div>
+          <div class="bar-text"><span id="progressDone"></span><span id="progressLeft"></span></div>
+        </div>
+        <button class="link-btn" type="button" id="btnShowMap" hidden>查看路线地图</button>
+      </section>
+
+      <!-- 对话页 -->
+      <section role="tabpanel" id="panelTalk" aria-labelledby="tabTalk">
+        <div class="reply">
+          <p class="reply-label">机器狗说</p>
+          <p class="reply-text" id="replyText">你好，我是你的导盲机器狗。</p>
+        </div>
+
+        <form class="say" id="sayForm">
+          <label for="sayInput">对机器狗说话</label>
+          <p class="say-hint" id="sayHint">可以直接对机器狗说；也可以点输入框，按键盘上的麦克风说完后点"发送"。</p>
+          <div class="say-row">
+            <input id="sayInput" type="text" autocomplete="off" autocorrect="off" enterkeyhint="send" aria-describedby="sayHint" placeholder="例如：带我去门口">
+            <button class="btn btn-primary" type="submit">发送</button>
+          </div>
+        </form>
+
+        <h2 id="placesTitle">去哪里</h2>
+        <div class="grid" id="places" aria-labelledby="placesTitle"></div>
+
+        <h2 id="quickTitle">常用</h2>
+        <div class="grid" aria-labelledby="quickTitle">
+          <button class="btn" type="button" data-say="前面有什么">前面有什么</button>
+          <button class="btn" type="button" data-say="现在什么状态">我到哪了</button>
+          <button class="btn" type="button" data-say="再说一遍">再说一遍</button>
+          <button class="btn" type="button" data-say="你还有多少电">还有多少电</button>
+        </div>
+
+        <div class="setting">
+          <div><span id="ttsLabel">手机也朗读回复</span><small>开着读屏时建议关闭，避免重复</small></div>
+          <button class="switch" type="button" role="switch" id="ttsSwitch" aria-checked="false" aria-labelledby="ttsLabel">关</button>
+        </div>
+      </section>
+
+      <!-- 地图页：图给陪同的人看，下面的步骤列表给读屏用 -->
+      <section role="tabpanel" id="panelMap" aria-labelledby="tabMap" hidden>
+        <div class="map-head">
+          <p class="map-title" id="mapTitle">路线地图</p>
+          <button class="map-toggle" type="button" id="btnMapView" aria-pressed="false" hidden>看全图</button>
+        </div>
+        <div class="map-box">
+          <canvas id="mapCanvas" role="img" aria-label="路线示意图"></canvas>
+          <div id="amap" hidden></div>
+        </div>
+        <ul class="legend" id="legend" aria-hidden="true"></ul>
+        <p class="map-note" id="mapNote"></p>
+        <h2 id="stepsTitle">路线步骤</h2>
+        <ol class="steps" id="steps" aria-labelledby="stepsTitle"></ol>
+        <p class="empty" id="stepsEmpty">还没有路线</p>
+        <div class="grid" style="margin-top:14px" id="stepActions" hidden>
+          <button class="btn" type="button" id="btnRepeat">再说一遍</button>
+          <button class="btn btn-ink" type="button" id="btnNext">下一步</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="dock" id="dock">
+    <div class="dock-inner">
+      <button class="stop" type="button" id="btnStop">停止</button>
+      <div class="dock-nav" id="dockNav" hidden>
+        <button class="btn btn-primary" type="button" id="btnResume" hidden>继续走</button>
+        <button class="btn btn-end" type="button" id="btnEnd">结束导航</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const NAV_TEXT = { user: '你让我停下了', obstacle: '前方有障碍', stop: '已停止' };
+    const ACTIVE_STATES = ['IDLE', 'ACTIVE', 'PAUSED'];
+    const $ = id => document.getElementById(id);
+    const state = {
+      mode: 'indoor', config: null, map: null, city: null, route: null, nav: {}, robot: null,
+      tts: false, lastStatusKey: '', lastStep: null, lastObstacle: 'clear', pending: 0, mapWide: false,
+    };
+
+    // ===== 播报 =====
+    function announce(text, urgent) {
+      // 先清空再写入，保证相同的句子也会被读屏再次读出
+      const region = urgent ? $('announceUrgent') : $('announcePolite');
+      region.textContent = '';
+      setTimeout(() => { region.textContent = text; }, 50);
+      speak(text);
+    }
+
+    function speak(text) {
+      if (!state.tts || !('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-CN';
+      speechSynthesis.speak(u);
+    }
+
+    function buzz(pattern) {
+      if (navigator.vibrate) navigator.vibrate(pattern);
+    }
+
+    async function api(path, body, quiet) {
+      const init = body === undefined ? {} : {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+      };
+      let res;
+      try {
+        res = await fetch(path, init);
+      } catch {
+        if (!quiet) announce('连不上机器狗，请检查网络', true);
+        throw new Error('network');
+      }
+      const json = await res.json().catch(() => ({}));
+      if (!json.ok) {
+        const message = json.message || '操作没有成功';
+        if (!quiet) {
+          setReply(message);
+          announce(message, false);
+        }
+        throw new Error(json.error || 'error');
+      }
+      return json.data;
+    }
+
+    // ===== 页签 =====
+    function selectTab(name, focus) {
+      const talk = name !== 'map';
+      $('tabTalk').setAttribute('aria-selected', String(talk));
+      $('tabMap').setAttribute('aria-selected', String(!talk));
+      $('tabTalk').tabIndex = talk ? 0 : -1;
+      $('tabMap').tabIndex = talk ? -1 : 0;
+      $('panelTalk').hidden = !talk;
+      $('panelMap').hidden = talk;
+      history.replaceState(null, '', talk ? location.pathname : '#map');
+      if (focus) (talk ? $('tabTalk') : $('tabMap')).focus();
+      renderStatus();
+    }
+
+    // ===== 对话 =====
+    function setReply(text) {
+      $('replyText').textContent = text;
+    }
+
+    async function send(text) {
+      text = text.trim();
+      if (!text) return;
+      state.pending++;
+      setReply('……');
+      try {
+        const reply = await api('/api/voice/text', { text });
+        if (reply && reply.text) {
+          setReply(reply.text);
+          announce(reply.text, false);
+        }
+      } catch {
+        /* api 已经播报了失败原因 */
+      } finally {
+        state.pending--;
+      }
+    }
+
+    function placeButton(label, say) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn';
+      b.textContent = label;
+      b.addEventListener('click', () => send(say));
+      return b;
+    }
+
+    function renderPlaces() {
+      const box = $('places');
+      box.replaceChildren();
+      if (state.mode === 'indoor') {
+        for (const w of (state.config ? state.config.indoor_waypoints : [])) box.append(placeButton('去' + w.name, '带我去' + w.name));
+      } else if (state.city) {
+        // 室外离线演示：Blender 演示城市里的固定路线
+        const b = placeButton('演示路线：去' + state.city.destination_name, '带我去演示路线');
+        box.append(b);
+      }
+      $('placesTitle').hidden = box.hidden = !box.children.length;
+      if (box.children.length % 2) box.lastElementChild.classList.add('wide');
+    }
+
+    // ===== 状态 =====
+    function renderRobot(r) {
+      state.robot = r;
+      const online = !!(r && r.online);
+      $('connDot').className = 'dot ' + (online ? 'on' : 'off');
+      $('conn').classList.toggle('off', !online);
+      let text = online ? '机器狗已连接' : '机器狗未连接';
+      if (online && r.battery != null) text += '，电量 ' + r.battery + '%';
+      $('connText').textContent = text;
+    }
+
+    function currentRoute() {
+      return state.route && state.route.mode === state.mode ? state.route : null;
+    }
+
+    function navStatus() {
+      return currentRoute() ? (state.nav.status || 'IDLE') : 'NONE';
+    }
+
+    // 当前第几步（0 起），到达后等于步骤总数
+    function stepIndex(route) {
+      const n = state.nav.current_step != null ? state.nav.current_step : route.current_step;
+      return Math.max(0, Math.min(route.steps.length, n || 0));
+    }
+
+    function remainingMeters(route) {
+      if (state.nav.remaining_m != null) return Math.max(0, state.nav.remaining_m);
+      return route.distance_m || 0;
+    }
+
+    function meters(m) {
+      return m >= 100 ? Math.round(m) + ' 米' : m.toFixed(m < 10 ? 1 : 0) + ' 米';
+    }
+
+    function renderStatus() {
+      const route = currentRoute();
+      const nav = state.nav || {};
+      const status = navStatus();
+      const dest = route ? route.destination_name : '';
+      const total = route ? route.distance_m || 0 : 0;
+      const remaining = route ? remainingMeters(route) : 0;
+      const outdoor = state.mode === 'outdoor';
+      let main = '还没有目的地', sub = outdoor ? '说"带我去演示路线"，或说一个地名' : '说"带我去服务台"，或在下面输入目的地', cls = '';
+      if (status === 'IDLE') {
+        main = '路线已规划：去' + dest;
+        sub = '全程约 ' + meters(total) + (outdoor ? '，说"下一步"听下一段' : '');
+      } else if (status === 'ACTIVE') {
+        main = '正在去' + dest;
+        sub = '还剩约 ' + meters(remaining);
+        cls = 'moving';
+      } else if (status === 'PAUSED') {
+        main = '已暂停：' + (NAV_TEXT[nav.pause_reason] || '已停下');
+        sub = '点"继续走"接着走，或点"结束导航"。还剩约 ' + meters(remaining);
+        cls = nav.pause_reason === 'obstacle' ? 'alert' : '';
+      } else if (status === 'DONE') {
+        main = '已到达' + dest;
+        sub = '可以说下一个目的地';
+        cls = 'done';
+      } else if (status === 'CANCELLED') {
+        main = '导航已结束';
+        sub = '可以说下一个目的地';
+      } else if (status === 'FAILED') {
+        main = '导航没有完成';
+        sub = '请让陪同的人检查机器狗，或点"结束导航"';
+        cls = 'alert';
+      }
+      if (state.lastObstacle === 'stop' && status === 'ACTIVE') cls = 'alert';
+      $('statusMain').textContent = main;
+      $('statusSub').textContent = sub;
+      $('status').className = 'status ' + cls;
+
+      // 当前这一步的指令，盲人最需要
+      const index = route ? stepIndex(route) : 0;
+      const step = route && ['IDLE', 'ACTIVE', 'PAUSED'].includes(status) ? route.steps[index] : null;
+      $('statusStep').hidden = !step;
+      if (step) $('statusStep').textContent = '第 ' + (index + 1) + ' / ' + route.steps.length + ' 步：' + step.instruction;
+
+      const showBar = route && total > 0 && ['ACTIVE', 'PAUSED', 'DONE'].includes(status);
+      $('progress').hidden = !showBar;
+      if (showBar) {
+        const done = status === 'DONE' ? 1 : Math.min(1, Math.max(0, 1 - remaining / total));
+        $('statusBarFill').style.width = (done * 100).toFixed(0) + '%';
+        $('progressDone').textContent = '已走 ' + meters(total * done);
+        $('progressLeft').textContent = '全程 ' + meters(total);
+      }
+      $('btnShowMap').hidden = !route || status === 'CANCELLED' || !$('panelMap').hidden;
+
+      // 只在状态改变时播报，进度刷新不打扰用户
+      const key = status + '|' + dest + '|' + (nav.pause_reason || '');
+      if (key !== state.lastStatusKey) {
+        const first = state.lastStatusKey === '';
+        state.lastStatusKey = key;
+        state.lastStep = index;
+        if (!first && status !== 'NONE') {
+          const urgent = status === 'PAUSED' && nav.pause_reason === 'obstacle';
+          announce(main + '。' + sub, urgent);
+          if (status === 'DONE') buzz([200, 100, 200]);
+          if (status === 'CANCELLED') buzz(120);
+        }
+      } else if (step && index !== state.lastStep) {
+        // 进入新的一步时读出指令
+        state.lastStep = index;
+        if (outdoor) announce(step.instruction, false);
+        buzz(60);
+      }
+      renderDock();
+      renderSteps();
+    }
+
+    function renderDock() {
+      const status = navStatus();
+      const hasNav = ACTIVE_STATES.includes(status) || status === 'FAILED';
+      $('dockNav').hidden = !hasNav;
+      $('btnResume').hidden = status !== 'PAUSED';
+      $('btnStop').textContent = status === 'ACTIVE' ? '停下' : '停止';
+      // 让正文底部留出底栏的高度
+      requestAnimationFrame(() => document.documentElement.style.setProperty('--dock-h', $('dock').offsetHeight + 'px'));
+    }
+
+    function renderObstacle(d) {
+      const level = d ? d.level : 'clear';
+      if (level === state.lastObstacle) return;
+      state.lastObstacle = level;
+      if (level === 'stop') {
+        const where = d.detections && d.detections[0] && d.detections[0].position;
+        announce('注意，' + (where || '前方') + '有障碍', true);
+        buzz([400, 150, 400]);
+      }
+      renderStatus();
+    }
+
+    async function endNav() {
+      buzz(80);
+      // 直接调导航接口，不经过语音理解，保证一定能结束
+      try {
+        await api('/api/nav/cancel', {});
+        setReply('好的，导航已结束');
+      } catch { /* 已播报 */ }
+    }
+
+    // ===== 地图页 =====
+    function renderSteps() {
+      const route = currentRoute();
+      const status = navStatus();
+      const list = $('steps');
+      list.replaceChildren();
+      const show = route && status !== 'CANCELLED';
+      $('stepsEmpty').hidden = !!show;
+      $('stepsEmpty').textContent = status === 'CANCELLED' ? '导航已结束，还没有新路线' : '还没有路线';
+      $('stepActions').hidden = !(show && state.mode === 'outdoor' && ['IDLE', 'ACTIVE'].includes(status));
+      if (show) {
+        const current = stepIndex(route);
+        route.steps.forEach((s, i) => {
+          const li = document.createElement('li');
+          const text = document.createElement('span');
+          text.textContent = s.instruction;
+          const small = document.createElement('small');
+          small.textContent = (s.distance_m ? '约 ' + meters(s.distance_m) : '') + (i < current ? ' · 已完成' : i === current ? ' · 当前' : '');
+          text.append(small);
+          li.append(text);
+          if (i < current) li.className = 'done';
+          if (i === current) {
+            li.className = 'current';
+            li.setAttribute('aria-current', 'step');
+          }
+          list.append(li);
+        });
+      }
+      if (!$('panelMap').hidden) drawMap();
+    }
+
+    function tokens() {
+      const css = getComputedStyle(document.documentElement);
+      const t = {};
+      for (const name of ['ink', 'muted', 'bg', 'map-bg', 'map-grid', 'map-walk', 'map-walk-edge', 'map-road', 'map-lawn', 'map-tree',
+        'map-tree-2', 'map-roof', 'map-wall', 'map-shadow', 'map-route', 'map-casing', 'map-done', 'map-start', 'map-end', 'map-me', 'map-label-bg']) {
+        t[name] = css.getPropertyValue('--' + name).trim();
+      }
+      return t;
+    }
+
+    // 室外经纬度换算到演示城市的米制坐标（与导出脚本的换算一致）
+    function cityPoint(p) {
+      const a = state.city.anchor;
+      return [a.x + (p[0] - a.lng) * 111320 * Math.cos(a.lat * Math.PI / 180), a.y + (p[1] - a.lat) * 110540];
+    }
+
+    // 普通室外路线：以起点为原点换成米，北朝上
+    function localPoint(origin) {
+      const k = 111320 * Math.cos(origin[1] * Math.PI / 180);
+      return p => [(p[0] - origin[0]) * k, (p[1] - origin[1]) * 110540];
+    }
+
+    function isCityRoute(route) {
+      return !!(route && state.city && route.route_id === 'demo-city');
+    }
+
+    // 把折线在离点 p 最近的位置切成已走 / 未走两段
+    function splitAt(points, p) {
+      if (points.length < 2 || !p) return [[], points];
+      let best = { d: Infinity, i: 0, q: points[0] };
+      for (let i = 0; i < points.length - 1; i++) {
+        const [a, b] = [points[i], points[i + 1]];
+        const dx = b[0] - a[0], dy = b[1] - a[1], len = dx * dx + dy * dy || 1e-9;
+        const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / len));
+        const q = [a[0] + t * dx, a[1] + t * dy];
+        const d = Math.hypot(p[0] - q[0], p[1] - q[1]);
+        if (d < best.d) best = { d, i, q };
+      }
+      return [[...points.slice(0, best.i + 1), best.q], [best.q, ...points.slice(best.i + 1)]];
+    }
+
+    function niceLength(m) {
+      for (const n of [1, 2, 5, 10, 20, 25, 50, 100, 200, 500, 1000, 2000, 5000]) if (n >= m) return n;
+      return 10000;
+    }
+
+    function drawCanvas() {
+      const canvas = $('mapCanvas');
+      // 室内房间是扁长方形，按比例收矮画布，免得上下大片留白
+      const room = state.mode === 'indoor' && state.map;
+      canvas.style.height = room ? Math.round(Math.min(480, (canvas.clientWidth - 88) * room.height_m / room.width_m + 100)) + 'px' : '';
+      const w = canvas.clientWidth || 320, h = canvas.clientHeight || 340, dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const t = tokens();
+      const indoor = state.mode === 'indoor', m = state.map, route = currentRoute(), status = navStatus();
+      const city = !indoor && isCityRoute(route);
+      const showRoute = route && status !== 'CANCELLED';
+      ctx.fillStyle = t['map-bg'];
+      ctx.fillRect(0, 0, w, h);
+
+      // 1. 选择坐标系和视野
+      let toXY = p => p, bounds;
+      const routePts = () => (route ? route.polyline.map(toXY) : []);
+      if (indoor) {
+        bounds = [0, 0, (m && m.width_m) || 6, (m && m.height_m) || 4];
+      } else if (city) {
+        toXY = cityPoint;
+        const pts = routePts();
+        bounds = state.mapWide ? [0, 0, state.city.width_m, state.city.height_m] : [
+          Math.min(...pts.map(p => p[0])), Math.min(...pts.map(p => p[1])),
+          Math.max(...pts.map(p => p[0])), Math.max(...pts.map(p => p[1]))];
+      } else if (route && route.polyline.length) {
+        toXY = localPoint(route.polyline[0]);
+        const pts = routePts();
+        bounds = [Math.min(...pts.map(p => p[0])), Math.min(...pts.map(p => p[1])),
+          Math.max(...pts.map(p => p[0])), Math.max(...pts.map(p => p[1]))];
+      }
+      if (!bounds) {
+        ctx.fillStyle = t.muted;
+        ctx.font = '600 18px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('还没有路线', w / 2, h / 2);
+        return;
+      }
+      // 路线视野四周留出街景；全图或室内只留标签空间
+      const pad = city && !state.mapWide ? 22 : 0;
+      let [x0, y0, x1, y1] = bounds;
+      x0 -= pad; y0 -= pad; x1 += pad; y1 += pad;
+      const margin = indoor ? 44 : 40;
+      const scale = Math.min((w - margin * 2) / Math.max(x1 - x0, 1e-3), (h - margin * 2) / Math.max(y1 - y0, 1e-3));
+      const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+      const P = p => [w / 2 + (p[0] - cx) * scale, h / 2 - (p[1] - cy) * scale];
+
+      const path = (pts, close) => {
+        ctx.beginPath();
+        pts.forEach((p, i) => { const q = P(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+        if (close) ctx.closePath();
+      };
+      const fillRings = (rings, color) => {
+        ctx.beginPath();
+        for (const ring of rings) {
+          ring.forEach((p, i) => { const q = P(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+          ctx.closePath();
+        }
+        ctx.fillStyle = color;
+        ctx.fill('evenodd');
+      };
+      const stroke = (pts, color, width, dash) => {
+        if (pts.length < 2) return;
+        path(pts);
+        ctx.setLineDash(dash || []);
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.stroke();
+        ctx.setLineDash([]);
+      };
+      const label = (text, x, y, opt = {}) => {
+        ctx.font = (opt.weight || 700) + ' ' + (opt.size || 15) + 'px -apple-system, "PingFang SC", system-ui, sans-serif';
+        const tw = ctx.measureText(text).width, ph = (opt.size || 15) + 10, pw = tw + 16;
+        let lx = Math.max(4, Math.min(w - pw - 4, x - pw / 2)), ly = Math.max(4, Math.min(h - ph - 4, y - ph / 2));
+        ctx.fillStyle = opt.bg || t['map-label-bg'];
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(lx, ly, pw, ph, 8) : ctx.rect(lx, ly, pw, ph);
+        ctx.fill();
+        if (opt.border) { ctx.strokeStyle = opt.border; ctx.lineWidth = 2; ctx.stroke(); }
+        ctx.fillStyle = opt.color || t.ink;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(text, lx + pw / 2, ly + ph / 2 + 1);
+        ctx.textBaseline = 'alphabetic';
+      };
+      const pin = (p, color, text, name) => {
+        const [x, y] = P(p);
+        ctx.fillStyle = t['map-shadow'];
+        ctx.beginPath(); ctx.ellipse(x, y + 2, 9, 4, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.bezierCurveTo(x - 6, y - 10, x - 15, y - 16, x - 15, y - 27);
+        ctx.arc(x, y - 27, 15, Math.PI, 0);
+        ctx.bezierCurveTo(x + 15, y - 16, x + 6, y - 10, x, y);
+        ctx.fillStyle = color; ctx.fill();
+        ctx.strokeStyle = t['map-casing']; ctx.lineWidth = 2.5; ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 15px -apple-system, "PingFang SC", system-ui, sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(text, x, y - 27);
+        ctx.textBaseline = 'alphabetic';
+        if (name) label(name, x, y - 58, { size: 15 });
+      };
+
+      // 2. 底图
+      if (indoor) {
+        // 1 米网格帮助估计距离
+        ctx.strokeStyle = t['map-grid']; ctx.lineWidth = 1;
+        for (let gx = 0; gx <= bounds[2]; gx++) { path([[gx, 0], [gx, bounds[3]]]); ctx.stroke(); }
+        for (let gy = 0; gy <= bounds[3]; gy++) { path([[0, gy], [bounds[2], gy]]); ctx.stroke(); }
+        path([[0, 0], [bounds[2], 0], [bounds[2], bounds[3]], [0, bounds[3]]], true);
+        ctx.strokeStyle = t.ink; ctx.lineWidth = 4; ctx.stroke();
+        if (m) {
+          for (const [a, b] of m.edges) stroke([m.waypoints[a], m.waypoints[b]].map(p => [p.x, p.y]), t['map-walk-edge'], 26);
+          for (const [a, b] of m.edges) stroke([m.waypoints[a], m.waypoints[b]].map(p => [p.x, p.y]), t['map-walk'], 20);
+        }
+      } else if (city) {
+        const c = state.city;
+        fillRings(c.ground, t['map-bg']);
+        fillRings(c.lawns, t['map-lawn']);
+        fillRings(c.roads, t['map-road']);
+        fillRings(c.walks, t['map-walk']);
+        // 树：两种暖色相间，呼应场景里的珊瑚色和橄榄绿树冠
+        c.trees.forEach((p, i) => {
+          const [x, y] = P(p);
+          ctx.beginPath(); ctx.arc(x, y, Math.max(2.5, 2.2 * scale), 0, Math.PI * 2);
+          ctx.fillStyle = i % 3 ? t['map-tree'] : t['map-tree-2']; ctx.fill();
+        });
+        // 建筑：屋顶向上抬起一点，做出 Blender 俯视图里的立体感
+        for (const b of c.buildings) {
+          const lift = Math.min(14, Math.max(3, b.h * scale * 0.18));
+          const base = b.poly.map(P);
+          ctx.beginPath();
+          base.forEach(([x, y], i) => (i ? ctx.lineTo(x + lift * 0.5, y + lift * 0.4) : ctx.moveTo(x + lift * 0.5, y + lift * 0.4)));
+          ctx.closePath(); ctx.fillStyle = t['map-shadow']; ctx.fill();
+          ctx.beginPath(); base.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath();
+          ctx.fillStyle = t['map-wall']; ctx.fill();
+          ctx.beginPath(); base.forEach(([x, y], i) => (i ? ctx.lineTo(x, y - lift) : ctx.moveTo(x, y - lift))); ctx.closePath();
+          ctx.fillStyle = t['map-roof']; ctx.fill();
+          ctx.strokeStyle = t['map-wall']; ctx.lineWidth = 1; ctx.stroke();
+        }
+      } else {
+        // 普通室外示意：淡网格，避免误以为是真实街道
+        ctx.strokeStyle = t['map-grid']; ctx.lineWidth = 1;
+        const step = niceLength(40 / scale);
+        for (let gx = Math.floor(x0 / step) * step; gx <= x1; gx += step) { path([[gx, y0], [gx, y1]]); ctx.stroke(); }
+        for (let gy = Math.floor(y0 / step) * step; gy <= y1; gy += step) { path([[x0, gy], [x1, gy]]); ctx.stroke(); }
+      }
+
+      // 3. 路线：白色描边 + 已走灰 / 未走蓝
+      // 室内没有路线时也显示机器狗在哪
+      let me = indoor && state.nav.pose ? [state.nav.pose[0], state.nav.pose[1]] : null;
+      if (showRoute) {
+        const pts = routePts();
+        const index = stepIndex(route);
+        if (indoor) {
+          // 位置已在上面取好
+        } else if (status === 'DONE') {
+          me = pts[pts.length - 1];
+        } else {
+          me = index > 0 && route.steps[index - 1] ? toXY(route.steps[index - 1].end) : pts[0];
+        }
+        const [done, rest] = status === 'DONE' ? [pts, []] : splitAt(pts, me);
+        stroke(pts, t['map-casing'], 13);
+        stroke(done, t['map-done'], 7);
+        stroke(rest, t['map-route'], 7);
+        // 方向箭头
+        if (rest.length > 1) {
+          ctx.fillStyle = t['map-casing'];
+          for (let i = 0; i < rest.length - 1; i++) {
+            const [ax, ay] = P(rest[i]), [bx, by] = P(rest[i + 1]);
+            const len = Math.hypot(bx - ax, by - ay), ang = Math.atan2(by - ay, bx - ax);
+            for (let d = 28; d < len - 14; d += 56) {
+              ctx.save();
+              ctx.translate(ax + Math.cos(ang) * d, ay + Math.sin(ang) * d);
+              ctx.rotate(ang);
+              ctx.beginPath(); ctx.moveTo(4, 0); ctx.lineTo(-3, -4); ctx.lineTo(-3, 4); ctx.closePath(); ctx.fill();
+              ctx.restore();
+            }
+          }
+        }
+        // 室外拐点编号，与下方步骤列表对应
+        if (!indoor) {
+          route.steps.forEach((s, i) => {
+            if (i === 0) return;
+            const [x, y] = P(toXY(route.steps[i - 1].end));
+            ctx.beginPath(); ctx.arc(x, y, 11, 0, Math.PI * 2);
+            ctx.fillStyle = i < index ? t['map-done'] : t['map-route']; ctx.fill();
+            ctx.strokeStyle = t['map-casing']; ctx.lineWidth = 2.5; ctx.stroke();
+            ctx.fillStyle = t['map-casing'] === '#000000' ? '#000' : '#fff';
+            ctx.font = '800 13px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(String(i + 1), x, y + 1);
+            ctx.textBaseline = 'alphabetic';
+          });
+        }
+      }
+
+      // 4. 地点与起终点
+      if (indoor && m) {
+        for (const p of Object.values(m.waypoints)) {
+          const [x, y] = P([p.x, p.y]);
+          const isEnd = showRoute && route.destination_name === p.name;
+          ctx.beginPath(); ctx.arc(x, y, isEnd ? 10 : 8, 0, Math.PI * 2);
+          ctx.fillStyle = isEnd ? t['map-end'] : t.ink; ctx.fill();
+          ctx.strokeStyle = t['map-casing']; ctx.lineWidth = 3; ctx.stroke();
+          label(p.name, x, y > 40 ? y - 26 : y + 26, { size: 16, border: isEnd ? t['map-end'] : null });
+        }
+      } else if (showRoute) {
+        const pts = routePts();
+        const startName = city ? state.city.start_name : '起点';
+        pin(pts[0], t['map-start'], '起', startName);
+        pin(pts[pts.length - 1], t['map-end'], '终', route.destination_name);
+      }
+
+      // 5. 机器狗位置
+      if (me) {
+        const [x, y] = P(me);
+        ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fillStyle = t['map-me'] + '55'; ctx.fill();
+        ctx.save();
+        ctx.translate(x, y);
+        if (indoor && state.nav.pose) {
+          ctx.rotate(-state.nav.pose[2] * Math.PI / 180);
+          ctx.beginPath();
+          ctx.moveTo(17, 0); ctx.lineTo(-10, -12); ctx.lineTo(-5, 0); ctx.lineTo(-10, 12); ctx.closePath();
+        } else {
+          ctx.beginPath(); ctx.arc(0, 0, 10, 0, Math.PI * 2);
+        }
+        ctx.fillStyle = t['map-me']; ctx.strokeStyle = t.ink; ctx.lineWidth = 2.5;
+        ctx.fill(); ctx.stroke();
+        ctx.restore();
+      }
+
+      // 6. 指北针（室内地图没有真实朝向，不画）与比例尺
+      if (!indoor) {
+        ctx.save();
+        ctx.translate(w - 26, 30);
+        ctx.beginPath(); ctx.arc(0, 0, 18, 0, Math.PI * 2); ctx.fillStyle = t['map-label-bg']; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(0, -12); ctx.lineTo(6, 6); ctx.lineTo(0, 2); ctx.lineTo(-6, 6); ctx.closePath();
+        ctx.fillStyle = t.ink; ctx.fill();
+        ctx.restore();
+        ctx.font = '800 12px system-ui, sans-serif'; ctx.fillStyle = t.ink; ctx.textAlign = 'center';
+        ctx.fillText('北', w - 26, 62);
+      }
+      const barM = niceLength(70 / scale), barPx = barM * scale;
+      ctx.fillStyle = t['map-label-bg'];
+      ctx.fillRect(10, h - 34, barPx + 60, 26);
+      ctx.strokeStyle = t.ink; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(18, h - 16); ctx.lineTo(18, h - 12); ctx.lineTo(18 + barPx, h - 12); ctx.lineTo(18 + barPx, h - 16); ctx.stroke();
+      ctx.font = '700 13px system-ui, sans-serif'; ctx.fillStyle = t.ink; ctx.textAlign = 'left';
+      ctx.fillText(barM + ' 米', 24 + barPx, h - 12);
+    }
+
+    function legendItems() {
+      const t = tokens(), indoor = state.mode === 'indoor', route = currentRoute();
+      const items = [['路线（未走）', t['map-route']], ['已走过', t['map-done']], [indoor ? '机器狗位置和朝向' : '当前位置', t['map-me'], true]];
+      if (!indoor) items.push(['起点', t['map-start'], true], ['终点', t['map-end'], true]);
+      if (indoor) items.push(['可走通道', t['map-walk-edge']]);
+      if (isCityRoute(route)) items.push(['建筑', t['map-roof']], ['草地', t['map-lawn']], ['人行道', t['map-walk-edge']]);
+      return items;
+    }
+
+    function renderLegend(show) {
+      const box = $('legend');
+      box.replaceChildren();
+      if (!show) return;
+      for (const [text, color, round] of legendItems()) {
+        const li = document.createElement('li');
+        const sw = document.createElement('span');
+        sw.className = 'sw' + (round ? ' round' : '');
+        sw.style.background = color;
+        li.append(sw, text);
+        box.append(li);
+      }
+    }
+
+    function mapDescription() {
+      const route = currentRoute(), status = navStatus();
+      if (!route || status === 'CANCELLED') return '路线地图：还没有路线';
+      const index = stepIndex(route);
+      const step = route.steps[index];
+      let text = (state.mode === 'indoor' ? '室内路线图' : isCityRoute(route) ? '演示城市路线图' : '室外路线图')
+        + '：去' + route.destination_name + '，全程约 ' + meters(route.distance_m || 0) + '，共 ' + route.steps.length + ' 步';
+      if (status === 'DONE') text += '，已到达';
+      else if (step) text += '，当前第 ' + (index + 1) + ' 步：' + step.instruction;
+      const pose = state.nav.pose;
+      if (state.mode === 'indoor' && pose) text += '。机器狗估计位置 x ' + pose[0].toFixed(1) + ' 米，y ' + pose[1].toFixed(1) + ' 米';
+      return text;
+    }
+
+    function loadAmap() {
+      if (state.amapPromise) return state.amapPromise;
+      state.amapPromise = new Promise((resolve, reject) => {
+        window._AMapSecurityConfig = { securityJsCode: state.config.amap_security_code };
+        const script = document.createElement('script');
+        const timer = setTimeout(() => reject(new Error('timeout')), 10000);
+        script.src = 'https://webapi.amap.com/maps?v=2.0&key=' + encodeURIComponent(state.config.amap_js_key);
+        script.onload = () => { clearTimeout(timer); window.AMap ? resolve() : reject(new Error('load')); };
+        script.onerror = () => { clearTimeout(timer); reject(new Error('load')); };
+        document.head.append(script);
+      });
+      return state.amapPromise;
+    }
+
+    let mapGeneration = 0;
+    async function drawMap() {
+      const generation = ++mapGeneration;
+      const outdoor = state.mode === 'outdoor', route = currentRoute(), status = navStatus();
+      const city = isCityRoute(route);
+      const hasRoute = route && status !== 'CANCELLED';
+      $('mapCanvas').setAttribute('aria-label', mapDescription());
+      $('mapTitle').textContent = !outdoor ? '室内地图' : city ? '演示城市地图' : '室外路线';
+      $('btnMapView').hidden = !(city && hasRoute);
+      $('btnMapView').textContent = state.mapWide ? '看路线' : '看全图';
+      $('btnMapView').setAttribute('aria-pressed', String(state.mapWide));
+      $('mapNote').textContent = !outdoor ? '俯视图，1 格 = 1 米；黄色箭头是机器狗估计的位置和朝向'
+        : city ? '演示用虚构城市（来自 Blender 场景），不是真实街道；数字圆点对应下面的步骤'
+        : route && route.sample ? '占位示例路线，不是真实街道' : '路线示意图，北朝上';
+      renderLegend(hasRoute || !outdoor);
+
+      const useAmap = outdoor && hasRoute && !city && state.config && state.config.amap_js_key && !state.amapFailed;
+      if (!useAmap) {
+        $('amap').hidden = true;
+        $('mapCanvas').hidden = false;
+        drawCanvas();
+        return;
+      }
+      try {
+        await loadAmap();
+        if (generation !== mapGeneration || state.mode !== 'outdoor' || $('panelMap').hidden) return;
+        $('amap').hidden = false;
+        $('mapCanvas').hidden = true;
+        if (!state.amap) state.amap = new AMap.Map('amap', { zoom: 16 });
+        const map = state.amap, points = route.polyline;
+        // 路线不变时只移动当前位置，避免每次进度刷新都重画整张地图
+        if (state.amapRouteId !== route.route_id) {
+          state.amapRouteId = route.route_id;
+          map.clearMap();
+          const t = tokens();
+          map.add(new AMap.Polyline({ path: points, strokeColor: t['map-route'], strokeWeight: 8, isOutline: true,
+            outlineColor: '#ffffff', borderWeight: 3, showDir: true, lineJoin: 'round' }));
+          map.add(new AMap.Marker({ position: points[0], title: '起点', label: { content: '起点', direction: 'top' } }));
+          map.add(new AMap.Marker({ position: points[points.length - 1], title: '终点',
+            label: { content: '终点：' + route.destination_name, direction: 'top' } }));
+          state.amapMe = new AMap.CircleMarker({ center: points[0], radius: 10, fillColor: '#ffc400', fillOpacity: 1,
+            strokeColor: '#000000', strokeWeight: 2, zIndex: 200 });
+          map.add(state.amapMe);
+          map.setFitView();
+          // 容器刚从隐藏变为显示时，高德可能只渲染部分瓦片，下一帧再算一次尺寸
+          requestAnimationFrame(() => { map.resize(); map.setFitView(); });
+        }
+        const index = stepIndex(route);
+        const me = status === 'DONE' ? points[points.length - 1] : index > 0 ? route.steps[index - 1].end : points[0];
+        state.amapMe.setCenter(me);
+        $('mapNote').textContent = '高德地图 · 步行路线，黄点是当前位置';
+      } catch {
+        state.amapFailed = true;
+        $('mapNote').textContent = '地图加载失败，显示路线示意图';
+        $('amap').hidden = true;
+        $('mapCanvas').hidden = false;
+        drawCanvas();
+      }
+    }
+
+    // ===== 实时连接 =====
+    let ws, retry = 0, pingTimer;
+    function connect() {
+      ws = new WebSocket((location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + location.host + '/ws/app');
+      ws.onopen = () => {
+        retry = 0;
+        refresh().catch(() => {});
+        pingTimer = setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ type: 'ping' }));
+        }, 15000);
+      };
+      ws.onmessage = event => {
+        let e;
+        try { e = JSON.parse(event.data); } catch { return; }
+        const d = e.data;
+        if (e.type === 'hello') { setMode(d.mode); renderRobot(d.robot); }
+        else if (e.type === 'robot.state') renderRobot(d);
+        else if (e.type === 'mode.changed') setMode(d.mode);
+        else if (e.type === 'nav.route') { state.route = d; state.nav = { status: 'IDLE', current_step: d ? d.current_step : 0 }; renderStatus(); }
+        else if (e.type === 'nav.progress') { state.nav = Object.assign({}, state.nav, d); renderStatus(); }
+        else if (e.type === 'obstacle.update') renderObstacle(d);
+        // 对机器狗说的话不经过本页，回复也要显示并播报
+        else if (e.type === 'voice.heard' && d.source === 'robot') setReply('……');
+        else if (e.type === 'assistant.reply' && state.pending === 0) { setReply(d.text); announce(d.text, false); }
+      };
+      ws.onerror = () => ws.close();
+      ws.onclose = () => {
+        clearInterval(pingTimer);
+        $('connDot').className = 'dot off';
+        $('conn').classList.add('off');
+        $('connText').textContent = '和机器狗断开了，正在重新连接…';
+        setTimeout(connect, Math.min(5000, 1000 * 2 ** retry++));
+      };
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      $('modeChip').textContent = mode === 'outdoor' ? '室外' : '室内';
+      $('sayInput').placeholder = mode === 'outdoor' ? '例如：带我去演示路线' : '例如：带我去门口';
+      renderPlaces();
+      renderStatus();
+    }
+
+    async function refresh() {
+      const [config, map, nav] = await Promise.all([api('/api/config/public'), api('/api/indoor/map'), api('/api/nav/current')]);
+      state.config = config;
+      state.map = map;
+      state.route = nav.route;
+      state.nav = nav;
+      if (!state.city) state.city = await api('/api/demo/city', undefined, true).catch(() => null);
+      setMode(config.mode);
+    }
+
+    // ===== 绑定 =====
+    $('tabTalk').addEventListener('click', () => selectTab('talk'));
+    $('tabMap').addEventListener('click', () => selectTab('map'));
+    document.querySelector('.tabs').addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        selectTab($('tabTalk').getAttribute('aria-selected') === 'true' ? 'map' : 'talk', true);
+      }
+    });
+    $('sayForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const text = $('sayInput').value;
+      $('sayInput').value = '';
+      send(text);
+    });
+    for (const b of document.querySelectorAll('[data-say]')) b.addEventListener('click', () => send(b.dataset.say));
+    $('btnStop').addEventListener('click', async () => {
+      buzz(100);
+      try { await api('/api/robot/stop', {}); announce('已停止', true); } catch { /* 已播报 */ }
+    });
+    $('btnResume').addEventListener('click', () => send('继续'));
+    $('btnEnd').addEventListener('click', endNav);
+    $('btnNext').addEventListener('click', () => send('下一步'));
+    $('btnRepeat').addEventListener('click', () => send('再说一遍'));
+    $('btnShowMap').addEventListener('click', () => selectTab('map', true));
+    $('btnMapView').addEventListener('click', () => { state.mapWide = !state.mapWide; drawMap(); });
+    $('ttsSwitch').addEventListener('click', () => {
+      state.tts = !state.tts;
+      $('ttsSwitch').setAttribute('aria-checked', String(state.tts));
+      $('ttsSwitch').textContent = state.tts ? '开' : '关';
+      try { localStorage.setItem('assist.tts', state.tts ? '1' : '0'); } catch { /* 隐私模式下忽略 */ }
+      // iOS 要求在点击事件里先说一句，之后才允许自动朗读
+      if (state.tts) speak('手机朗读已打开');
+    });
+    window.addEventListener('resize', () => { if (!$('panelMap').hidden && !$('mapCanvas').hidden) drawCanvas(); });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => { if (!$('panelMap').hidden) drawMap(); });
+
+    try {
+      if (localStorage.getItem('assist.tts') === '1') {
+        state.tts = true;
+        $('ttsSwitch').setAttribute('aria-checked', 'true');
+        $('ttsSwitch').textContent = '开';
+      }
+    } catch { /* 隐私模式下忽略 */ }
+    selectTab(location.hash === '#map' ? 'map' : 'talk');
+    renderStatus();
+    connect();
+  </script>
+</body>
+</html>

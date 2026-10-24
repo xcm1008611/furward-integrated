@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "adapter_descriptors": 160,
+  "shape_counts": {
+    "cuboid": 57,
+    "convexHull": 102,
+    "trimesh": 1
+  },
+  "test_type": "Three.js GLTFLoader + descriptor validation; not a Rapier physics simulation"
+}

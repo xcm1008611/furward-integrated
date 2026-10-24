@@ -1,0 +1,55 @@
+name: furward-preview
+services:
+  web:
+    build:
+      context: ../web
+    restart: unless-stopped
+    env_file: ../web/.env.production
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      DATA_DIR: /app/data
+    volumes:
+      - preview-data:/app/data
+    security_opt: [no-new-privileges:true]
+  demo:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.demo
+    restart: unless-stopped
+    environment:
+      DEMO_WORLD_PATH: /app/shared/route.json
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/api/demo/health', timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+  gateway:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.gateway
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      BIND_ADDRESS: 0.0.0.0
+      WEB_ORIGIN: http://web:3000
+      DEMO_ORIGIN: http://demo:8100
+      TRUST_PROXY: 1
+    ports: ["127.0.0.1:3300:3000"]
+    depends_on:
+      web: {condition: service_healthy}
+      demo: {condition: service_healthy}
+    read_only: true
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+volumes:
+  preview-data:

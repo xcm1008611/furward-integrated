@@ -1,0 +1,92 @@
+{
+  "kind": "actual-executed-test-summary",
+  "recorded_at_utc": "2026-10-24T23:16:03.401936+00:00",
+  "provenance": {
+    "source": "Codex exec_command/write_stdin output from this task",
+    "exec_session_id": 32876,
+    "initial_output_chunk": "aea521",
+    "completion_output_chunk": "1e5de1",
+    "original_raw_log_saved": false,
+    "note": "This JSON summarizes results already executed and observed. It is not a reconstructed raw pytest log. No tests were rerun to produce this summary.",
+    "test_run_wall_clock_timestamp": null,
+    "timestamp_note": "The tool output did not include a wall-clock timestamp; recorded_at_utc is the summary creation time, not an invented execution timestamp."
+  },
+  "command": ".venv/bin/python -m pytest -q -s",
+  "working_directory": "demo-service",
+  "result": {
+    "status": "passed",
+    "passed": 47,
+    "failed": 0,
+    "warnings": 1,
+    "duration_seconds": 26.48
+  },
+  "warning": "StarletteDeprecationWarning: Using httpx with starlette.testclient is deprecated; install httpx2 instead.",
+  "breakdown": {
+    "existing_session_http_websocket_tests": 29,
+    "detour_tests_including_parameter_cases": 17,
+    "real_tcp_blackhole_test": 1
+  },
+  "detour_coverage": [
+    "Future-only route replacement preserves the travelled path and current human/dog positions.",
+    "obstacle_bypass, legacy obstacle_clear, and resume retain the fixed obstacle and start the detour.",
+    "Repeated bypass requests do not append geometry or resume an unrelated pause.",
+    "A pending duplicate obstacle is idempotent; a second obstacle is rejected until the person has cleared the detour.",
+    "Pause, disconnection, and same-session reconnect preserve the chosen navigation; reconnect does not resume automatically.",
+    "Cancel preserves path, progress, and fixed obstacles; reset clears obstacles and rearms the automatic event.",
+    "Separate visitors and old snapshots do not share mutable route or obstacle state.",
+    "Insufficient straight room near a corner or destination rejects placement without changing the route.",
+    "Both blocked sides reject placement; one blocked side selects the clear alternative.",
+    "Thin collision footprints are detected between sampled curve vertices.",
+    "Delivered city detours at 0m and 32m clear all 159 static proxies and the board footprint.",
+    "Dog and person centres travelling on the same arc, 2.2m apart, retain at least 0.65m clearance from the board.",
+    "Completion clamps to the extended route length and uses updated step distances/instructions.",
+    "Text bypass and refresh expose the authoritative new path.",
+    "Explicit pause words in 暂停绕行 and 绕行时停一下 take precedence over bypass."
+  ],
+  "verified_geometry": {
+    "original_route_distance_m": 150.0,
+    "automatic_obstacle_pause_distance_m": 32.0,
+    "obstacle_ahead_of_stopped_dog_m": 5.0,
+    "automatic_detour_total_distance_m": 151.1078,
+    "automatic_detour_until_m": 47.3078,
+    "detour_original_straight_span_m": 12.0,
+    "detour_max_lateral_offset_m": 2.4,
+    "detour_curve_segments": 64,
+    "required_straight_room_m": 15.0,
+    "human_follow_distance_m": 2.2,
+    "static_collision_proxy_count": 159,
+    "minimum_tested_centreline_clearance_m": 0.65,
+    "clearance_note": "0.65m is the asserted lower bound, not a reported exact minimum. Static clearance is checked against all proxy polygon edges. Human/dog board clearance is sampled at 301 progress positions for each tested detour.",
+    "board_footprint_width_m": 1.45,
+    "board_footprint_depth_m": 0.35
+  },
+  "real_tcp_blackhole": {
+    "status": "passed",
+    "method": "Independent localhost TCP proxy discards bytes in both directions without injecting FIN/RST. Normal Uvicorn transport settings remain enabled.",
+    "application_lease_expired_after_last_valid_ping_seconds": 15.13,
+    "paused_after_last_valid_ping_seconds": 25.13,
+    "paused_distance_m": 29.998,
+    "no_transport_eof_before_lease_expiry_asserted": true,
+    "same_session_reconnect_kept_paused_state": true,
+    "explicit_resume_succeeded": true
+  },
+  "scope_limits": [
+    "This is backend automated-test evidence, not browser visual, physical-phone, robot, LAN, or public-network acceptance.",
+    "The real 151.1078m live route check is tracked separately by the parent agent."
+  ],
+  "sha256_snapshot": {
+    "captured_at_utc": "2026-10-24T23:16:03.401936+00:00",
+    "note": "Current file hashes captured when recording this summary after the test run; the execution itself did not emit a hash manifest.",
+    "files": {
+      "demo-service/demo_service/detours.py": "57146330cf26bf01fceb6471ab4e014b687f3cfe1b499837e08cec1ead786c0e",
+      "demo-service/demo_service/engine.py": "21492b75f070357a03d56790eaafcb7988751045be4e8589d9d9d87a15251bc7",
+      "demo-service/demo_service/intents.py": "fbfb46fb1f06ad2edd0c87b83ff4a73439d16cdd87c6628a262d305fee6feb22",
+      "demo-service/demo_service/main.py": "524392d2f554397ec304c4931f5133c8950908cf6c4a710fb61bf7cb7ca67e15",
+      "demo-service/tests/test_demo.py": "4a209dde996a1ab9806dc7aeac73e1165084aed86e047ba62736bf69176c3b19",
+      "demo-service/tests/test_detours.py": "836c582c06cf49ce4c99073e0d0cf5d20cdca9606af7b54838987234bb4a3b52",
+      "demo-service/tests/test_blackhole.py": "84d2525253633a59212eb4324d4c1c1d244b0f9e6334fd8ae50e95fd30a649b7",
+      "scripts/check-live.py": "eb5142a0170fb1e3a55c6c908f2e94370364b14460e1247bf7132865df8fa005",
+      "shared/route.json": "119a730baca11b40e75077f1396c2dc813299bf2c59e530d74ddef2ebf7d46fc"
+    }
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "status": "passed",
+  "method": "independent exported-GLB parse + CPU skinning at 60 Hz; browser visual QA is separate",
+  "models": {
+    "human": {
+      "status": "passed",
+      "mesh_uv_normals_indices_and_textures_byte_preserved": true,
+      "bind_pose_matches_source": true,
+      "skin_count": 1,
+      "bone_count": 20,
+      "sha256": "d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4",
+      "clips": {
+        "idle": {
+          "duration_s": 2.4,
+          "samples_at_60hz": 146,
+          "min_vertex_y_m": 0.0,
+          "max_vertex_motion_m": 0.0023,
+          "feet": {
+            "human_foot_L": {
+              "min_y_m": 0.0,
+              "max_y_m": 0.0
+            },
+            "human_foot_R": {
+              "min_y_m": 0.0,
+              "max_y_m": 0.0
+            }
+          }
+        },
+        "walk": {
+          "duration_s": 1.2,
+          "samples_at_60hz": 74,
+          "min_vertex_y_m": -0.000641,
+          "max_vertex_motion_m": 0.6667,
+          "feet": {
+            "human_foot_L": {
+              "min_y_m": -0.00064,
+              "max_y_m": 0.09546
+            },
+            "human_foot_R": {
+              "min_y_m": -0.00055,
+              "max_y_m": 0.09646
+            }
+          }
+        },
+        "turn_left": {
+          "duration_s": 1.2,
+          "samples_at_60hz": 74,
+          "min_vertex_y_m": -2.5e-05,
+          "max_vertex_motion_m": 0.2501,
+          "feet": {
+            "human_foot_L": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.09469
+            },
+            "human_foot_R": {
+              "min_y_m": -3e-05,
+              "max_y_m": 0.09423
+            }
+          }
+        },
+        "turn_right": {
+          "duration_s": 1.2,
+          "samples_at_60hz": 74,
+          "min_vertex_y_m": -2.2e-05,
+          "max_vertex_motion_m": 0.2501,
+          "feet": {
+            "human_foot_L": {
+              "min_y_m": -2e-05,
+              "max_y_m": 0.09468
+            },
+            "human_foot_R": {
+              "min_y_m": -2e-05,
+              "max_y_m": 0.09424
+            }
+          }
+        },
+        "stop": {
+          "duration_s": 0.48,
+          "samples_at_60hz": 30,
+          "min_vertex_y_m": -8.8e-05,
+          "max_vertex_motion_m": 0.21,
+          "feet": {
+            "human_foot_L": {
+              "min_y_m": -7e-05,
+              "max_y_m": 0.04076
+            },
+            "human_foot_R": {
+              "min_y_m": -9e-05,
+              "max_y_m": 0.04088
+            }
+          }
+        }
+      }
+    },
+    "dog": {
+      "status": "passed",
+      "mesh_uv_normals_indices_and_textures_byte_preserved": true,
+      "bind_pose_matches_source": true,
+      "skin_count": 1,
+      "bone_count": 15,
+      "sha256": "174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17",
+      "clips": {
+        "idle": {
+          "duration_s": 2.4,
+          "samples_at_60hz": 146,
+          "min_vertex_y_m": -2e-06,
+          "max_vertex_motion_m": 0.0021,
+          "feet": {
+            "dog_foot_rear_R": {
+              "min_y_m": 0.00069,
+              "max_y_m": 0.00069
+            },
+            "dog_foot_front_R": {
+              "min_y_m": -0.0,
+              "max_y_m": -0.0
+            },
+            "dog_foot_rear_L": {
+              "min_y_m": -0.0,
+              "max_y_m": -0.0
+            },
+            "dog_foot_front_L": {
+              "min_y_m": 0.0,
+              "max_y_m": 0.0
+            }
+          }
+        },
+        "walk": {
+          "duration_s": 1.12,
+          "samples_at_60hz": 69,
+          "min_vertex_y_m": -0.000237,
+          "max_vertex_motion_m": 0.3097,
+          "feet": {
+            "dog_foot_rear_R": {
+              "min_y_m": -0.00024,
+              "max_y_m": 0.07477
+            },
+            "dog_foot_front_R": {
+              "min_y_m": -5e-05,
+              "max_y_m": 0.07495
+            },
+            "dog_foot_rear_L": {
+              "min_y_m": -5e-05,
+              "max_y_m": 0.07478
+            },
+            "dog_foot_front_L": {
+              "min_y_m": -5e-05,
+              "max_y_m": 0.07496
+            }
+          }
+        },
+        "turn_left": {
+          "duration_s": 1.12,
+          "samples_at_60hz": 69,
+          "min_vertex_y_m": -6e-05,
+          "max_vertex_motion_m": 0.1184,
+          "feet": {
+            "dog_foot_rear_R": {
+              "min_y_m": -6e-05,
+              "max_y_m": 0.07477
+            },
+            "dog_foot_front_R": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.07495
+            },
+            "dog_foot_rear_L": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.07478
+            },
+            "dog_foot_front_L": {
+              "min_y_m": -0.0,
+              "max_y_m": 0.07496
+            }
+          }
+        },
+        "turn_right": {
+          "duration_s": 1.12,
+          "samples_at_60hz": 69,
+          "min_vertex_y_m": -3.3e-05,
+          "max_vertex_motion_m": 0.1425,
+          "feet": {
+            "dog_foot_rear_R": {
+              "min_y_m": -3e-05,
+              "max_y_m": 0.07477
+            },
+            "dog_foot_front_R": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.07495
+            },
+            "dog_foot_rear_L": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.07478
+            },
+            "dog_foot_front_L": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.07496
+            }
+          }
+        },
+        "stop": {
+          "duration_s": 0.48,
+          "samples_at_60hz": 30,
+          "min_vertex_y_m": -0.00028,
+          "max_vertex_motion_m": 0.155,
+          "feet": {
+            "dog_foot_rear_R": {
+              "min_y_m": -0.00028,
+              "max_y_m": 0.02922
+            },
+            "dog_foot_front_R": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.02922
+            },
+            "dog_foot_rear_L": {
+              "min_y_m": -0.0,
+              "max_y_m": 0.02914
+            },
+            "dog_foot_front_L": {
+              "min_y_m": -1e-05,
+              "max_y_m": 0.02913
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "recorded_at": "2026-10-25T05:54:54.250109+08:00",
+  "result": "passed",
+  "method": "Docker Desktop Linux bridge client via host en0 address; macOS host forwarding",
+  "authorization": "User requested autonomous testing and no further interactive testing requests",
+  "target": "http://172.168.23.102:3000",
+  "client": {
+    "client_platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.41",
+    "python": "3.12.15",
+    "client_address": "172.17.0.2",
+    "peer_address": "172.168.23.102",
+    "peer_port": 3000,
+    "target": "http://172.168.23.102:3000",
+    "http_checks": [
+      {
+        "path": "/",
+        "status": 200,
+        "bytes": 88321
+      },
+      {
+        "path": "/experience",
+        "status": 200,
+        "bytes": 11572
+      },
+      {
+        "path": "/api/demo/health",
+        "status": 200,
+        "bytes": 65
+      },
+      {
+        "path": "/city/animated/rig-manifest.json",
+        "status": 200,
+        "bytes": 5976
+      }
+    ],
+    "scope": "Docker Desktop Linux bridge client via host en0 address; macOS backend forwarding, not physical Wi-Fi AP traversal"
+  },
+  "image": "python:3.12-slim",
+  "image_digest": "python@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704",
+  "dependencies": {
+    "httpx": "0.28.1",
+    "websockets": "16.1.1"
+  },
+  "command_in_client": "PYTHONPATH=/tmp/client-deps python -u /work/check-live.py http://172.168.23.102:3000 --full-route",
+  "network": {
+    "mode": "bridge",
+    "proxies": "disabled",
+    "server_listener": "0.0.0.0:3000",
+    "host_interface": "en0",
+    "host_firewall": "macOS application firewall disabled (read-only observation; configuration not changed)"
+  },
+  "full_route": {
+    "status": "DONE",
+    "distance_m": 150,
+    "steps": 4,
+    "duration_seconds": 125.7,
+    "speed_mps": 1.2,
+    "accelerated": false
+  },
+  "checks": [
+    "Home, experience, demo health and animation manifest HTTP 200",
+    "HTTP and WebSocket authentication and malicious Origin rejection",
+    "Two independent visitor sessions; pausing A does not pause B",
+    "WebSocket first packet, JSON heartbeat and reconnect",
+    "Text cancellation, unknown destination guidance and refresh snapshot",
+    "32m automatic obstacle; resume blocked until cleared; clearing stays paused; manual resume",
+    "Full 150m route, all four steps and correct DONE state"
+  ],
+  "raw_log": "lan-isolated-client.log",
+  "raw_log_sha256": "de8087a74943e01cf844567180bcfae2bf319ace6a4f99bcd58005a2a2340fd7",
+  "raw_log_timezone": "UTC",
+  "started_at": "2026-10-25T05:51:28+08:00",
+  "completed_at": "2026-10-25T05:53:36+08:00",
+  "isolation": {
+    "root_filesystem": "read-only",
+    "capabilities": "all dropped",
+    "mounts": "two read-only test scripts; no project credentials or browser storage",
+    "test_session_cleanup": "completed"
+  },
+  "limitations": [
+    "Docker Desktop forwards outbound connections through the macOS host backend; this test does not prove physical Wi-Fi AP traversal or router client-isolation behavior",
+    "No additional physical phone or Safari/touch test was performed by this client; actual phone public feedback is separately recorded in mobile-user-feedback.json"
+  ],
+  "method_reference": "https://docs.docker.com/desktop/features/networking/",
+  "cleanup": {
+    "docker_desktop": "stopped normally, restored initial stopped state",
+    "test_container": "removed on exit",
+    "existing_container_ids": "unchanged before daemon shutdown",
+    "local_native_services": "still healthy",
+    "public_remote_service": "still healthy",
+    "verified_at": "2026-10-25T05:55:21.307137+08:00",
+    "checks": [
+      {
+        "url": "http://127.0.0.1:3000/healthz",
+        "status": 200,
+        "body": {
+          "ok": true,
+          "project": "furward-integrated-v1"
+        }
+      },
+      {
+        "url": "http://172.168.23.102:3000/healthz",
+        "status": 200,
+        "body": {
+          "ok": true,
+          "project": "furward-integrated-v1"
+        }
+      },
+      {
+        "url": "https://8.147.109.174:8088/api/demo/health",
+        "status": 200,
+        "body": {
+          "ok": true,
+          "data": {
+            "service": "furward-demo",
+            "mode": "simulation"
+          }
+        }
+      }
+    ]
+  }
+}

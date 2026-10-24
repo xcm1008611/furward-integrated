@@ -1,0 +1,24 @@
+{
+  "stride068": {
+    "clips_equal_to_production": {
+      "idle": true,
+      "walk": false,
+      "turn_left": true,
+      "turn_right": true,
+      "stop": true
+    },
+    "skin_indices_identical": true,
+    "skin_weights_identical": true
+  },
+  "stride070": {
+    "clips_equal_to_production": {
+      "idle": true,
+      "walk": false,
+      "turn_left": true,
+      "turn_right": true,
+      "stop": true
+    },
+    "skin_indices_identical": true,
+    "skin_weights_identical": true
+  }
+}

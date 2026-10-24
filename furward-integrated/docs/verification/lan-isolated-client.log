@@ -1,0 +1,19 @@
+{"client_platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.41", "python": "3.12.15", "client_address": "172.17.0.2", "peer_address": "172.168.23.102", "peer_port": 3000, "target": "http://172.168.23.102:3000", "http_checks": [{"path": "/", "status": 200, "bytes": 88321}, {"path": "/experience", "status": 200, "bytes": 11572}, {"path": "/api/demo/health", "status": 200, "bytes": 65}, {"path": "/city/animated/rig-manifest.json", "status": 200, "bytes": 5976}], "scope": "Docker Desktop Linux bridge client via host en0 address; macOS backend forwarding, not physical Wi-Fi AP traversal"}
+21:51:28 PASS 创建两个独立会话；HTTP / WS 鉴权、恶意 Origin 拒绝
+21:51:30 PASS WS 首包 / 心跳 / 重连；A 暂停时 B 独立前进；文字结束、未知目的地、刷新快照
+21:51:30 路线验收   0.0s  ACTIVE       0.00 / 150m  第 1 步
+21:51:41 路线验收  10.2s  ACTIVE      12.19 / 150m  第 1 步
+21:51:51 路线验收  20.3s  ACTIVE      24.22 / 150m  第 1 步
+21:51:58 PASS 32m 自动遇障；未清障禁止继续；清障保持原地；手动继续
+21:52:01 路线验收  30.4s  ACTIVE      35.85 / 150m  第 1 步
+21:52:11 路线验收  40.5s  ACTIVE      48.01 / 150m  第 1 步
+21:52:21 路线验收  50.7s  ACTIVE      60.18 / 150m  第 2 步
+21:52:31 路线验收  60.8s  ACTIVE      72.36 / 150m  第 2 步
+21:52:41 路线验收  71.0s  ACTIVE      84.66 / 150m  第 2 步
+21:52:52 路线验收  81.1s  ACTIVE      96.73 / 150m  第 2 步
+21:53:02 路线验收  91.3s  ACTIVE     108.90 / 150m  第 3 步
+21:53:12 路线验收 101.4s  ACTIVE     121.07 / 150m  第 3 步
+21:53:22 路线验收 111.6s  ACTIVE     133.36 / 150m  第 4 步
+21:53:32 路线验收 121.8s  ACTIVE     145.65 / 150m  第 4 步
+21:53:36 PASS 完整路线 DONE，150m / 4步，实际耗时 125.7s，JSON 心跳持续正常
+21:53:36 全部真实入口检查通过。测试会话已结束；未读取浏览器存储。

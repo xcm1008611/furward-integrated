@@ -1,0 +1,23 @@
+[Unit]
+Description=Furward independent preview HTTPS
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+User=dzq-proxy
+Group=dzq-proxy
+Environment=XDG_DATA_HOME=/var/lib/furward-preview-tls
+Environment=XDG_CONFIG_HOME=/var/lib/furward-preview-tls/config
+ExecStart=/opt/dzq-releases/20261016/caddy run --config /opt/furward-preview/deploy/Caddyfile.preview --adapter caddyfile
+ExecReload=/opt/dzq-releases/20261016/caddy reload --address 127.0.0.1:2020 --config /opt/furward-preview/deploy/Caddyfile.preview --adapter caddyfile --force
+Restart=on-failure
+RestartSec=5s
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/furward-preview-tls
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

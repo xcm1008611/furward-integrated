@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-10-24T23:25:56.372279+00:00",
+  "tls_verification": true,
+  "proxy": false,
+  "results": {
+    "http://127.0.0.1:3000": {
+      "/": 200,
+      "/experience": 200,
+      "/api/demo/health": 200,
+      "/api/robot/status": 404,
+      "/debug": 404
+    },
+    "https://8.147.109.174:8088": {
+      "/": 200,
+      "/experience": 200,
+      "/api/demo/health": 200,
+      "/api/robot/status": 404,
+      "/debug": 404
+    },
+    "original_site_https_8087": 200
+  }
+}

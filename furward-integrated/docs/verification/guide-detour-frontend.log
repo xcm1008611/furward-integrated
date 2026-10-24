@@ -1,0 +1,30 @@
+✔ world-to-map transform matches all delivered 2D route nodes and preserves metre scale (0.47925ms)
+✔ map and progress select the replanned arc length, including the follower position (0.31425ms)
+✔ waiting obstacle offers bypass and rapid primary/auxiliary clicks cannot duplicate it (7.742333ms)
+✔ paused detour remains resumable but cannot add another obstacle; map retains obstacle and both characters (3.009333ms)
+✔ step completion waits for its new detour boundary instead of the original endpoint (1.422583ms)
+✔ 30–240 Hz displays render at up to 60 fps while retaining elapsed animation time (1.594791ms)
+✔ rounded/jittered high-refresh timestamps do not halve the intended render rate (1.155417ms)
+✔ resuming visibility resets visual delta instead of replaying hidden time (0.1345ms)
+✔ a long visible stall renders once with bounded delta, never a catch-up burst (0.074583ms)
+PASS: shared 150m route, endpoints, following separation, continuous corners, headings.
+✔ web/scripts/test-demo-route.mjs (78.742416ms)
+✔ late old-session HTTP success cannot overwrite replacement state or unlock its request (13.441375ms)
+✔ late old-effect HTTP auth error cannot invalidate a restored identity (0.792958ms)
+✔ queued old WebSocket message/open/expiry callbacks cannot alter a replacement session (0.877ms)
+✔ an old socket in the same effect cannot schedule a second reconnect or overwrite progress (0.701584ms)
+✔ wrong-session packets and same-session old revisions are ignored (0.381458ms)
+✔ missing pong changes to reconnecting without close event, blocks actions, and restores paused snapshot (1.019459ms)
+✔ normal speech selects Chinese and keeps the requested text (0.564667ms)
+✔ voice/audio failures notify once and allow an explicit retry (0.142708ms)
+✔ canceled/interrupted events do not report a failure (0.08025ms)
+✔ late errors from replaced or stopped speech cannot disable a later attempt (0.065958ms)
+✔ synchronous browser API failures use the same text fallback (0.187875ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 367.80025

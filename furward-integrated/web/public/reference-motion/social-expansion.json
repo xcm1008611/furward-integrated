@@ -1,0 +1,65 @@
+[
+  {
+    "id": "social-1",
+    "label": "社交照片 1",
+    "src": "/reference/social-track.webp",
+    "alt": "Lando Norris 社交媒体照片 1",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba846e593e52541fb7a8_Lando-6-on-track.webp"
+  },
+  {
+    "id": "social-2",
+    "label": "社交照片 2",
+    "src": "/reference-motion/social/social-2.webp",
+    "alt": "Lando Norris 社交媒体照片 2",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/6830302d42237886d0c4b24c_ln-social-img-2.webp"
+  },
+  {
+    "id": "social-3",
+    "label": "社交照片 3",
+    "src": "/reference/pages/off-social-2.webp",
+    "alt": "Lando Norris 社交媒体照片 3",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba8463e72a95c2d8a0ba_Lando-4-off-track.webp"
+  },
+  {
+    "id": "social-4",
+    "label": "社交照片 4",
+    "src": "/reference/social-lifestyle.webp",
+    "alt": "Lando Norris 社交媒体照片 4",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba848fb98d1ca68eb6c8_Lando-5-off-track.webp"
+  },
+  {
+    "id": "social-5",
+    "label": "社交照片 5",
+    "src": "/reference-motion/social/social-5.webp",
+    "alt": "Lando Norris 社交媒体照片 5",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba8449f0506fbaad037b_Lano-5-on-track.webp"
+  },
+  {
+    "id": "social-6",
+    "label": "社交照片 6",
+    "src": "/reference-motion/social/social-6.webp",
+    "alt": "Lando Norris 社交媒体照片 6",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/6830302dadd0727e6ac034dd_ln-social-img-6.webp"
+  },
+  {
+    "id": "social-7",
+    "label": "社交照片 7",
+    "src": "/reference/pages/off-social-5.webp",
+    "alt": "Lando Norris 社交媒体照片 7",
+    "positionX": 50,
+    "positionY": 50,
+    "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba83f162f4d2f4e78442_Lando-6-off-track.webp"
+  }
+]

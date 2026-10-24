@@ -1,0 +1,90 @@
+#0 building with "default" instance using docker driver
+
+#1 [web builder 1/6] FROM docker.io/library/node:24-bookworm-slim
+#1 DONE 0.0s
+
+#2 [web builder 4/6] RUN npm ci --no-audit --no-fund
+#2 CACHED
+
+#3 [web builder 2/6] WORKDIR /app
+#3 CACHED
+
+#4 [web internal] load build definition from Dockerfile
+#4 transferring dockerfile: 725B done
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 621B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 transferring context: 58.24kB 0.0s done
+#7 DONE 0.1s
+
+#8 [web builder 3/6] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [web builder 4/6] RUN npm ci --no-audit --no-fund
+#9 CACHED
+
+#10 [web builder 5/6] COPY . .
+#10 DONE 1.5s
+
+#11 [web builder 6/6] RUN npm run build:selfhost
+#11 0.659 
+#11 0.659 > site-creator-vinext-starter@0.1.0 build:selfhost
+#11 0.659 > node scripts/build-selfhost.mjs
+#11 0.659 
+#11 1.523 ▲ Next.js 16.4.3 (webpack)
+#11 1.622 ✓ Running next.config.ts took 97ms
+#11 1.645 
+#11 1.690   Creating an optimized production build ...
+#11 16.55 ✓ Compiled successfully in 14.0s
+#11 16.55   Running TypeScript ...
+#11 36.63   Finished TypeScript in 20.1s ...
+#11 36.64   Collecting page data using 3 workers ...
+#11 39.02   Generating static pages using 3 workers (0/6) ...
+#11 39.81   Generating static pages using 3 workers (1/6) 
+#11 39.81   Generating static pages using 3 workers (2/6) 
+#11 39.81   Generating static pages using 3 workers (4/6) 
+#11 39.81 ✓ Generating static pages using 3 workers (6/6) in 788ms
+#11 40.13   Finalizing page optimization ...
+#11 40.13   Collecting build traces ...
+#11 74.49 
+#11 74.50 Route (app)
+#11 74.50 ┌ ƒ /
+#11 74.50 ├ ○ /_not-found
+#11 74.50 ├ ƒ /admin
+#11 74.50 ├ ƒ /admin/login
+#11 74.50 ├ ƒ /api/admin/login
+#11 74.50 ├ ƒ /api/admin/logout
+#11 74.50 ├ ƒ /api/content
+#11 74.50 ├ ƒ /api/media
+#11 74.50 ├ ƒ /api/media/[id]
+#11 74.50 ├ ○ /calendar
+#11 74.50 ├ ○ /experience
+#11 74.50 ├ ○ /off-track
+#11 74.50 └ ○ /on-track
+#11 74.50 
+#11 74.50 
+#11 74.50 ○  (Static)   prerendered as static content
+#11 74.50 ƒ  (Dynamic)  server-rendered on demand
+#11 74.50 
+#11 75.56 自托管生产版本已生成，运行 npm run start:selfhost。
+#11 DONE 76.2s
+
+#12 [web runtime 3/4] COPY --from=builder --chown=node:node /app/.next/standalone ./
+#12 DONE 1.3s
+
+#13 [web runtime 4/4] RUN mkdir -p /app/data && chown node:node /app/data
+#13 DONE 0.3s
+
+#14 [web] exporting to image
+#14 exporting layers
+#14 exporting layers 1.6s done
+#14 writing image sha256:1d833dc248a2b64846fc5eb1f77b22ef7c0a5261e99267876df2ac12e869a103 done
+#14 naming to docker.io/library/furward-preview-web done
+#14 DONE 1.6s

@@ -1,0 +1,11 @@
+{
+  "model_directory": "/Users/xuchengming/Documents/ChatGPT/导盲犬机器狗项目/furward-integrated/.runtime/gait-study/stride068",
+  "frames": 960,
+  "dt": 0.004166666666666667,
+  "support_samples": 1053,
+  "mean_planted_vertex_horizontal_speed_mps": 0.006613503944963617,
+  "p95_planted_vertex_horizontal_speed_mps": 0.03736309998227527,
+  "max_planted_vertex_horizontal_speed_mps": 0.07616152925999516,
+  "minimum_sole_height_m": 0.0023527045188904633,
+  "method": "Same actual skinned contact vertex tracked while within 6mm of floor, stance phase .025-.595; contact identity changes excluded. Full keyframe interpolation and production runtime IK, root moves at1.2m/s."
+}

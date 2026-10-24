@@ -1,0 +1,183 @@
+[
+  {
+    "path": "/reference-motion/helmet-normal.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/Norris_Helmet_mat_Normal.webp",
+    "bytes": 64804
+  },
+  {
+    "path": "/reference-motion/head-roughness.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/roughness.webp",
+    "bytes": 125378
+  },
+  {
+    "path": "/reference-motion/head-normal.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/normal.webp",
+    "bytes": 150168
+  },
+  {
+    "path": "/reference-motion/helmet-disco.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/disco/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 177136
+  },
+  {
+    "path": "/reference-motion/head-shadow.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/head/webp/shadow-softer-edit.webp",
+    "bytes": 285764
+  },
+  {
+    "path": "/reference-motion/helmet-gold.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/gold/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 321508
+  },
+  {
+    "path": "/reference-motion/helmet-roughness.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/Norris_Helmet_mat_Roughness.webp",
+    "bytes": 25482
+  },
+  {
+    "path": "/reference-motion/helmet-metallic.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/Norris_Helmet_mat_Metallic.webp",
+    "bytes": 20486
+  },
+  {
+    "path": "/reference-motion/glass-normal.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/glass/webp/Norris_Glass_mat_Normal.webp",
+    "bytes": 8320
+  },
+  {
+    "path": "/reference-motion/glass-metallic.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/glass/webp/Norris_Glass_mat_Metallic.webp",
+    "bytes": 14748
+  },
+  {
+    "path": "/reference-motion/glass-roughness.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/glass/webp/Norris_Glass_mat_Roughness.webp",
+    "bytes": 21898
+  },
+  {
+    "path": "/reference-motion/glass-base.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/glass/webp/Norris_Glass_mat_BaseColor.webp",
+    "bytes": 44358
+  },
+  {
+    "path": "/reference-motion/plastic-matcap.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/plastic/plastic__matcap-02.webp",
+    "bytes": 65794
+  },
+  {
+    "path": "/reference-motion/disco-matcap.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/disco/disco_matcap-01.webp",
+    "bytes": 64602
+  },
+  {
+    "path": "/reference-motion/disco-mask.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/disco/disco_mask-01.webp",
+    "bytes": 74998
+  },
+  {
+    "path": "/reference-motion/draco/draco_wasm_wrapper.js",
+    "source": "https://lando.itsoffbrand.io/gl/draco/draco_wasm_wrapper.js",
+    "bytes": 58763
+  },
+  {
+    "path": "/reference-motion/noise.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/noise/noise-03.webp",
+    "bytes": 84350
+  },
+  {
+    "path": "/reference-motion/draco/draco_decoder.wasm",
+    "source": "https://lando.itsoffbrand.io/gl/draco/draco_decoder.wasm",
+    "bytes": 285747
+  },
+  {
+    "path": "/reference-motion/disco-lensflare.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/disco/disco_lens-flare-15.webp",
+    "bytes": 100940
+  },
+  {
+    "path": "/reference-motion/draco/draco_decoder.js",
+    "source": "https://lando.itsoffbrand.io/gl/draco/draco_decoder.js",
+    "bytes": 719410
+  },
+  {
+    "path": "/reference-motion/helmet-lime.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/lime/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 239032
+  },
+  {
+    "path": "/reference-motion/helmet-google.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/google/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 275282
+  },
+  {
+    "path": "/reference-motion/helmet-dark.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/dark/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 231018
+  },
+  {
+    "path": "/reference-motion/helmet-grid.webp",
+    "source": "https://lando.itsoffbrand.io/gl/textures/helmet/webp/grid/Norris_Helmet_mat_BaseColor.webp",
+    "bytes": 387608
+  },
+  {
+    "path": "/reference-motion/rive/ln4.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/ln4.riv",
+    "bytes": 3770
+  },
+  {
+    "path": "/reference-motion/rive/btn-ui.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/btn-ui.riv",
+    "bytes": 4144
+  },
+  {
+    "path": "/reference-motion/rive/page-transition.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/page-transition.riv",
+    "bytes": 5508
+  },
+  {
+    "path": "/reference-motion/rive/signature.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/signature.riv",
+    "bytes": 30851
+  },
+  {
+    "path": "/reference-motion/rive/circuits.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/circuits.riv",
+    "bytes": 36636
+  },
+  {
+    "path": "/reference-motion/rive/phrases.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/phrases.riv",
+    "bytes": 68650
+  },
+  {
+    "path": "/reference-motion/rive/reef.riv",
+    "source": "https://assets.itsoffbrand.io/lando/rive/reef.riv",
+    "bytes": 72667
+  },
+  {
+    "path": "/reference-motion/helmet.glb",
+    "source": "https://lando.itsoffbrand.io/gl/models/helmet-21.glb",
+    "bytes": 139492
+  },
+  {
+    "path": "/reference-motion/disco.glb",
+    "source": "https://lando.itsoffbrand.io/gl/models/disco-02.glb",
+    "bytes": 358984
+  },
+  {
+    "path": "/reference-motion/hdr-light.hdr",
+    "source": "https://lando.itsoffbrand.io/gl/hdri/studio_small_08_1k--light.hdr",
+    "bytes": 386788
+  },
+  {
+    "path": "/reference-motion/hdr-faded.hdr",
+    "source": "https://lando.itsoffbrand.io/gl/hdri/studio_small_08_1k--faded.hdr",
+    "bytes": 175712
+  },
+  {
+    "path": "/reference-motion/rive/runtime.wasm",
+    "source": "npm:@rive-app/canvas/rive.wasm",
+    "bytes": 2165388,
+    "purpose": "本地 Rive WebAssembly 运行时，避免线上依赖第三方 CDN"
+  }
+]

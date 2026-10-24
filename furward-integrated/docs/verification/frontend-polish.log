@@ -1,0 +1,25 @@
+✔ 30–240 Hz displays render at up to 60 fps while retaining elapsed animation time (3.703375ms)
+✔ rounded/jittered high-refresh timestamps do not halve the intended render rate (2.773167ms)
+✔ resuming visibility resets visual delta instead of replaying hidden time (0.2025ms)
+✔ a long visible stall renders once with bounded delta, never a catch-up burst (0.083417ms)
+PASS: shared 150m route, endpoints, following separation, continuous corners, headings.
+✔ scripts/test-demo-route.mjs (236.753667ms)
+✔ late old-session HTTP success cannot overwrite replacement state or unlock its request (29.343875ms)
+✔ late old-effect HTTP auth error cannot invalidate a restored identity (1.757208ms)
+✔ queued old WebSocket message/open/expiry callbacks cannot alter a replacement session (0.815291ms)
+✔ an old socket in the same effect cannot schedule a second reconnect or overwrite progress (0.964875ms)
+✔ wrong-session packets and same-session old revisions are ignored (0.485542ms)
+✔ missing pong changes to reconnecting without close event, blocks actions, and restores paused snapshot (1.847167ms)
+✔ normal speech selects Chinese and keeps the requested text (0.787458ms)
+✔ voice/audio failures notify once and allow an explicit retry (0.210125ms)
+✔ canceled/interrupted events do not report a failure (0.118167ms)
+✔ late errors from replaced or stopped speech cannot disable a later attempt (0.103875ms)
+✔ synchronous browser API failures use the same text fallback (0.260083ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 628.253

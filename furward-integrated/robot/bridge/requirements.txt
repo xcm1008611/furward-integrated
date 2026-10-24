@@ -1,0 +1,2 @@
+# rclpy 和 aimdk_msgs 由机器人的 ROS2 Humble 环境提供，不从 PyPI 安装。
+websockets

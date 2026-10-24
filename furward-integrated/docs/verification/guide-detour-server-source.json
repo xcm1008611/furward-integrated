@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-24T23:24:24.148776+00:00",
+  "result": "passed",
+  "source_files": 18,
+  "remote_root": "/opt/furward-preview",
+  "backup": "/opt/furward-preview/backups/guide-before-20261025-071549.tar.gz",
+  "sha256": {
+    "web/app/experience/CityScene.tsx": "f43c9fa5fc6da38f48a5718218479e0eefa6ea57795952e339daf9bd2ff8f889",
+    "web/app/experience/Experience.tsx": "71f5d70acc5d0574ae8f73733188cd315bdda432c0629d0373332e5aa75d13a2",
+    "web/app/experience/experience.module.css": "3c6008a36c04aa1b06c2b08e2c42ec9fa64518756be89e8cb689fab4c49b1ab9",
+    "web/lib/demo-types.ts": "0643123f25725fdb98889a3e037bcb6e3a0b20229ecd34f56686f1a8a849b1e1",
+    "web/lib/guide-connection.ts": "ab37e92634140013f262f83c09039c5ec4a4ccc20fd2a8ddb7716ed92b5fe09d",
+    "web/scripts/test-demo-detour-ui.mjs": "30f173c83775615469bf7ed637f43034340da5de336535945281a5794f85fe01",
+    "shared/route.json": "119a730baca11b40e75077f1396c2dc813299bf2c59e530d74ddef2ebf7d46fc",
+    "scripts/check-live.py": "eb5142a0170fb1e3a55c6c908f2e94370364b14460e1247bf7132865df8fa005",
+    "scripts/export-world.py": "013db1c743e94ec2aacb88c45e2f38a2823353c600f23edf4f66fd91a909ec2a",
+    "scripts/guide-connection-validate.mjs": "9ad49d7e9b64422babbd335d42d89e79d09a85dedf81b6449a07a672515674e4",
+    "demo-service/demo_service/detours.py": "57146330cf26bf01fceb6471ab4e014b687f3cfe1b499837e08cec1ead786c0e",
+    "demo-service/demo_service/intents.py": "fbfb46fb1f06ad2edd0c87b83ff4a73439d16cdd87c6628a262d305fee6feb22",
+    "demo-service/demo_service/__init__.py": "6be98f4f14305fedaacb7788cf0ab21987241fa01ca5a9369e8d3ebb3dfc20b6",
+    "demo-service/demo_service/engine.py": "21492b75f070357a03d56790eaafcb7988751045be4e8589d9d9d87a15251bc7",
+    "demo-service/demo_service/main.py": "524392d2f554397ec304c4931f5133c8950908cf6c4a710fb61bf7cb7ca67e15",
+    "demo-service/tests/test_detours.py": "836c582c06cf49ce4c99073e0d0cf5d20cdca9606af7b54838987234bb4a3b52",
+    "demo-service/tests/test_blackhole.py": "84d2525253633a59212eb4324d4c1c1d244b0f9e6334fd8ae50e95fd30a649b7",
+    "demo-service/tests/test_demo.py": "4a209dde996a1ab9806dc7aeac73e1165084aed86e047ba62736bf69176c3b19"
+  }
+}

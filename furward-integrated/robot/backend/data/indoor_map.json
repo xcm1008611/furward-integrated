@@ -1,0 +1,14 @@
+{
+  "note": "示例坐标，现场实测后替换",
+  "width_m": 6,
+  "height_m": 4,
+  "start_waypoint": "start",
+  "start_heading_deg": 0,
+  "waypoints": {
+    "start": {"name": "起点", "aliases": ["出发点"], "x": 0.5, "y": 0.5},
+    "desk": {"name": "服务台", "aliases": ["前台", "服务台"], "x": 2.5, "y": 0.5},
+    "coffee": {"name": "咖啡桌", "aliases": ["咖啡", "茶水台"], "x": 2.5, "y": 3.5},
+    "door": {"name": "门口", "aliases": ["门", "出口"], "x": 5.5, "y": 3.5}
+  },
+  "edges": [["start", "desk"], ["desk", "coffee"], ["coffee", "door"]]
+}

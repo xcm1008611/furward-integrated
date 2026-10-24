@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-24T19:11:26.041246+00:00",
+  "test_date_local": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "evidence_type": "Recorded results from completed tool output; tests were not rerun to create this file.",
+  "scope": "Independent localhost service and TCP proxy on ephemeral ports; not a production or public Internet test.",
+  "pytest": {
+    "working_directory": "demo-service",
+    "command": ".venv/bin/python -m pytest -q -s",
+    "exit_code": 0,
+    "passed": 30,
+    "warnings": 1,
+    "elapsed_seconds": 26.13,
+    "warning": "Existing StarletteDeprecationWarning: using httpx with starlette.testclient is deprecated; install httpx2 instead.",
+    "tool_output_chunk_id": "319984",
+    "captured_stdout_lines": [
+      "TCP blackhole enabled: both directions discarded, no FIN/RST injected",
+      "Application lease expired at 15.16s while TCP remained open",
+      "Paused at 25.14s / 29.998m from last valid ping",
+      "Same-session reconnect retained pause; explicit resume succeeded",
+      "30 passed, 1 warning in 26.13s"
+    ]
+  },
+  "blackhole": {
+    "test_file": "demo-service/tests/test_blackhole.py",
+    "method": "Real TCP proxy consumes and discards bytes in both directions after WS authentication and a valid application ping; it does not inject FIN/RST or close either peer before application lease detection.",
+    "clock": "Real monotonic wall clock, not a fake clock",
+    "service_settings": {
+      "heartbeat_timeout_seconds": 15,
+      "disconnect_grace_seconds": 10,
+      "speed_mps": 1.2
+    },
+    "observed_lease_expiry_seconds_from_last_valid_ping": 15.16,
+    "tcp_still_open_at_lease_expiry": true,
+    "observed_pause_seconds_from_last_valid_ping": 25.14,
+    "paused_distance_m": 29.998,
+    "paused_reason": "disconnected",
+    "same_session_reconnect_retained_paused_position": true,
+    "explicit_resume_succeeded": true,
+    "temporary_service_and_proxy_cleaned_up": true,
+    "limitations": "Observed timing includes test polling and normal event-loop scheduling. This is not a guarantee of pausing exactly 10 seconds after physical network loss."
+  }
+}

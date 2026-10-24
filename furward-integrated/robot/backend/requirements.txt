@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic>=2,<3
+pydantic-settings
+httpx
+websockets
+python-dotenv
+openai
+qrcode
+numpy
+opencv-python-headless
+onnxruntime
+pytest
+pytest-asyncio

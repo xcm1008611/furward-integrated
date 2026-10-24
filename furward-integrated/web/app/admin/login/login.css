@@ -1,0 +1,21 @@
+.admin-login-shell { display: flex; flex-direction: column; align-items: center; padding: 54px 24px 28px; min-height: 100svh; }
+.admin-login-shell > .admin-brand { align-self: flex-start; }
+.admin-login-card { width: min(100%, 480px); margin: auto; padding: 48px 0 28px; }
+.admin-login-label { color: #67705b; font-size: 12px; letter-spacing: .1em; }
+.admin-login-card h1 { font-size: clamp(30px, 6vw, 40px); letter-spacing: -.04em; line-height: 1.3; margin: 16px 0; }
+.admin-login-card > p { color: #626858; font-size: 14px; line-height: 1.9; max-width: 370px; }
+.admin-login-form { margin-top: 36px; }
+.admin-login-form > label { font-size: 13px; font-weight: 600; display: block; margin-bottom: 10px; }
+.admin-login-password { display: flex; min-height: 52px; border: 1px solid #b9c1b0; border-radius: 5px; background: #fff; overflow: hidden; }
+.admin-login-password:focus-within { outline: 2px solid #4c583a; outline-offset: 2px; }
+.admin-login-password input { min-width: 0; width: 100%; padding: 12px 15px; border: 0; color: #1c1e1b; background: transparent; font-size: 16px; outline: none; }
+.admin-login-password input:focus-visible { outline: none; }
+.admin-login-password button { flex: none; border: 0; padding: 0 16px; background: transparent; color: #4c583a; font-size: 12px; }
+.admin-login-form .admin-login-help { color: #68715f; font-size: 12px; line-height: 1.8; margin-top: 12px; }
+.admin-login-form .admin-login-error { color: #a02d25; font-size: 13px; min-height: 24px; margin: 15px 0 12px; }
+.admin-login-form .admin-login-submit { width: 100%; min-height: 50px; justify-content: space-between; padding: 12px 18px; font-size: 14px; }
+.admin-login-back { display: inline-block; margin-top: 32px; font-size: 12px; border-bottom: 1px solid #a7ae9d; padding-bottom: 3px; }
+.admin-login-footnote { color: #6d7566; text-align: center; font-size: 11px; margin-top: 44px !important; }
+.admin-login-unconfigured { margin-top: 30px; padding: 20px; background: #e8ece0; border-left: 3px solid #77875a; font-size: 14px; }
+.admin-login-unconfigured p { margin-top: 9px; font-size: 12px; line-height: 1.8; }
+@media (max-width: 600px) { .admin-login-shell { padding-top: 32px; } .admin-login-shell > .admin-brand { padding-left: 0; } }

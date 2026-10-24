@@ -1,0 +1,114 @@
+{
+  "recorded_at": "2026-10-25T07:27:00.184801+08:00",
+  "result": "passed",
+  "public_url": "https://8.147.109.174:8088/experience",
+  "changes": [
+    "Bone-attached hand grip, chest harness and continuous visual guide lead",
+    "Persistent obstacles with clearance-checked side detours; dynamic map and actual route distance",
+    "Lower following camera and mobile minimap moved left"
+  ],
+  "backend": {
+    "passed": 47,
+    "report": "guide-detour-backend.json"
+  },
+  "frontend": {
+    "passed": 21,
+    "log": "guide-detour-frontend.log"
+  },
+  "build": {
+    "result": "passed",
+    "log": "guide-detour-build.log",
+    "typescript_and_eslint": "passed after build; parallel type check during Next output regeneration was rerun sequentially"
+  },
+  "guide_connection": {
+    "frames": 19667,
+    "cases": 96,
+    "report": "guide-connection-validation.json"
+  },
+  "live_routes": {
+    "local": {
+      "distance_m": 151.1078,
+      "duration_seconds": 126.6,
+      "log": "guide-detour-local-full-route.log"
+    },
+    "public": {
+      "distance_m": 151.1078,
+      "duration_seconds": 127.1,
+      "log": "guide-detour-public-full-route.log",
+      "tls_verified": true,
+      "ssh_tunnel": false,
+      "environment_proxy": false
+    },
+    "scope": "Runs were completed before final camera-only and mobile minimap presentation adjustment; backend and route unchanged afterward."
+  },
+  "browser": {
+    "public_before_camera_adjustment": {
+      "manual_obstacle_m": 8.5057,
+      "pause_reload_restored_m": 14.1713,
+      "done_m": 151.1078,
+      "fixed_obstacles_at_done": 1,
+      "console_warnings_errors": 0,
+      "screenshots": [
+        "../screenshots/guide-detour-public.png",
+        "../screenshots/guide-public-arrival.png"
+      ]
+    },
+    "local_multiple_obstacles": {
+      "done_m": 152.2156,
+      "fixed_obstacles_at_done": 2,
+      "console_warnings_errors": 0,
+      "screenshot": "../screenshots/guide-local-two-detours-arrival.png"
+    },
+    "final_lower_camera": {
+      "local_done_m": 151.1078,
+      "local_console_warnings_errors": 0,
+      "public_bypass_paused_m": 6.1755,
+      "public_fixed_obstacles": 1,
+      "public_follow_overview_roundtrip": "passed",
+      "public_console_warnings_errors": 0,
+      "screenshots": [
+        "../screenshots/guide-low-camera-public.png",
+        "../screenshots/guide-low-camera-local.png",
+        "../screenshots/guide-low-camera-narrow.png"
+      ],
+      "viewport_widths_checked": [
+        1440,
+        768,
+        390
+      ],
+      "mobile_minimap": "left bottom; visible actor no longer covered",
+      "inspector": "0 FAIL, 2 WARN: retained warm city/brand palette and canvas colour coverage"
+    }
+  },
+  "deployment": {
+    "source_hashes": "guide-detour-server-source.json",
+    "endpoints": "guide-detour-endpoints.json",
+    "containers": [
+      {
+        "Service": "demo",
+        "Image": "furward-preview-demo",
+        "Health": "healthy",
+        "CreatedAt": "2026-10-25 07:18:48 +0800 CST"
+      },
+      {
+        "Service": "gateway",
+        "Image": "furward-preview-gateway",
+        "Health": "healthy",
+        "CreatedAt": "2026-10-25 07:18:48 +0800 CST"
+      },
+      {
+        "Service": "web",
+        "Image": "sha256:18c7134f5971bda1edf9b0be37cc3e8548bc4f3d451da50a0083ded4840e99d4",
+        "Health": "healthy",
+        "CreatedAt": "2026-10-25 07:24:09 +0800 CST"
+      }
+    ],
+    "source_backup": "/opt/furward-preview/backups/guide-before-20261025-071549.tar.gz",
+    "original_site_https_8087": 200
+  },
+  "limits": [
+    "Detours are local planning against the fixed demonstration city, not real robot navigation.",
+    "Visual lead has no physical tension or arbitrary scene collision solver.",
+    "Previous physical-phone feedback and LAN Linux-client tests are historical; this change was checked autonomously in browser viewports."
+  ]
+}

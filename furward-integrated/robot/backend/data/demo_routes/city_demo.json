@@ -1,0 +1,82 @@
+{
+  "route_id": "demo-city",
+  "mode": "outdoor",
+  "coord": "gcj02",
+  "destination_name": "街心花园",
+  "aliases": [
+    "演示路线",
+    "演示城市",
+    "城市演示"
+  ],
+  "sample": true,
+  "note": "虚构演示城市路线（来自 Blender 场景），非真实街道",
+  "cached": true,
+  "distance_m": 150.0,
+  "duration_s": 125,
+  "polyline": [
+    [
+      121.5901,
+      31.2032
+    ],
+    [
+      121.5907049,
+      31.2032
+    ],
+    [
+      121.5907049,
+      31.2028056
+    ],
+    [
+      121.5910347,
+      31.2028056
+    ],
+    [
+      121.5910347,
+      31.202963
+    ]
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "instruction": "从西街口出发，向东直行约 58 米",
+      "distance_m": 57.6,
+      "action": "straight",
+      "end": [
+        121.5907049,
+        31.2032
+      ]
+    },
+    {
+      "index": 1,
+      "instruction": "右转，向南直行约 44 米",
+      "distance_m": 43.6,
+      "action": "turn_right",
+      "end": [
+        121.5907049,
+        31.2028056
+      ]
+    },
+    {
+      "index": 2,
+      "instruction": "左转，向东直行约 31 米",
+      "distance_m": 31.4,
+      "action": "turn_left",
+      "end": [
+        121.5910347,
+        31.2028056
+      ]
+    },
+    {
+      "index": 3,
+      "instruction": "左转，向北直行约 17 米，到达街心花园",
+      "distance_m": 17.4,
+      "action": "turn_left",
+      "end": [
+        121.5910347,
+        31.202963
+      ]
+    }
+  ],
+  "robot_plan": null,
+  "current_step": 0
+}

@@ -1,0 +1,195 @@
+{
+  "on-track": {
+    "hero": [
+      {
+        "id": "on-podium-1",
+        "src": "/reference/pages/on-podium-1.webp",
+        "alt": "领奖台照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e09745f01934455a83e_ln-podium-Emilia%20Romagna%20GP%202022.webp"
+      },
+      {
+        "id": "on-podium-2",
+        "src": "/reference/pages/on-podium-2.webp",
+        "alt": "领奖台照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e09f8dd0a25893e615d_ln-podium-Singapore%20GP%202024.webp"
+      },
+      {
+        "id": "on-podium-3",
+        "src": "/reference/pages/on-podium-3.webp",
+        "alt": "领奖台照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e09a8ef4882167f5bfd_ln-podium-Abu%20Dhabi%20GP%202024.webp"
+      },
+      {
+        "id": "on-track-hero-5",
+        "src": "/reference/social-track.webp",
+        "alt": "on-track 照片 5",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba846e593e52541fb7a8_Lando-6-on-track.webp"
+      },
+      {
+        "id": "on-podium-4",
+        "src": "/reference/pages/on-podium-4.webp",
+        "alt": "领奖台照片 4",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e09022941a1f11c719c_ln-podium-Miami%20GP%202024.webp"
+      },
+      {
+        "id": "on-podium-5",
+        "src": "/reference/pages/on-podium-5.webp",
+        "alt": "领奖台照片 5",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e09a8ef4882167f5bd6_ln-podium-Australian%20GP%202025.webp"
+      }
+    ],
+    "gallery": [
+      {
+        "id": "on-gallery-1",
+        "src": "/reference/pages/on-gallery-1.webp",
+        "alt": "Lando lifting trophy",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e9014e85b90d9085ad4_ln-on-t-horiz-1.webp"
+      },
+      {
+        "id": "on-gallery-2",
+        "src": "/reference/pages/on-gallery-2.webp",
+        "alt": "Lando in F1 car",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68303e90745f0193445603af_ln-on-t-horiz-2.webp"
+      },
+      {
+        "id": "on-gallery-3",
+        "src": "/reference/pages/on-gallery-3.webp",
+        "alt": "Lando drenching self in champagne",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d955edd4de2eb118421e59_ln4-on-track-scroll-img3.webp"
+      },
+      {
+        "id": "on-gallery-4",
+        "src": "/reference/pages/on-gallery-4.webp",
+        "alt": "Lando in F1 helmet",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d95625da39dd4f8ef7dce7_ln4-on-track-scroll-img4.webp"
+      },
+      {
+        "id": "on-gallery-5",
+        "src": "/reference/pages/on-gallery-5.webp",
+        "alt": "Lando lifting Abu Dhabi trophy",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67d955eda1a903a8a63754a7_ln4-on-track-scroll-img5.webp"
+      }
+    ]
+  },
+  "off-track": {
+    "hero": [
+      {
+        "id": "off-hero-2",
+        "src": "/reference/pages/off-hero-2.webp",
+        "alt": "生活页首屏拼贴 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dec619f04087548a886340_img_1.webp"
+      },
+      {
+        "id": "off-hero-3",
+        "src": "/reference/pages/off-hero-3.webp",
+        "alt": "生活页首屏拼贴 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67dec619b9bcdeb6007ab6ba_img_2.webp"
+      },
+      {
+        "id": "off-padel-3",
+        "src": "/reference/pages/off-padel-3.webp",
+        "alt": "板式网球照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3f04ccc44a7983593_ln4-off-t-h-img-13.webp"
+      },
+      {
+        "id": "off-hero-4",
+        "src": "/reference/pages/off-hero-4.webp",
+        "alt": "生活页首屏拼贴 4",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/68d3ba832675c25de8a8a3b5_Lando-3-off-track.webp"
+      },
+      {
+        "id": "off-golf-2",
+        "src": "/reference/pages/off-golf-2.webp",
+        "alt": "高尔夫照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a320344c1a7fbe5bf8_ln4-off-t-h-img-9.webp"
+      },
+      {
+        "id": "off-lego-1",
+        "src": "/reference/pages/off-lego-1.webp",
+        "alt": "乐高艺术照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a36049bceca35ec211_ln4-off-t-h-img-5.webp"
+      }
+    ],
+    "gallery": [
+      {
+        "id": "off-padel-1",
+        "src": "/reference/pages/off-padel-1.webp",
+        "alt": "板式网球照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a36cf95bb6c26af86b_ln4-off-t-h-img-1.webp"
+      },
+      {
+        "id": "off-padel-2",
+        "src": "/reference/pages/off-padel-2.webp",
+        "alt": "板式网球照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a359ef1f3a44ffda8f_ln4-off-t-h-img-11.webp"
+      },
+      {
+        "id": "off-padel-3",
+        "src": "/reference/pages/off-padel-3.webp",
+        "alt": "板式网球照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3f04ccc44a7983593_ln4-off-t-h-img-13.webp"
+      },
+      {
+        "id": "off-photo-1",
+        "src": "/reference/pages/off-photo-1.webp",
+        "alt": "摄影与胶片照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3449c4f2b5e4c5485_ln4-off-t-h-img-12.webp"
+      },
+      {
+        "id": "off-photo-2",
+        "src": "/reference/pages/off-photo-2.webp",
+        "alt": "摄影与胶片照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3b5e49e3f051e3b0d_ln4-off-t-h-img-2.webp"
+      },
+      {
+        "id": "off-photo-3",
+        "src": "/reference/pages/off-photo-3.webp",
+        "alt": "摄影与胶片照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3970315c5825bfa92_ln4-off-t-h-img-3.webp"
+      },
+      {
+        "id": "off-photo-4",
+        "src": "/reference/pages/off-photo-4.webp",
+        "alt": "摄影与胶片照片 4",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a360724be28b58ddef_ln4-off-t-h-img-4.webp"
+      },
+      {
+        "id": "off-lego-1",
+        "src": "/reference/pages/off-lego-1.webp",
+        "alt": "乐高艺术照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a36049bceca35ec211_ln4-off-t-h-img-5.webp"
+      },
+      {
+        "id": "off-lego-2",
+        "src": "/reference/pages/off-lego-2.webp",
+        "alt": "乐高艺术照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3f3044cc93bd6d190_ln4-off-t-h-img-7.webp"
+      },
+      {
+        "id": "off-lego-3",
+        "src": "/reference/pages/off-lego-3.webp",
+        "alt": "乐高艺术照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3f3044cc93bd6d180_ln4-off-t-h-img-6.webp"
+      },
+      {
+        "id": "off-golf-1",
+        "src": "/reference/pages/off-golf-1.webp",
+        "alt": "高尔夫照片 1",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3970315c5825bfab8_ln4-off-t-h-img-8.webp"
+      },
+      {
+        "id": "off-golf-2",
+        "src": "/reference/pages/off-golf-2.webp",
+        "alt": "高尔夫照片 2",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a320344c1a7fbe5bf8_ln4-off-t-h-img-9.webp"
+      },
+      {
+        "id": "off-golf-3",
+        "src": "/reference/pages/off-golf-3.webp",
+        "alt": "高尔夫照片 3",
+        "source": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67e6f5a3e187ff113d7357b7_ln4-off-t-h-img-10.webp"
+      }
+    ]
+  },
+  "_note": "内页图片统一在 /reference/pages；完整来源清单为 .taste-skill/editorial/assets.json。此前重复下载的未使用图片已清理。"
+}

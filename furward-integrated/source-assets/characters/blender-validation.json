@@ -1,0 +1,37 @@
+{
+  "blender_version": "5.2.2 LTS",
+  "fps": 60,
+  "speed_mps": 1.2,
+  "duration_seconds": 2.0,
+  "actors": {
+    "human": {
+      "bones": 20,
+      "actions": [
+        "idle",
+        "stop",
+        "turn_left",
+        "turn_right",
+        "walk"
+      ],
+      "source_sha256": "d1d504fe55dfa21408b0b4dd5460fac042c06b4cd23bdcf2f9f9f746d86e78e4",
+      "travel_distance_m": 2.4000000476837156,
+      "minimum_world_foot_height_m": 0.002352792304009199,
+      "frames_sampled": 121
+    },
+    "dog": {
+      "bones": 15,
+      "actions": [
+        "idle",
+        "stop",
+        "turn_left",
+        "turn_right",
+        "walk"
+      ],
+      "source_sha256": "174e742ea49b85db8fc7602abe09afa04bdf1fc2071b95bec589033123eaaf17",
+      "travel_distance_m": 2.4000000476837156,
+      "minimum_world_foot_height_m": 0.0026927865110337734,
+      "frames_sampled": 121
+    }
+  },
+  "scope": "Editable GLB imports; preserved clips/materials/textures; straight walk. Runtime terrain and transition IK are verified separately."
+}

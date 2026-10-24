@@ -1,0 +1,3 @@
+# Preserve original source assets and verification evidence byte for byte.
+furward-integrated/source-assets/** -text
+furward-integrated/docs/verification/** -text

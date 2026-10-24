@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - path: .env.production
+        required: false
+    environment:
+      NODE_ENV: production
+      DATA_DIR: /app/data
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-3000}:3000"
+    volumes:
+      - lando-data:/app/data
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  lando-data:

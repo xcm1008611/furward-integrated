@@ -1,0 +1,188 @@
+{
+  "checked_at_utc": "2026-10-24T21:34:08.597067+00:00",
+  "base_url": "https://8.147.109.174:8088",
+  "transport": "Direct public IP, no SSH tunnel or environment proxy",
+  "tls_verification_enabled": true,
+  "tls": {
+    "verified": true,
+    "version": "TLSv1.3",
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "Let's Encrypt"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "YE1"
+        ]
+      ]
+    ],
+    "subject_alt_name": [
+      [
+        "IP Address",
+        "8.147.109.174"
+      ]
+    ],
+    "not_before": "Oct 22 18:22:46 2026 GMT",
+    "not_after": "Oct 29 10:22:45 2026 GMT"
+  },
+  "public_pages": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/experience",
+      "method": "GET",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/demo/health",
+      "method": "GET",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    }
+  ],
+  "private_endpoints": [
+    {
+      "path": "/api/debug",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/debug/obstacle",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/robot/state",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/robot/command",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/robot/stop",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/voice/text",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/nav/status",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/vision/status",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/debug",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/showcase",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/ws/bridge",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "path": "/ws/app",
+      "method": "GET",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    }
+  ],
+  "private_websocket_upgrades": [
+    {
+      "path": "/ws/bridge",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/ws/app",
+      "status": 404,
+      "passed": true
+    }
+  ],
+  "original_site": {
+    "url": "https://8.147.109.174:8087/",
+    "status": 200,
+    "tls_verified": true,
+    "passed": true
+  },
+  "passed": true,
+  "full_route": {
+    "passed": true,
+    "command": "demo-service/.venv/bin/python scripts/check-live.py https://8.147.109.174:8088 --full-route",
+    "exit_code": 0,
+    "status": "DONE",
+    "distance_m": 150,
+    "steps": 4,
+    "duration_seconds": 126.4,
+    "speed_mps": 1.2,
+    "automatic_obstacle_m": 32,
+    "obstacle_clear_then_explicit_resume_verified": true,
+    "visitor_isolation_auth_origin_reconnect_verified": true,
+    "log": "public-full-route.log",
+    "log_sha256": "ec7775a7b38d6321c25f1d3ca02873373451021ef474edf2949bf284674c4c96"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "frames": 19667,
+  "clip_and_transition_cases": 96,
+  "route_cases": [
+    {
+      "name": "original_route",
+      "metres": 150.0000000471949,
+      "frames": 7502
+    },
+    {
+      "name": "sinusoidal_2_4m_detour",
+      "metres": 151.10265857901098,
+      "frames": 7557
+    }
+  ],
+  "maximum_root_change_m": 0,
+  "maximum_hand_pose_change_rad": 0,
+  "maximum_endpoint_error_m": 0.0010076500615298723,
+  "maximum_segment_join_error_m": 0.002014697252838556,
+  "minimum_lead_height_above_floor_m": 0.7308655203902162,
+  "minimum_anchor_distance_m": 0.9206435754525633,
+  "maximum_anchor_distance_m": 2.578146860837464,
+  "maximum_grip_to_hand_mesh_m": 0.025804171077046033
+}
+PASS: actual human/dog GLBs; held hand, bone-attached endpoints, continuous lead, root preservation and route/corner clearance.
+Scope: horizontal ground clearance and route formation; does not establish arbitrary-object rope collision or finger articulation.

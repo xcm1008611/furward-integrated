@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Furward preview HTTPS certificate hourly
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+Persistent=true
+Unit=furward-preview-certificate.service
+
+[Install]
+WantedBy=timers.target

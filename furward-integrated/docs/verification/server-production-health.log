@@ -1,0 +1,6 @@
+NAME                        IMAGE                     COMMAND                  SERVICE   CREATED              STATUS                        PORTS
+furward-preview-demo-1      furward-preview-demo      "python -m uvicorn d…"   demo      About a minute ago   Up About a minute (healthy)   8100/tcp
+furward-preview-gateway-1   furward-preview-gateway   "docker-entrypoint.s…"   gateway   About a minute ago   Up About a minute (healthy)   127.0.0.1:3300->3000/tcp
+furward-preview-web-1       furward-preview-web       "docker-entrypoint.s…"   web       About a minute ago   Up About a minute (healthy)   3000/tcp
+1859000
+{"ok":true,"data":{"service":"furward-demo","mode":"simulation"}} old-site=200

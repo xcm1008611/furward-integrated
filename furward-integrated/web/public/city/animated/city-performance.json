@@ -1,0 +1,41 @@
+{
+  "environment": "Local Chrome desktop, Next.js development mode, 390px iframe viewport; not a physical phone or CPU throttling test",
+  "canvas_css_pixels": [
+    390,
+    371
+  ],
+  "sample_frames_per_window": 120,
+  "measurement": "Wall-clock main-thread solve time for both actors includes all 35 actual city-ground raycasts and IK; frame_compute_ms includes entire animation callback and renderer submission, not isolated GPU duration. FPS is requestAnimationFrame cadence.",
+  "samples": [
+    {
+      "status": "IDLE",
+      "solve_mean_ms": 0.938,
+      "solve_p95_ms": 1.1,
+      "frame_compute_ms": 3.158,
+      "fps": 120
+    },
+    {
+      "status": "ACTIVE",
+      "solve_mean_ms": 0.928,
+      "solve_p95_ms": 1,
+      "frame_compute_ms": 2.98,
+      "fps": 120.01
+    },
+    {
+      "status": "ACTIVE",
+      "solve_mean_ms": 0.967,
+      "solve_p95_ms": 1.1,
+      "frame_compute_ms": 3.041,
+      "fps": 120
+    },
+    {
+      "status": "PAUSED",
+      "solve_mean_ms": 0.953,
+      "solve_p95_ms": 1.1,
+      "frame_compute_ms": 3.028,
+      "fps": 120
+    }
+  ],
+  "console_errors": [],
+  "temporary_instrumentation_removed": true
+}

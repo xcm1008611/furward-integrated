@@ -1,0 +1,4 @@
+backend/models/*.onnx
+backend/app/static/media/*.mp4
+backend/app/static/media/*.mov
+backend/app/static/media/*.webm

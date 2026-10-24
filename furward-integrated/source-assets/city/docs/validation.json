@@ -1,0 +1,30 @@
+{
+  "original_visual_assets_unchanged": true,
+  "original_objects_checked": 378,
+  "source_blend_unchanged": true,
+  "passive_rigid_bodies": 160,
+  "render_hidden_colliders": 160,
+  "nondegenerate_shapes": true,
+  "closed_hulls": true,
+  "physics_drop_tests": [
+    {
+      "case": "terrain",
+      "expected_center_z": 0.06999998092651366,
+      "actual_center_z": 0.06999999284744263,
+      "passed": true
+    },
+    {
+      "case": "building",
+      "expected_center_z": 29.3,
+      "actual_center_z": 29.299999237060547,
+      "passed": true
+    },
+    {
+      "case": "bin",
+      "expected_center_z": 1.1399999737739563,
+      "actual_center_z": 1.1449999809265137,
+      "passed": true
+    }
+  ],
+  "glb_roundtrip_meshes": 160
+}

@@ -1,0 +1,56 @@
+{
+  "original": {
+    "stride_m": 0.42,
+    "actual_cycle_at_1_2mps_s": 0.564516129032258,
+    "cadence_steps_per_minute": 212.57142857142858,
+    "min_reach_margin_m": 0.003904587282893446,
+    "max_requested_overreach_m": 0,
+    "max_actual_knee_flexion_deg": 66.11356487375306,
+    "max_actual_thigh_angle_from_down_deg": 39.10060577921342,
+    "lowest_skinned_vertex_y_m": -2.636779683484747e-16,
+    "max_pants_99percentile_edge_ratio": 1.4549276756310097,
+    "min_pants_1percentile_edge_ratio": 0.49340836754834977,
+    "samples": 721,
+    "additional_body_lowering_m": 0,
+    "foot_roll_deg": [
+      0,
+      0
+    ]
+  },
+  "stride068": {
+    "stride_m": 0.68,
+    "actual_cycle_at_1_2mps_s": 0.913978494623656,
+    "cadence_steps_per_minute": 131.2941176470588,
+    "min_reach_margin_m": 0.0015105228351700584,
+    "max_requested_overreach_m": 0,
+    "max_actual_knee_flexion_deg": 67.86160438313169,
+    "max_actual_thigh_angle_from_down_deg": 45.52777215383745,
+    "lowest_skinned_vertex_y_m": -3.608224830031759e-16,
+    "max_pants_99percentile_edge_ratio": 1.5522594535946173,
+    "min_pants_1percentile_edge_ratio": 0.4688286406037583,
+    "samples": 721,
+    "additional_body_lowering_m": 0.004,
+    "foot_roll_deg": [
+      -22,
+      20
+    ]
+  },
+  "stride070": {
+    "stride_m": 0.7,
+    "actual_cycle_at_1_2mps_s": 0.9408602150537634,
+    "cadence_steps_per_minute": 127.54285714285716,
+    "min_reach_margin_m": 0.001518497224493598,
+    "max_requested_overreach_m": 0,
+    "max_actual_knee_flexion_deg": 68.36834672258584,
+    "max_actual_thigh_angle_from_down_deg": 46.064625037912755,
+    "lowest_skinned_vertex_y_m": -2.7755575615628914e-16,
+    "max_pants_99percentile_edge_ratio": 1.557240533455173,
+    "min_pants_1percentile_edge_ratio": 0.4676367029942654,
+    "samples": 721,
+    "additional_body_lowering_m": 0.006,
+    "foot_roll_deg": [
+      -22,
+      20
+    ]
+  }
+}

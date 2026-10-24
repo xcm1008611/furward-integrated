@@ -1,0 +1,138 @@
+.experience {
+  --ground: #f0f1e9;
+  --surface: #fff;
+  --raised: #f6f7f1;
+  --text: #25291e;
+  --muted: #62675a;
+  --edge: #e3e5dc;
+  --control: #c9cdc0;
+  --accent: #d2ff00;
+  min-height: 100svh;
+  color: var(--text);
+  background: var(--ground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.experience button { min-height: 44px; border: 1px solid var(--control); border-radius: 6px; background: var(--surface); color: var(--text); padding: 8px 13px; display: inline-flex; justify-content: center; align-items: center; gap: 7px; font-size: 14px; font-weight: 550; transition: background .15s, border-color .15s; }
+.experience button:hover:not(:disabled):not([aria-disabled=true]) { background: #e9ecdf; border-color: #89917b; }
+.experience button:active:not(:disabled):not([aria-disabled=true]) { transform: translateY(1px); }
+.experience button:is(:disabled, [aria-disabled=true]) { color: #707565; border-color: var(--edge); background: var(--raised); cursor: not-allowed; }
+.experience :is(button, a, input):focus-visible { outline: 3px solid #647d00; outline-offset: 3px; }
+.topbar { min-height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; padding: 8px 24px; }
+.brand { display: inline-flex; width: fit-content; align-items: center; gap: 12px; font-size: 19px; font-weight: 650; }
+.brand b { font-weight: 750; letter-spacing: -.06em; margin-left: 4px; }
+.topbar h1 { font-size: 20px; font-weight: 600; }
+.connection { display: flex; align-items: center; justify-content: flex-end; gap: 7px; font-size: 12px; color: var(--muted); }
+.connection i { width: 6px; height: 6px; border-radius: 50%; background: #929787; }
+.connection[data-connected=true] i { background: #626c32; }
+/* At 1440: 12 + 1064 + 12 + 340 + 12 = 1440; no unused rail. */
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 12px; padding: 0 12px 12px; align-items: stretch; }
+.cityPanel { min-width: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--edge); border-radius: 16px; overflow: hidden; }
+.canvasBar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 62px; padding: 8px 20px; }
+.canvasBar p { font-size: 16px; font-weight: 550; }
+.viewToggle { display: flex; align-items: center; gap: 3px; }
+.viewToggle button { background: transparent; border-color: transparent; min-width: 52px; padding: 8px 10px; border-radius: 0; }
+.viewToggle button[aria-pressed=true] { border-bottom: 2px solid var(--text); font-weight: 650; }
+.canvasArea { position: relative; flex: 1; min-height: 560px; background: #e9e8df; overflow: hidden; }
+.scene { position: absolute; inset: 0; }
+.scene canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.scenePlaceholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; text-align: center; padding: 24px; background: #e9e8df; }
+.sceneMessage { position: absolute; left: 20px; top: 20px; right: 20px; z-index: 2; width: fit-content; max-width: calc(100% - 40px); background: var(--surface); padding: 16px; border-radius: 8px; font-size: 14px; }
+.sceneMessage button { margin-top: 12px; }
+.canvasCaption { position: absolute; left: 16px; top: 16px; pointer-events: none; display: flex; gap: 12px; flex-wrap: wrap; padding: 7px 10px; background: var(--surface); font-size: 12px; color: var(--muted); border-radius: 4px; }
+.canvasCaption span:first-child { color: var(--text); }
+.minimap { width: 172px; position: absolute; bottom: 16px; right: 16px; border: 3px solid var(--surface); border-radius: 8px; overflow: hidden; pointer-events: none; }
+.routeMap { display: block; width: 100%; height: auto; }
+.mapLegend { display: flex; justify-content: center; gap: 8px; padding: 4px 2px; font-size: 11px; background: var(--surface); color: var(--muted); }
+.mapLegend span { display: inline-flex; align-items: center; gap: 3px; }
+.mapLegend i { display: inline-block; flex: none; }
+.mapDog { width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 6px solid var(--text); }
+.mapHuman { width: 6px; height: 6px; border: 1px solid var(--text); border-radius: 50%; }
+.mapObstacle { width: 3px; height: 7px; background: #73511e; }
+.sceneFooter { padding: 12px 20px; display: flex; justify-content: space-between; gap: 16px; font-size: 12px; color: var(--muted); }
+.controlPanel { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--edge); background: var(--surface); border-radius: 16px; overflow: hidden; }
+.journey { padding: 20px; }
+.sectionHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sectionHeading h2 { font-size: 16px; font-weight: 650; }
+.sectionHeading > span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.sectionHeading .status { color: var(--text); font-size: 12px; padding: 2px 7px; border-radius: 4px; background: var(--raised); }
+.status[data-active=true] { background: #ecf4ce; }
+.instruction { font-size: 15px; min-height: 48px; margin: 14px 0 12px; line-height: 1.6; }
+.progressLabel { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progressLabel strong { font-size: 24px; color: var(--text); font-weight: 550; }
+.progressTrack { height: 5px; width: 100%; background: #e7eadd; border-radius: 4px; overflow: hidden; margin: 8px 0 16px; }
+.progressTrack span { display: block; height: 100%; background: #6d810e; transition: width .1s linear; }
+.mainControls { display: grid; grid-template-columns: minmax(0, 1fr) 85px; gap: 8px; }
+.experience .primary { background: var(--text); color: #fff; border-color: var(--text); }
+.experience .primary:hover:not(:disabled):not([aria-disabled=true]) { background: #4b523b; border-color: #4b523b; }
+.experience .primary:is(:disabled, [aria-disabled=true]) { color: #707565; border-color: var(--edge); background: var(--raised); }
+.auxControls { display: flex; justify-content: space-between; gap: 8px; margin-top: 5px; }
+.auxControls button { border-color: transparent; background: transparent; padding: 8px 2px; font-size: 13px; }
+.auxControls button:is(:disabled, [aria-disabled=true]) { background: transparent; border-color: transparent; }
+.hint { color: #73511e; font-size: 13px; margin-top: 6px; }
+.notice { margin-top: 12px; padding: 12px; background: var(--raised); border-radius: 6px; font-size: 13px; }
+.notice button { border: 0; padding: 8px 0 0; background: transparent; min-height: 36px; text-decoration: underline; }
+.steps { list-style: none; padding: 0; margin: 17px 0 0; display: grid; gap: 0; }
+.steps li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; align-items: start; padding: 8px 0; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.steps li[aria-current=step] { color: var(--text); font-weight: 600; }
+.steps li[data-complete=true] { color: #606550; }
+.stepMarker { width: 18px; height: 20px; display: grid; place-items: center; }
+.stepMarker i { display: block; width: 4px; height: 4px; background: #8d947e; border-radius: 50%; }
+.steps li[aria-current=step] .stepMarker { border-radius: 4px; background: var(--accent); }
+.conversation { padding: 18px 20px 20px; border-top: 1px solid var(--edge); flex: 1; display: flex; flex-direction: column; }
+.chat { max-height: 155px; min-height: 96px; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; margin: 12px 0; padding-right: 4px; }
+.chatLine { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; margin-bottom: 12px; }
+.chatLine > span { font-size: 12px; color: var(--muted); padding-top: 1px; }
+.chatLine p { font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; }
+.chatLine[data-role=user] p { color: var(--muted); }
+.composer { margin-top: auto; }
+.composer label { display: block; font-size: 12px; font-weight: 550; margin-bottom: 8px; }
+.composer > div { display: flex; gap: 6px; }
+.composer input { min-width: 0; width: 100%; border: 1px solid var(--control); border-radius: 6px; padding: 10px; font-size: 13px; line-height: 24px; color: var(--text); background: var(--surface); }
+.composer input::placeholder { color: var(--muted); }
+.composer button { width: 44px; min-width: 44px; padding: 8px; }
+.textHint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.screenReader { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.skipLink { position: fixed; left: 16px; top: -80px; z-index: 5; background: var(--surface); color: var(--text); padding: 12px; border: 1px solid var(--control); }
+.skipLink:focus { top: 12px; }
+@media (min-width: 1101px) { .workspace { min-height: calc(100svh - 64px); } }
+@media (min-width: 1600px) { .workspace { grid-template-columns: minmax(0,1fr) 380px; } .journey, .conversation { padding-left: 24px; padding-right: 24px; } }
+@media (max-width: 1100px) {
+  .topbar { padding: 10px 20px; }
+  .workspace { grid-template-columns: 1fr; }
+  .canvasArea { min-height: 480px; }
+  .controlPanel { display: grid; grid-template-columns: 1fr 1fr; }
+  .conversation { border-top: 0; border-left: 1px solid var(--edge); }
+  .chat { min-height: 180px; max-height: 240px; }
+}
+@media (max-width: 640px) {
+  .topbar { min-height: 64px; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 16px; }
+  .topbar h1 { font-size: 14px; text-align: right; }
+  .brand { font-size: 18px; gap: 7px; }
+  .connection { grid-column: 1 / -1; justify-content: flex-start; font-size: 12px; }
+  .workspace { padding: 0 0 16px; gap: 0; }
+  .cityPanel { border: 0; border-radius: 0; }
+  .canvasBar { padding: 6px 16px; min-height: 56px; }
+  .canvasBar p { font-size: 14px; }
+  .canvasArea { height: 44svh; min-height: 300px; flex: none; }
+  .canvasCaption { left: 10px; top: 10px; right: 10px; width: fit-content; font-size: 12px; }
+  .canvasCaption span:last-child { display: none; }
+  .minimap { width: 104px; left: 10px; right: auto; bottom: 10px; border-width: 2px; }
+  .sceneFooter { padding: 10px 16px; font-size: 12px; }
+  .sceneFooter span:last-child { display: none; }
+  .controlPanel { grid-template-columns: 1fr; border: 0; border-radius: 0; }
+  .journey { padding: 20px 16px 16px; }
+  .instruction { min-height: 0; margin-top: 12px; font-size: 16px; }
+  .mainControls { grid-template-columns: minmax(0, 1fr) 100px; }
+  .mainControls button { min-height: 48px; font-size: 16px; }
+  .steps { margin-top: 12px; }
+  .steps li { font-size: 14px; padding: 8px 0; }
+  .conversation { border-top: 1px solid var(--edge); border-left: 0; padding: 20px 16px; }
+  .chat { min-height: 90px; max-height: 230px; }
+  .chatLine p { font-size: 14px; }
+  .composer label { font-size: 14px; }
+  .composer input { font-size: 16px; }
+  .sceneMessage { top: 58px; left: 10px; max-width: calc(100% - 20px); }
+}
+@media (prefers-reduced-motion: reduce) { .experience button, .progressTrack span { transition: none; } }

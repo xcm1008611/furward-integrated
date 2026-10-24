@@ -1,0 +1,14 @@
+{
+  "name": "furward-integrated",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "start:production": "node scripts/start.mjs --production",
+    "build": "npm --prefix web run build:selfhost",
+    "export:world": "python3 scripts/export-world.py",
+    "export": "python3 scripts/export-source.py"
+  }
+}

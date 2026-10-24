@@ -1,0 +1,13 @@
+**
+!deploy/
+!deploy/Dockerfile.*
+!scripts/
+!scripts/gateway.mjs
+!demo-service/
+!demo-service/requirements*.txt
+!demo-service/demo_service/
+!demo-service/demo_service/**
+!shared/
+!shared/**
+**/__pycache__/
+**/.env*

@@ -1,0 +1,128 @@
+{
+  "manifest": {
+    "peripheral_buildings": 15,
+    "peripheral_trees": 42,
+    "peripheral_shrubs": 28,
+    "peripheral_benches": 6,
+    "characters": [
+      "BlindPerson",
+      "RobotDog"
+    ],
+    "rigged": false,
+    "animations": false,
+    "peripheral_scenery_non_walkable": true,
+    "original_boundary_unchanged": true,
+    "original_source_blend_version_warning": "source 5.4.3 loaded in 5.2.3; original GLBs retained byte-for-byte"
+  },
+  "spawn": {
+    "BlindPerson": {
+      "position_blender": [
+        197.24813842773438,
+        -2.9748528003692627,
+        0.05016113445162773
+      ],
+      "position_gltf": [
+        197.24813842773438,
+        0.05016113445162773,
+        2.9748528003692627
+      ],
+      "yaw_blender_rad": -0.9075711965560913,
+      "yaw_gltf_rad": -0.9075711965560913,
+      "height_m": 1.8,
+      "forward_gltf": "+Z",
+      "root": "BlindPerson_Root"
+    },
+    "RobotDog": {
+      "position_blender": [
+        195.32733154296875,
+        -2.9527320861816406,
+        0.03999973461031914
+      ],
+      "position_gltf": [
+        195.32733154296875,
+        0.03999973461031914,
+        2.9527320861816406
+      ],
+      "yaw_blender_rad": -0.9075711965560913,
+      "yaw_gltf_rad": -0.9075711965560913,
+      "height_m": 0.9,
+      "forward_gltf": "+Z",
+      "root": "RobotDog_Root"
+    }
+  },
+  "preservation": {
+    "original_objects": 538,
+    "original_colliders": 160,
+    "unchanged": true,
+    "runtime_geometry_transform_material_binding_visibility_comparison_passed": true
+  },
+  "camera": {
+    "name": "CAM_Game_V08",
+    "type": "ORTHO",
+    "position": [
+      316.55133056640625,
+      196.07608032226562,
+      109.15591430664062
+    ],
+    "target": [
+      309.6272277832031,
+      180.6300048828125,
+      98.5034408569336
+    ],
+    "up": [
+      -0.4208967685699463,
+      0.6352528929710388,
+      -0.6475334763526917
+    ],
+    "ortho_scale": 50,
+    "aspect": 1.4
+  },
+  "lights": [
+    {
+      "name": "Warm_Key",
+      "type": "SUN",
+      "color": [
+        1,
+        0.6800000071525574,
+        0.4000000059604645
+      ],
+      "energy": 2.5,
+      "direction": [
+        0.4082484543323517,
+        -0.8164965510368347,
+        -0.40824833512306213
+      ]
+    },
+    {
+      "name": "Violet_Fill",
+      "type": "SUN",
+      "color": [
+        0.36000001430511475,
+        0.20000000298023224,
+        1
+      ],
+      "energy": 0.8500000238418579,
+      "direction": [
+        -0.5070925951004028,
+        -0.8451542854309082,
+        0.16903096437454224
+      ]
+    }
+  ],
+  "color_management": {
+    "view_transform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0.4000000059604645
+  },
+  "coordinate_system": "glTF Y-up, meters; no re-centering/scaling",
+  "files": {
+    "core": "assets/city_visual_v08.glb",
+    "collisions": "assets/city_collision_v09.glb",
+    "collision_manifest": "assets/collision_manifest.json",
+    "periphery": "assets/city_periphery_v10.glb",
+    "human": "assets/blind_person.glb",
+    "dog": "assets/robot_dog.glb",
+    "characters_placed": "assets/characters_placed_v10.glb"
+  },
+  "character_loading": "Load characters_placed OR individual canonical character GLBs with spawn transforms; never both."
+}

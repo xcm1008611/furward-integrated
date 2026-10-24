@@ -1,0 +1,627 @@
+{
+  "version": 1,
+  "route_speed_mps": 1.2,
+  "fade_s": 0.22,
+  "phases": 16,
+  "frame_rates": [
+    60,
+    120
+  ],
+  "note": "Production post-blend solver, exact exported glTF meshes. Clearance is measured on actual skinned vertices, never bone origins.",
+  "models": {
+    "human": {
+      "constant_track_restore_passed": true,
+      "sole_samples": [
+        {
+          "bone": "human_foot_L",
+          "vertices": 10
+        },
+        {
+          "bone": "human_foot_R",
+          "vertices": 10
+        }
+      ],
+      "cases": [
+        {
+          "scenario": "start",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.01477123,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.01577123,
+          "maximum_correction_change_per_frame_m": 0.0067731,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00434291
+        },
+        {
+          "scenario": "start",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.01477123,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.01577123,
+          "maximum_correction_change_per_frame_m": 0.00434692,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00434291
+        },
+        {
+          "scenario": "start",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.02141836,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.02241836,
+          "maximum_correction_change_per_frame_m": 0.00900258,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00434291
+        },
+        {
+          "scenario": "start",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.02141836,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.02241836,
+          "maximum_correction_change_per_frame_m": 0.01038017,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00434291
+        },
+        {
+          "scenario": "stop",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.04448248,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.04548248,
+          "maximum_correction_change_per_frame_m": 0.01400582,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01965345
+        },
+        {
+          "scenario": "stop",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.04448248,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.04548248,
+          "maximum_correction_change_per_frame_m": 0.00724312,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01965345
+        },
+        {
+          "scenario": "stop",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.04448248,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.04548248,
+          "maximum_correction_change_per_frame_m": 0.01588215,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01270445
+        },
+        {
+          "scenario": "stop",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.04636255,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.04736255,
+          "maximum_correction_change_per_frame_m": 0.01316524,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01270445
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.01477123,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.01577123,
+          "maximum_correction_change_per_frame_m": 0.00896685,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01619665
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.01477123,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.01577123,
+          "maximum_correction_change_per_frame_m": 0.00495787,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01619665
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.02141836,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.02241836,
+          "maximum_correction_change_per_frame_m": 0.01020893,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01213322
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.02141836,
+          "minimum_after_m": 0.00099997,
+          "maximum_ankle_lift_m": 0.02241836,
+          "maximum_correction_change_per_frame_m": 0.01091966,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01213322
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.02111282,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.02211282,
+          "maximum_correction_change_per_frame_m": 0.00990604,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01514607
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.02111282,
+          "minimum_after_m": 0.00099085,
+          "maximum_ankle_lift_m": 0.02211282,
+          "maximum_correction_change_per_frame_m": 0.00569085,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01514607
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.03311282,
+          "minimum_after_m": 0.0009712,
+          "maximum_ankle_lift_m": 0.03411282,
+          "maximum_correction_change_per_frame_m": 0.01401597,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00976566
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.03311282,
+          "minimum_after_m": 0.0009712,
+          "maximum_ankle_lift_m": 0.03411282,
+          "maximum_correction_change_per_frame_m": 0.01203104,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00987988
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.01877791,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01977791,
+          "maximum_correction_change_per_frame_m": 0.00700916,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.0149801
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.01877791,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01977791,
+          "maximum_correction_change_per_frame_m": 0.00500483,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.0149801
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.03077791,
+          "minimum_after_m": 0.00097358,
+          "maximum_ankle_lift_m": 0.03177791,
+          "maximum_correction_change_per_frame_m": 0.01306305,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00973896
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.03077791,
+          "minimum_after_m": 0.00097358,
+          "maximum_ankle_lift_m": 0.03177791,
+          "maximum_correction_change_per_frame_m": 0.01183053,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00982248
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.0055347,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.0065347,
+          "maximum_correction_change_per_frame_m": 0.00198668,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.003
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.00559081,
+          "minimum_after_m": 0.00099391,
+          "maximum_ankle_lift_m": 0.00659081,
+          "maximum_correction_change_per_frame_m": 0.00104335,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.003
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.0175347,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.0185347,
+          "maximum_correction_change_per_frame_m": 0.01127429,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01759081,
+          "minimum_after_m": 0.00099391,
+          "maximum_ankle_lift_m": 0.01859081,
+          "maximum_correction_change_per_frame_m": 0.01095522,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        }
+      ]
+    },
+    "dog": {
+      "constant_track_restore_passed": true,
+      "sole_samples": [
+        {
+          "bone": "dog_foot_rear_R",
+          "vertices": 3
+        },
+        {
+          "bone": "dog_foot_front_R",
+          "vertices": 4
+        },
+        {
+          "bone": "dog_foot_rear_L",
+          "vertices": 4
+        },
+        {
+          "bone": "dog_foot_front_L",
+          "vertices": 4
+        }
+      ],
+      "cases": [
+        {
+          "scenario": "start",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.00465485,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.00565485,
+          "maximum_correction_change_per_frame_m": 0.00386567,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299454
+        },
+        {
+          "scenario": "start",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.00465485,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.00565485,
+          "maximum_correction_change_per_frame_m": 0.00293417,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299454
+        },
+        {
+          "scenario": "start",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.01186965,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01286965,
+          "maximum_correction_change_per_frame_m": 0.01092778,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299454
+        },
+        {
+          "scenario": "start",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01186965,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01286965,
+          "maximum_correction_change_per_frame_m": 0.01153256,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299454
+        },
+        {
+          "scenario": "stop",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.01707809,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01807809,
+          "maximum_correction_change_per_frame_m": 0.01423695,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.0108759
+        },
+        {
+          "scenario": "stop",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.01707809,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01807809,
+          "maximum_correction_change_per_frame_m": 0.00817672,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.0108759
+        },
+        {
+          "scenario": "stop",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.02422307,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.02522307,
+          "maximum_correction_change_per_frame_m": 0.01423962,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00125124
+        },
+        {
+          "scenario": "stop",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.02422307,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.02522307,
+          "maximum_correction_change_per_frame_m": 0.00868606,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00125124
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.0076887,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.0086887,
+          "maximum_correction_change_per_frame_m": 0.00436912,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01204827
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.0076887,
+          "minimum_after_m": 0.00099436,
+          "maximum_ankle_lift_m": 0.0086887,
+          "maximum_correction_change_per_frame_m": 0.00293417,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01204827
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.01188003,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01288003,
+          "maximum_correction_change_per_frame_m": 0.011023,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01770585
+        },
+        {
+          "scenario": "resume_during_stop",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01188003,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01288003,
+          "maximum_correction_change_per_frame_m": 0.01153256,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.01770585
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.00681301,
+          "minimum_after_m": 0.00099914,
+          "maximum_ankle_lift_m": 0.00781301,
+          "maximum_correction_change_per_frame_m": 0.00549559,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00309613
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.00681301,
+          "minimum_after_m": 0.00099305,
+          "maximum_ankle_lift_m": 0.00781301,
+          "maximum_correction_change_per_frame_m": 0.00496234,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00309613
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.01881301,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01981301,
+          "maximum_correction_change_per_frame_m": 0.00880801,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "left_turn",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01881301,
+          "minimum_after_m": 0.00099347,
+          "maximum_ankle_lift_m": 0.01981301,
+          "maximum_correction_change_per_frame_m": 0.01045835,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.00584113,
+          "minimum_after_m": 0.00099628,
+          "maximum_ankle_lift_m": 0.00684113,
+          "maximum_correction_change_per_frame_m": 0.00635569,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00310281
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.00584113,
+          "minimum_after_m": 0.00099278,
+          "maximum_ankle_lift_m": 0.00684113,
+          "maximum_correction_change_per_frame_m": 0.00574444,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00319557
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.01784113,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01884113,
+          "maximum_correction_change_per_frame_m": 0.0124964,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "right_turn",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01784113,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01884113,
+          "maximum_correction_change_per_frame_m": 0.01193837,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "level",
+          "fps": 60,
+          "minimum_before_m": -0.00489447,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.00589447,
+          "maximum_correction_change_per_frame_m": 0.00189135,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299807
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "level",
+          "fps": 120,
+          "minimum_before_m": -0.00489447,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.00589447,
+          "maximum_correction_change_per_frame_m": 0.00105387,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.00299807
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "road_edge_12mm",
+          "fps": 60,
+          "minimum_before_m": -0.01689447,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01789447,
+          "maximum_correction_change_per_frame_m": 0.01206862,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        },
+        {
+          "scenario": "turn_to_idle",
+          "ground": "road_edge_12mm",
+          "fps": 120,
+          "minimum_before_m": -0.01689447,
+          "minimum_after_m": 0.001,
+          "maximum_ankle_lift_m": 0.01789447,
+          "maximum_correction_change_per_frame_m": 0.0116363,
+          "maximum_root_correction_m": 0,
+          "maximum_bone_length_error_m": 0,
+          "maximum_lowest_mesh_clearance_m": 0.001
+        }
+      ]
+    }
+  }
+}

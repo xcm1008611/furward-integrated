@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-25T05:38:25.274544+08:00",
+  "source": "User response in this chat, not an automated device test",
+  "public_experience_url": "https://8.147.109.174:8088/experience",
+  "requested_checks": [
+    "3D models visible",
+    "Start / pause / continue controls",
+    "Browser speech playback"
+  ],
+  "user_response": "显示、操作和播报都正常",
+  "result": "passed_by_user_report",
+  "device_model": null,
+  "browser_version": null,
+  "cross_device_lan": {
+    "status": "autonomous_virtual_client_passed",
+    "record": "lan-isolated-client.json",
+    "physical_phone_lan": "not directly tested; no further user feedback requested",
+    "user_direction": "我不知道 你都自己测试 现在不要咱们交互。我授权你自主实现！"
+  },
+  "updated_at": "2026-10-25T05:54:54.250109+08:00"
+}
