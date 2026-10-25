@@ -5,6 +5,7 @@ export function createSpeechPlayer(
   synthesis: SpeechDriver,
   makeUtterance: (message: string) => SpeechSynthesisUtterance,
   onFailure: () => void,
+  getRate: () => number = () => 0.95,
 ) {
   let generation = 0;
 
@@ -25,7 +26,7 @@ export function createSpeechPlayer(
       synthesis.cancel();
       const utterance = makeUtterance(message);
       utterance.lang = 'zh-CN';
-      utterance.rate = 0.95;
+      utterance.rate = getRate();
       const voice = synthesis.getVoices().find(item => item.lang.toLowerCase().startsWith('zh'));
       if (voice) utterance.voice = voice;
       utterance.onerror = event => {

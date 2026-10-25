@@ -1,0 +1,12 @@
+.routeMap { display: block; width: 100%; height: auto; }
+.mapLegend { display: flex; justify-content: center; gap: 8px; padding: 4px 2px; font-size: 11px; background: #fff; color: #62675a; }
+.mapLegend span { display: inline-flex; align-items: center; gap: 3px; }
+.mapLegend i { display: inline-block; flex: none; }
+.mapDog { width: 0; height: 0; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 6px solid #25291e; }
+.mapHuman { width: 6px; height: 6px; border: 1px solid #25291e; border-radius: 50%; }
+.mapObstacle { width: 3px; height: 7px; background: #73511e; }
+.mapLegend[data-large] { gap: 20px; padding: 8px 4px; font-size: 17px; color: #25291e; font-weight: 600; }
+.mapLegend[data-large] span { gap: 8px; }
+.mapLegend[data-large] .mapDog { border-top-width: 7px; border-bottom-width: 7px; border-left-width: 14px; }
+.mapLegend[data-large] .mapHuman { width: 14px; height: 14px; border-width: 2px; }
+.mapLegend[data-large] .mapObstacle { width: 7px; height: 16px; }
