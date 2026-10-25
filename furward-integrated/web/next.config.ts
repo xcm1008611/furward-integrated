@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   agentRules: false,
   output: "standalone",
   poweredByHeader: false,
+  // The floating dev badge covers bottom-left controls on the phone layouts.
+  devIndicators: false,
+  // Dev mode only trusts localhost; let phones on the same Wi-Fi/hotspot load /_next chunks.
+  // Patterns match right-to-left per dot segment, so IPv4 needs all four parts.
+  allowedDevOrigins: ["10.*.*.*", "172.*.*.*", "192.168.*.*", "*.local"],
   webpack(config, { webpack }) {
     config.resolve.alias = {
       "@/lib/cms-store$": resolve(process.cwd(), "lib/cms-store-node.ts"),
